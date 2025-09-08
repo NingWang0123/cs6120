@@ -32,7 +32,7 @@ def split_blocks(instrs):
     return blocks
 
 
-# count the successors
+# count the edges
 def cfg_edges_count(blocks):
     edges = 0
     n = len(blocks)
