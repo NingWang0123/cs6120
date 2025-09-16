@@ -28,3 +28,10 @@ pipeline = [
   "python3 lvn.py",
   "brili -p",
 ]
+
+[runs.combined]
+pipeline = [
+  "bril2json",
+  "python3 combined_opt.py",
+  "brili -p",
+]
