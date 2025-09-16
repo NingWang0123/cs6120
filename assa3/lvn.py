@@ -282,8 +282,32 @@ def lvn_func(prog):
             optimized_blocks.append(optimized_block)
         
         func['instrs'] = join_blocks(optimized_blocks)
+
+        changed = True
+        while changed:
+            c1 = remove_locally_killed(func)
+            c2 = remove_global_unused(func)
+            changed = c1 or c2
     
     return prog
+
+
+
+# def lvn_func(func):
+#     blocks = split_blocks(func["instrs"])
+#     out_blocks = []
+#     temp_counter = [0]
+#     for b in blocks:
+#         out_blocks.append(lvn_block(b, temp_counter))
+#     func["instrs"] = join_blocks(out_blocks)
+
+#     changed = True
+#     while changed:
+#         c1 = remove_locally_killed(func)
+#         c2 = remove_global_unused(func)
+#         changed = c1 or c2
+
+#     return func
 
 # Main entry point
 if __name__ == "__main__":
