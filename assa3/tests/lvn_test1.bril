@@ -1,10 +1,10 @@
 @main {
-  x: int = const 3;
-  y: int = const 4;
+  x: int = const 1;
+  y: int = const 2;
 
-  a: int = add x y;     # leader
-  b: int = add y x;     # same value (commutative) -> becomes "id a"
-
-  print b;
+  a: int = add x y;   # leader
+  b: int = add y x;   # same value (commutative) — LVN will map this to 'a'
+  c: int = add b b;   # LVN canonicalizes args: becomes 'add a a'
+  print c;
   ret;
 }
