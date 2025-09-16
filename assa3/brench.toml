@@ -1,10 +1,10 @@
 # Pull the profiling metric from brili -p output
 extract = 'total_dyn_inst:\s+(\d+)'
 
-benchmarks = '../benchmarks/**/*.bril'
+benchmarks = '../../bril/benchmarks/**/*.bril'
 
 
-timeout = 5
+timeout = 100
 
 [runs.baseline]
 # Golden run: no optimization, just interpret with profiling.
