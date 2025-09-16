@@ -1,10 +1,9 @@
 import sys, json
 from copy import deepcopy
+import itertools
 
 
 terminators = {"jmp", "br", "ret"}
-effectful_ops = {"print", "jmp", "br", "ret", "call", "store", "free"}  
-
 
 def is_label(instr): 
     return "label" in instr and "op" not in instr
@@ -46,9 +45,6 @@ def join_blocks(blocks):
     for b in blocks: out.extend(b)
     return out
 
-def is_effectful(ins):
-    return ins.get("op") in effectful_ops or "op" not in ins 
-
 def has_dest(ins):
     return "dest" in ins
 
@@ -68,7 +64,7 @@ def remove_global_unused(func):
         keep = []
         any_del = False
         for ins in instrs:
-            if has_dest(ins) and not is_effectful(ins):
+            if has_dest(ins):
                 d = ins["dest"]
                 # check using counts
                 if uses.get(d, 0) == 0:
@@ -81,47 +77,6 @@ def remove_global_unused(func):
             break
         changed = True
     func["instrs"] = instrs
-    return changed
-
-
-def remove_locally_killed(func):
-    """
-    Within each block:
-      If a pure def of x is followed by another def of x before any use of x,
-      delete the earlier def.
-    """
-    changed = False
-    blocks = split_blocks(func["instrs"])
-    new_blocks = []
-
-    for b in blocks:
-        last_def_idx = {}    # var -> index (in b) of last pure def
-        used_since = {}      # var -> bool
-        keep = [True] * len(b)
-
-        for i, ins in enumerate(b):
-            # mark uses
-            for a in ins.get("args", []):
-                if a in used_since:
-                    used_since[a] = True
-
-            # on def
-            if has_dest(ins):
-                v = ins["dest"]
-                # if there was a previous pure def not used since, kill it
-                if v in last_def_idx and not used_since.get(v, False):
-                    j = last_def_idx[v]
-                    if not is_effectful(b[j]) and has_dest(b[j]):
-                        keep[j] = False
-                        changed = True
-                # record this def and reset used_since
-                last_def_idx[v] = i
-                used_since[v] = False
-
-        nb = [ins for ins, k in zip(b, keep) if k]
-        new_blocks.append(nb)
-
-    func["instrs"] = join_blocks(new_blocks)
     return changed
 
 
@@ -150,7 +105,7 @@ def remove_locally_killed(func):
                     prev_def_index = last_def_idx[def_index]
 
                     # check previous def is not effectful and has dest
-                    if not is_effectful(b[prev_def_index]) and has_dest(b[prev_def_index]):
+                    if not has_dest(b[prev_def_index]):
 
                         # remove the prev def
                         keep[prev_def_index] = False
@@ -169,25 +124,30 @@ def remove_locally_killed(func):
     return changed
 
 
+
 def tdce_func(func):
+
+    changed = False
     while True:
-        c1 = remove_locally_killed(func)
-        c2 = remove_global_unused(func)
+        c1 = remove_locally_killed(func)   # within-block kills first
+        c2 = remove_global_unused(func)    # then whole-function unused
         if not (c1 or c2):
             break
+        changed |= (c1 or c2)
+    return changed
+
 
 def tdce_program(prog):
-    prog = deepcopy(prog)
-    for f in prog.get("functions", []):
-        tdce_func(f)
-    return prog
 
-
+    out = deepcopy(prog)
+    for f in out.get("functions", []):
+        tdce_func(f)  # modifies in place
+    return out
 
 def main():
     prog = json.load(sys.stdin)
     prog = tdce_program(prog)
-    json.dump(prog, sys.stdout, indent=2)
+    json.dump(prog, sys.stdout, indent=2, sort_keys=True)
 
 if __name__ == "__main__":
     main()
