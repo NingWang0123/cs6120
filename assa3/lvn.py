@@ -1,95 +1,13 @@
 import sys
 import json
-from copy import deepcopy
 
 from tdce import (
     split_blocks, join_blocks,
     remove_locally_killed, remove_global_unused,
-    terminators,  # imported but only barrier uses effectful_ops
+    terminators,is_label  
 )
 
 commutative = {"add", "mul"}
-# barrier_ops = set(effectful_ops)  # set() if you want no barriers
-
-
-# same idea from the video
-def will_be_overwritten_later(block, i, dest):
-    for j in range(i + 1, len(block)):
-        instr = block[j]
-        if instr.get("dest") == dest:
-            return True
-    return False
-
-
-def fold_const(op, vals, ty):
-    try:
-        if ty == "int":
-            if op == "add": return vals[0] + vals[1]
-            if op == "sub": return vals[0] - vals[1]
-            if op == "mul": return vals[0] * vals[1]
-            if op == "div" and vals[1] != 0: return vals[0] // vals[1]
-            if op == "eq":  return bool(vals[0] == vals[1])
-            if op == "lt":  return bool(vals[0] <  vals[1])
-            if op == "le":  return bool(vals[0] <= vals[1])
-            if op == "gt":  return bool(vals[0] >  vals[1])
-            if op == "ge":  return bool(vals[0] >= vals[1])
-        if ty == "bool":
-            if op == "and": return bool(vals[0]) and bool(vals[1])
-            if op == "or":  return bool(vals[0]) or  bool(vals[1])
-            if op == "not": return not bool(vals[0])
-            if op == "eq":  return bool(vals[0] == vals[1])
-    except Exception:
-        pass
-    return None
-
-
-def normalize_key(op, ty, arg_nums, num2const):
-    """
-    Normalized LVN key:
-      ("const", ty, value)
-      ("copy", ty, src_num)
-      ("op", ty, op, tuple(arg_nums))
-    """
-    # commutativity
-    if op in commutative:
-        arg_nums = tuple(sorted(arg_nums))
-    else:
-        arg_nums = tuple(arg_nums)
-
-    # algebraic identities (safe subset)
-    if op == "add" and len(arg_nums) == 2:
-        a, b = arg_nums
-        ca, cb = num2const.get(a), num2const.get(b)
-        # x + 0 / 0 + x
-        if ca == 0: return ("copy", ty, b)
-        if cb == 0: return ("copy", ty, a)
-        if ca == 0 and cb == 0: return ("const", ty, 0)
-
-    if op == "mul" and len(arg_nums) == 2:
-        a, b = arg_nums
-        ca, cb = num2const.get(a), num2const.get(b)
-        if ca == 0 or cb == 0: return ("const", ty, 0)
-        # x * 1 / 1 * x
-        if ca == 1: return ("copy", ty, b)
-        if cb == 1: return ("copy", ty, a)
-
-    if op == "sub" and len(arg_nums) == 2:
-        a, b = arg_nums
-        ca, cb = num2const.get(a), num2const.get(b)
-        # x - 0
-        if cb == 0: return ("copy", ty, a)
-        if ca == 0 and cb == 0: return ("const", ty, 0)
-
-    # constant folding
-    vals = [num2const.get(n) for n in arg_nums]
-    if all(v is not None for v in vals):
-        base_ty = "bool" if any(isinstance(v, bool) for v in vals) else "int"
-        fv = fold_const(op, vals, ty)
-        if fv is not None:
-            out_ty = "bool" if isinstance(fv, bool) else base_ty
-            return ("const", freeze_type(out_ty), fv)
-
-    return ("op", ty, op, arg_nums)
 
 
 def const_key(ty, value):
@@ -100,180 +18,276 @@ def copy_key(ty, src_num):
     return ("copy", ty, src_num)
 
 
-# lvn helpers
-def generate_fresh_num(next_num):
-    n = next_num[0]
-    next_num[0] += 1
-    return n
-
-
-def generate_fresh_temp(temp_counter):
-    t = f"lvn_t{temp_counter[0]}"
-    temp_counter[0] += 1
-    return t
-
-
-def num_for_var(a, next_num, var2num, num2var):
-    if a not in var2num:
-        n = generate_fresh_num(next_num)
-        var2num[a] = n
-        num2var[n] = a
-    return var2num[a]
-
+def fold_const(op, vals, ty):
+    try:
+        if ty == "int":
+            if op == "add": return vals[0] + vals[1]
+            if op == "sub": return vals[0] - vals[1]
+            if op == "mul": return vals[0] * vals[1]
+            if op == "div" and vals[1] != 0: return vals[0] // vals[1]
+            if op == "eq": return bool(vals[0] == vals[1])
+            if op == "lt": return bool(vals[0] < vals[1])
+            if op == "le": return bool(vals[0] <= vals[1])
+            if op == "gt": return bool(vals[0] > vals[1])
+            if op == "ge": return bool(vals[0] >= vals[1])
+        if ty == "bool":
+            if op == "and": return bool(vals[0]) and bool(vals[1])
+            if op == "or": return bool(vals[0]) or bool(vals[1])
+            if op == "not": return not bool(vals[0])
+            if op == "eq": return bool(vals[0] == vals[1])
+    except Exception:
+        pass
+    return None
 
 def freeze_type(ty):
-    if isinstance(ty, (dict, list)):
-        return json.dumps(ty, sort_keys=True)  
-    return ty
+    """Helper to ensure type is hashable"""
+    return ty if isinstance(ty, str) else "int"
 
-# lvn for one block
-def lvn_block(block, temp_counter):
-    table = {}       # key -> (num, canonical_var)
-    var2num = {}     # var -> num
-    num2var = {}     # num -> var
-    num2const = {}   # num -> constant value
-    next_num = [1]
+def normalize_key(op, ty, arg_nums, num2const):
+    """
+    Normalized LVN key:
+    ("const", ty, value)
+    ("copy", ty, src_num)
+    ("op", ty, op, tuple(arg_nums))
+    """
+    # commutativity
+    if op in commutative:
+        arg_nums = tuple(sorted(arg_nums))
+    else:
+        arg_nums = tuple(arg_nums)
+    
+    # algebraic identities (safe subset)
+    if op == "add" and len(arg_nums) == 2:
+        a, b = arg_nums
+        ca, cb = num2const.get(a), num2const.get(b)
+        # x + 0 / 0 + x
+        if ca == 0: return ("copy", ty, b)
+        if cb == 0: return ("copy", ty, a)
+        if ca == 0 and cb == 0: return ("const", ty, 0)
+    
+    if op == "mul" and len(arg_nums) == 2:
+        a, b = arg_nums
+        ca, cb = num2const.get(a), num2const.get(b)
+        if ca == 0 or cb == 0: return ("const", ty, 0)
+        # x * 1 / 1 * x
+        if ca == 1: return ("copy", ty, b)
+        if cb == 1: return ("copy", ty, a)
+    
+    if op == "sub" and len(arg_nums) == 2:
+        a, b = arg_nums
+        ca, cb = num2const.get(a), num2const.get(b)
+        # x - 0
+        if cb == 0: return ("copy", ty, a)
+        if ca == 0 and cb == 0: return ("const", ty, 0)
+    
+    # constant folding
+    vals = [num2const.get(n) for n in arg_nums]
+    if all(v is not None for v in vals):
+        base_ty = "bool" if any(isinstance(v, bool) for v in vals) else "int"
+        fv = fold_const(op, vals, ty)
+        if fv is not None:
+            out_ty = "bool" if isinstance(fv, bool) else base_ty
+            return ("const", freeze_type(out_ty), fv)
+    
+    return ("op", ty, op, arg_nums)
 
-    out = []
-    i = 0
-    while i < len(block):
-        instr = deepcopy(block[i])
-        i += 1
+def get_block_inputs(block):
+    """Find variables read before written in a block"""
+    read_vars = set()
+    written_vars = set()
+    
+    for instr in block:
+        if 'args' in instr:
+            for arg in instr['args']:
+                if arg not in written_vars:
+                    read_vars.add(arg)
+        if 'dest' in instr:
+            written_vars.add(instr['dest'])
+    
+    return read_vars
 
-        if "op" not in instr:
-            out.append(instr)
+def lvn_block(block):
+    """Optimize a single block using LVN"""
+    var2num = {}
+    
+    num2var = {}
+    
+    value2num = {}
+    
+    num2const = {}
+    
+    next_num = [0]
+    
+    def fresh_num():
+        n = next_num[0]
+        next_num[0] += 1
+        return n
+    
+    # initialize with input variables
+    for var in get_block_inputs(block):
+        num = fresh_num()
+        var2num[var] = num
+        num2var[num] = var
+    
+    # process each instruction
+    optimized = []
+    
+    for instr in block:
+        # skip labels
+        if is_label(instr):
+            optimized.append(instr)
             continue
+        
+        # get value numbers for arguments
+        if 'args' in instr:
+            arg_nums = []
+            canonical_args = []
+            
+            for arg in instr['args']:
+                if arg not in var2num:
+                    # fresh variable, assign new number
+                    num = fresh_num()
+                    var2num[arg] = num
+                    num2var[num] = arg
+                
+                num = var2num[arg]
+                arg_nums.append(num)
+                canonical_args.append(num2var[num])
+            
+            # update instr with canonical arguments
+            instr = dict(instr)
+            instr['args'] = canonical_args
+        
+        # process the instruction based on its operation
+        if 'dest' in instr:
+            if instr['op'] == 'const':
 
-        op = instr["op"]
-        ty = instr.get("type")
-        ty_key = freeze_type(ty)
-
-        # canonicalize arguments
-        args = instr.get("args", [])
-        arg_nums = [num_for_var(a, next_num, var2num, num2var) for a in args]
-        canon_args = [num2var[n] for n in arg_nums]
-        instr["args"] = canon_args
-
-        # build key
-        if op == "const":
-            key = const_key(freeze_type(instr.get("type", ty)), instr.get("value"))
-        if op == "id":
-            key = copy_key(ty_key, arg_nums[0])
-        else:
-            key = normalize_key(op, ty_key, arg_nums, num2const)
-
-        # case: constant
-        if key[0] == "const":
-            _, cty_key, cval = key
-            dest = instr.get("dest")
-
-            if key in table:
-                num, canon = table[key]
-                if dest is None or dest == canon:
-                    if dest is not None:
-                        var2num[canon] = num
-                    continue
-                out.append({"op": "id", "type": ty, "dest": dest, "args": [canon]})
-                var2num[dest] = num
-                continue
-
-            num = generate_fresh_num(next_num)
-            canon = instr.get("dest") or generate_fresh_temp(temp_counter)
-            table[key] = (num, canon)
-            num2const[num] = cval
-            num2var[num] = canon
-            var2num[canon] = num
-
-            out.append({"op": "const", "type": instr.get("type", ty), "dest": canon, "value": cval})
-
-            if dest is not None and dest != canon:
-                out.append({"op": "id", "type": instr.get("type", ty), "dest": dest, "args": [canon]})
-                var2num[dest] = num
-            continue
-
-        # case: copy
-        if key[0] == "copy":
-            _, _cty_key, src_num = key
-            src = num2var[src_num]
-            dest = instr.get("dest")
-            if dest is None or dest == src:
-                if dest is not None:
-                    var2num[dest] = src_num
-                continue
-            out.append({"op": "id", "type": ty, "dest": dest, "args": [src]})
-            var2num[dest] = src_num
-            continue
-
-        # case: general op
-        _, kty_key, _kop, _kargs = key
-        kty_out = ty  
-
-        if key in table:
-            num, canon = table[key]
-            dest = instr.get("dest")
-            if dest is None or dest == canon:
-                if dest is not None:
-                    var2num[dest] = num
-                continue
-            out.append({"op": "id", "type": kty_out, "dest": dest, "args": [canon]})
-            var2num[dest] = num
-        else:
-            num = generate_fresh_num(next_num)
-            dest = instr.get("dest")
-            if dest is None:
-                dest = generate_fresh_temp(temp_counter)
-                instr["dest"] = dest
-
-            if will_be_overwritten_later(block, i - 1, dest):
-                canon = generate_fresh_temp(temp_counter)
-                instr["dest"] = canon
-                out.append(instr)
-                out.append({"op": "id", "type": kty_out, "dest": dest, "args": [canon]})
+                num = fresh_num()
+                var2num[instr['dest']] = num
+                num2var[num] = instr['dest']
+                num2const[num] = instr['value']
+                
+                # check seen before
+                const_key = ("const", freeze_type(instr.get('type', 'int')), instr['value'])
+                if const_key in value2num:
+                    old_num = value2num[const_key]
+                    var2num[instr['dest']] = old_num
+                    # Replace with copy
+                    instr = {
+                        'op': 'id',
+                        'dest': instr['dest'],
+                        'args': [num2var[old_num]]
+                    }
+                    if 'type' in instr:
+                        instr['type'] = instr['type']
+                else:
+                    value2num[const_key] = num
+                
+                optimized.append(instr)
+                
+            elif instr['op'] == 'id':
+                # copy inst
+                src_num = var2num[instr['args'][0]]
+                var2num[instr['dest']] = src_num
+                optimized.append(instr)
+                
+            elif instr['op'] == 'call':
+                num = fresh_num()
+                var2num[instr['dest']] = num
+                num2var[num] = instr['dest']
+                optimized.append(instr)
+                
             else:
-                canon = dest
-                out.append(instr)
 
-            table[key] = (num, canon)
-            num2var[num] = canon
-            var2num[canon] = num
-            var2num[dest] = num
+                ty = freeze_type(instr.get('type', 'int'))
+                
+                norm_key = normalize_key(instr['op'], ty, arg_nums, num2const)
+                
+                # check normalized 
+                if norm_key[0] == "const":
 
-    return out
+                    _, ty, val = norm_key
+                    num = fresh_num()
+                    var2num[instr['dest']] = num
+                    num2var[num] = instr['dest']
+                    num2const[num] = val
+                    
+                    new_instr = {
+                        'op': 'const',
+                        'dest': instr['dest'],
+                        'value': val
+                    }
+                    if ty:
+                        new_instr['type'] = ty
+                    optimized.append(new_instr)
+                    
+                elif norm_key[0] == "copy":
 
+                    _, ty, src_num = norm_key
+                    var2num[instr['dest']] = src_num
+                    
+                    new_instr = {
+                        'op': 'id',
+                        'dest': instr['dest'],
+                        'args': [num2var[src_num]]
+                    }
+                    if ty:
+                        new_instr['type'] = ty
+                    optimized.append(new_instr)
+                    
+                else:
 
-def lvn_function(func):
-    blocks = split_blocks(func["instrs"])
-    out_blocks = []
-    temp_counter = [0]
-    for b in blocks:
-        out_b = lvn_block(b, temp_counter)
-        out_blocks.append(out_b)
-    func["instrs"] = join_blocks(out_blocks)
+                    if norm_key in value2num:
 
-    # changed = True
-    # while changed:
-    #     c1 = remove_locally_killed(func)
-    #     c2 = remove_global_unused(func)
-    #     changed = c1 or c2
+                        existing_num = value2num[norm_key]
+                        var2num[instr['dest']] = existing_num
+                        
+                        # replace with copy or constant
+                        if existing_num in num2const:
+                            new_instr = {
+                                'op': 'const',
+                                'dest': instr['dest'],
+                                'value': num2const[existing_num]
+                            }
+                            if ty:
+                                new_instr['type'] = ty
+                        else:
+                            new_instr = {
+                                'op': 'id',
+                                'dest': instr['dest'],
+                                'args': [num2var[existing_num]]
+                            }
+                            if ty:
+                                new_instr['type'] = ty
+                        optimized.append(new_instr)
+                    else:
+                        num = fresh_num()
+                        var2num[instr['dest']] = num
+                        num2var[num] = instr['dest']
+                        value2num[norm_key] = num
+                        optimized.append(instr)
+        else:
+            optimized.append(instr)
+    
+    return optimized
 
-    return func
-
-
-def lvn_program(prog):
-    prog = deepcopy(prog)
-    for f in prog.get("functions", []):
-        lvn_function(f)
+def lvn_func(prog):
+    
+    for func in prog.get('functions', []):
+        blocks = split_blocks(func['instrs'])
+        optimized_blocks = []
+        
+        for block in blocks:
+            optimized_block = lvn_block(block)
+            optimized_blocks.append(optimized_block)
+        
+        func['instrs'] = join_blocks(optimized_blocks)
+    
     return prog
 
-
-def main():
-    prog = json.load(sys.stdin)
-    prog = lvn_program(prog)
-    json.dump(prog, sys.stdout, indent=2)
-
-
-
-
+# Main entry point
 if __name__ == "__main__":
-    main()
 
+    prog = json.load(sys.stdin)
+    optimized = lvn_func(prog)
+    json.dump(optimized, sys.stdout, indent=2, sort_keys=True)
