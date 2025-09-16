@@ -34,7 +34,7 @@ fib_recursive,tdce,missing
 fib_recursive,lvn,missing
 relative-primes,baseline,1923
 relative-primes,tdce,1914
-relative-primes,lvn,1923
+relative-primes,lvn,1207
 hanoi,baseline,missing
 hanoi,tdce,missing
 hanoi,lvn,missing
@@ -70,7 +70,7 @@ geometric-sum,tdce,missing
 geometric-sum,lvn,missing
 sum-to-ten,baseline,143
 sum-to-ten,tdce,142
-sum-to-ten,lvn,143
+sum-to-ten,lvn,89
 factors,baseline,missing
 factors,tdce,missing
 factors,lvn,missing
@@ -142,7 +142,7 @@ armstrong,tdce,missing
 armstrong,lvn,missing
 pascals-row,baseline,146
 pascals-row,tdce,139
-pascals-row,lvn,146
+pascals-row,lvn,64
 collatz,baseline,missing
 collatz,tdce,missing
 collatz,lvn,missing
@@ -196,13 +196,13 @@ fast-inverse-sqrt,tdce,missing
 fast-inverse-sqrt,lvn,missing
 dead-branch,baseline,1196
 dead-branch,tdce,1196
-dead-branch,lvn,1196
+dead-branch,lvn,997
 function_call,baseline,missing
 function_call,tdce,missing
 function_call,lvn,missing
 ray-sphere-intersection,baseline,142
 ray-sphere-intersection,tdce,142
-ray-sphere-intersection,lvn,142
+ray-sphere-intersection,lvn,45
 birthday,baseline,missing
 birthday,tdce,missing
 birthday,lvn,missing
@@ -226,7 +226,7 @@ riemann,tdce,298
 riemann,lvn,298
 mandelbrot,baseline,2720947
 mandelbrot,tdce,2720813
-mandelbrot,lvn,2720947
+mandelbrot,lvn,1324163
 logistic,baseline,missing
 logistic,tdce,missing
 logistic,lvn,missing
@@ -244,13 +244,13 @@ exponentiation-by-squaring,tdce,187
 exponentiation-by-squaring,lvn,187
 pow,baseline,36
 pow,tdce,34
-pow,lvn,36
+pow,lvn,21
 ray-bbox-intersection,baseline,missing
 ray-bbox-intersection,tdce,missing
 ray-bbox-intersection,lvn,missing
 sqrt,baseline,322
 sqrt,tdce,321
-sqrt,lvn,322
+sqrt,lvn,201
 quickselect,baseline,279
 quickselect,tdce,279
 quickselect,lvn,279
@@ -292,7 +292,7 @@ shufflesort,tdce,missing
 shufflesort,lvn,missing
 major-elm,baseline,47
 major-elm,tdce,47
-major-elm,lvn,47
+major-elm,lvn,45
 cordic,baseline,1062
 cordic,tdce,1041
 cordic,lvn,incorrect
@@ -334,4 +334,4 @@ connected-components,tdce,missing
 connected-components,lvn,missing
 binary-search,baseline,78
 binary-search,tdce,75
-binary-search,lvn,78
+binary-search,lvn,74
