@@ -1,263 +1,272 @@
-import sys, json, itertools
+import sys, json
 from copy import deepcopy
 
-COMMUTATIVE = {"add", "mul", "and", "or", "eq"}  # extend per language
-TERMINATORS = {"jmp", "br", "ret"}
-EFFECT_BARRIERS = {"call", "store", "free", "print", "jmp", "br", "ret"}
+from tdce import (
+    split_blocks, join_blocks,
+    remove_locally_killed, remove_global_unused,
+    effectful_ops, terminators
+)
 
-def split_blocks(instrs):
-    blocks, cur = [], []
-    for ins in instrs:
-        start_new = ("label" in ins and "op" not in ins) or (cur and cur[-1].get("op") in TERMINATORS)
-        if start_new and cur:
-            blocks.append(cur); cur = []
-        cur.append(ins)
-    if cur: blocks.append(cur)
-    return blocks
 
-def join_blocks(blocks):
-    out = []
-    for b in blocks: out.extend(b)
-    return out
+commutative = {"add", "mul", "and", "or", "eq"}
+barrier_ops = set(effectful_ops)
 
-def will_be_overwritten_later(idx, dest, block):
-    for j in range(idx+1, len(block)):
-        ins = block[j]
-        if ins.get("dest") == dest: return True
-        if ins.get("op") in TERMINATORS: return False
+# same idea from the video
+def will_be_overwritten_later(block, i, dest):
+    for j in range(i + 1, len(block)):
+        instr = block[j]
+        if instr.get("dest") == dest:
+            return True
     return False
 
-def is_effect_barrier(ins):
-    return ins.get("op") in EFFECT_BARRIERS
-
-def fold_const(op, vs):
+def fold_const(op, vals, type):
     try:
-        if op == "add": return vs[0] + vs[1]
-        if op == "sub": return vs[0] - vs[1]
-        if op == "mul": return vs[0] * vs[1]
-        if op == "div": return vs[0] // vs[1]  # int division for core Bril
-        if op == "and": return int(bool(vs[0]) and bool(vs[1]))
-        if op == "or":  return int(bool(vs[0]) or bool(vs[1]))
-        if op == "not": return 0 if vs[0] else 1
-        if op == "eq":  return int(vs[0] == vs[1])
-        if op == "lt":  return int(vs[0] <  vs[1])
-        if op == "le":  return int(vs[0] <= vs[1])
-        if op == "gt":  return int(vs[0] >  vs[1])
-        if op == "ge":  return int(vs[0] >= vs[1])
+        if type == "int":
+            if op == "add": return vals[0] + vals[1]
+            if op == "sub": return vals[0] - vals[1]
+            if op == "mul": return vals[0] * vals[1]
+            if op == "div" and vals[1] != 0: return vals[0] // vals[1]
+            if op == "eq":  return bool(vals[0] == vals[1])
+            if op == "lt":  return bool(vals[0] <  vals[1])
+            if op == "le":  return bool(vals[0] <= vals[1])
+            if op == "gt":  return bool(vals[0] >  vals[1])
+            if op == "ge":  return bool(vals[0] >= vals[1])
+        if type == "bool":
+            if op == "and": return bool(vals[0]) and bool(vals[1])
+            if op == "or":  return bool(vals[0]) or  bool(vals[1])
+            if op == "not": return not bool(vals[0])
+            if op == "eq":  return bool(vals[0] == vals[1])
     except Exception:
         pass
     return None
 
-def normalize(op, arg_nums, num2const):
-    # algebraic identities (simple)
-    if op == "add":
-        # x+0 -> x
-        if len(arg_nums)==2:
-            a,b = arg_nums
-            ca, cb = num2const.get(a), num2const.get(b)
-            if ca == 0: return ("copy", (b,))
-            if cb == 0: return ("copy", (a,))
-    if op == "mul":
-        if len(arg_nums)==2:
-            a,b = arg_nums
-            ca, cb = num2const.get(a), num2const.get(b)
-            if ca == 0 or cb == 0: return ("const", (0,))
-            if ca == 1: return ("copy", (b,))
-            if cb == 1: return ("copy", (a,))
-    if op in COMMUTATIVE:
+
+
+def normalize_key(op, type, arg_nums, num2const):
+    """
+      ("const", type, value)
+      ("copy", type, src_num)
+      ("op", type, op, tuple(arg_nums))
+    """
+    # commutativity
+    if op in commutative:
         arg_nums = tuple(sorted(arg_nums))
-    return (op, tuple(arg_nums))
+    else:
+        arg_nums = tuple(arg_nums)
 
-def lvn_block(block, temp_gen):
-    table = {}         # key -> (num, canon_var)
-    var2num = {}       # var -> num
-    num2var = {}       # num -> canon var
-    num2const = {}     # num -> const int/bool
+    # algebraic identities (safe subset)
+    if op == "add" and len(arg_nums) == 2:
+        a, b = arg_nums
+        ca, cb = num2const.get(a), num2const.get(b)
+        # add 0 return orginal number 
+        if ca == 0:  return ("copy", type, b)
+        if cb == 0:  return ("copy", type, a)
+        # 0+0 = 0 
+        if ca ==0 and cb==0: return ("const", type, 0)
+    if op == "mul" and len(arg_nums) == 2:
+        a, b = arg_nums
+        ca, cb = num2const.get(a), num2const.get(b)
+        if ca == 0 or cb == 0: return ("const", type, 0)
+        # multiplied by 1 return orginal number 
+        if ca == 1: return ("copy", type, b)
+        if cb == 1: return ("copy", type, a)
+    if op == "sub" and len(arg_nums) == 2:
+        a, b = arg_nums
+        ca, cb = num2const.get(a), num2const.get(b)
+        # sub 0 return orginal number 
+        if cb == 0: return ("copy", type, a)
+        # 0-0 = 0 
+        if ca ==0 and cb==0: return ("const", type, 0)
+
+    # constant folding 
+    vals = [num2const.get(n) for n in arg_nums]
+    if all(v is not None for v in vals):
+        fv = fold_const(op, vals, type)
+        if fv is not None:
+            return ("const", "bool" if isinstance(fv, bool) else type, fv)
+
+    return ("op", type, op, arg_nums)
+
+def const_key(type, value):
+    return ("const", type, value)
+
+def copy_key(type, src_num):
+    return ("copy", type, src_num)
+
+
+
+
+# lvn helpers
+
+
+def generate_fresh_num(next_num):
+    n = next_num[0]
+    next_num[0] += 1
+    return n
+
+
+def generate_fresh_temp(temp_counter):
+    t = f"lvn_t{temp_counter[0]}"
+    temp_counter[0] += 1
+    return t
+
+
+def num_for_var(a,next_num,var2num,num2var):
+    if a not in var2num:
+        n = generate_fresh_num(next_num)
+        var2num[a] = n
+        num2var[n] = a
+    return var2num[a]
+
+
+# lvn for one block
+def lvn_block(block, temp_counter):
+
+    table = {}       
+    var2num = {}      
+    num2var = {}     
+    num2const = {}    
     next_num = [1]
-    def fresh_num():
-        n = next_num[0]; next_num[0]+=1; return n
-
-    # seed live-ins with unknown numbers to allow canonicalization
-    # we’ll lazily assign numbers when we see a var
 
     out = []
-    # Precompute overwrites
-    future_defs = {}
-    seen = set()
-    for i, ins in enumerate(block):
-        d = ins.get("dest")
-        if d:
-            if d in seen:
-                future_defs.setdefault(i, set()).add(d)
-            seen.add(d)
-    for i, ins in enumerate(block):
-        d = ins.get("dest")
-        if d:
-            # mark if overwritten later (simple lookahead)
-            pass
-
-    def num_for_var(v):
-        if v not in var2num:
-            n = fresh_num()
-            var2num[v] = n
-            num2var[n] = v
-        return var2num[v]
-
     i = 0
     while i < len(block):
-        ins = deepcopy(block[i])
-        op = ins.get("op")
-        if op is None:  # label
-            out.append(ins); i += 1; continue
+        instr = deepcopy(block[i])
+        i += 1
 
-        if is_effect_barrier(ins):
-            # Barrier: keep as-is, but ensure args canonicalized (safe) and update dest number if any
-            if "args" in ins:
-                ins["args"] = [num2var.get(num_for_var(a), a) for a in ins["args"]]
-            d = ins.get("dest")
-            if d is not None:
-                n = fresh_num()
+        if "op" not in instr:
+            out.append(instr)
+            continue
+
+        op = instr["op"]
+        type = instr.get("type")
+
+        # Treat effectful ops as barriers
+        if op in barrier_ops:
+            if "args" in instr:
+                instr["args"] = [num2var.get(num_for_var(a,next_num,var2num,num2var), a) for a in instr["args"]]
+            # If they define a dest, assign a fresh number.
+            if "dest" in instr:
+                d = instr["dest"]
+                n = generate_fresh_num(next_num)
                 var2num[d] = n
                 num2var[n] = d
-            out.append(ins); i += 1; continue
+            out.append(instr)
+            continue
 
-        # Canonicalize args
-        args = ins.get("args", [])
-        arg_nums = [num_for_var(a) for a in args]
-        canon_args = [num2var[num] for num in arg_nums]
-        ins["args"] = canon_args
+        # canonicalize arguments
+        args = instr.get("args", [])
+        arg_nums = [num_for_var(a,next_num,var2num,num2var) for a in args]
+        canon_args = [num2var[n] for n in arg_nums]
+        instr["args"] = canon_args
 
-        # Special cases: const/copy
+        # build key
         if op == "const":
-            cval = ins.get("value")
-            key = ("const", (cval,))
+            key = const_key(instr.get("type", type), instr.get("value"))
         elif op == "id":
-            key = ("copy", (arg_nums[0],))
+            key = copy_key(type, arg_nums[0])
         else:
-            # normalization + constant folding
-            key = normalize(op, tuple(arg_nums), num2const)
-            if key[0] not in {"const", "copy"}:
-                # fold if possible
-                vals = [num2const.get(n) for n in key[1]]
-                if all(v is not None for v in vals):
-                    fv = fold_const(key[0], vals)
-                    if fv is not None:
-                        key = ("const", (fv,))
+            key = normalize_key(op, type, arg_nums, num2const)
 
-        # If we have seen this value, replace with copy
+        # case: constant
         if key[0] == "const":
-            # materialize or reuse an existing const number
-            cval = key[1][0]
-            # make a synthetic number for this constant key
+            _, cty, cval = key
+            # reuse const if seen
             if key in table:
                 num, canon = table[key]
             else:
-                num = fresh_num()
-                # choose a temp name to hold const if reused
-                canon = ins.get("dest") or f"t{num}"
+                num = generate_fresh_num(next_num)
+                canon = instr.get("dest") or generate_fresh_temp(temp_counter)
                 table[key] = (num, canon)
                 num2const[num] = cval
                 num2var[num] = canon
-            # rewrite as const to the chosen dest; if another site already holds the same const under some canon var,
-            # we can do copy-to-canon to enable more CSE.
-            dest = ins.get("dest")
-            if dest is None or dest == canon:
-                # emit a single const assignment
-                out.append({"op":"const","type":ins.get("type","int"),"dest":canon,"value":cval})
-            else:
-                out.append({"op":"id","type":ins.get("type","int"),"dest":dest,"args":[canon]})
-            var2num[dest or canon] = num
-            i += 1; continue
 
+            dest = instr.get("dest")
+            if dest is None or dest == canon:
+                out.append({"op": "const", "type": cty, "dest": canon, "value": cval})
+            else:
+                out.append({"op": "id", "type": cty, "dest": dest, "args": [canon]})
+            var2num[dest or canon] = table[key][0]
+            continue
+
+        # case: copy
         if key[0] == "copy":
-            src_num = key[1][0]
+            _, cty, src_num = key
             src = num2var[src_num]
-            dest = ins.get("dest")
+            dest = instr.get("dest")
             if dest is None or dest == src:
-                # redundant; drop
-                i += 1; continue
-            out.append({"op":"id","type":ins.get("type","int"),"dest":dest,"args":[src]})
+                continue
+            out.append({"op": "id", "type": cty, "dest": dest, "args": [src]})
             var2num[dest] = src_num
-            i += 1; continue
+            continue
 
-        # General value
+        # case: op
+        _, kty, kop, kargs = key
         if key in table:
+            # Reuse: replace with copy of canonical var
             num, canon = table[key]
-            dest = ins.get("dest")
+            dest = instr.get("dest")
             if dest is None or dest == canon:
-                # whole instruction becomes a copy is redundant; drop
-                # if dest is None, nothing to do; if equal to canon, also redundant
                 if dest is not None:
-                    # just ensure mapping
                     var2num[dest] = num
-                # else nothing
-            else:
-                out.append({"op":"id","type":ins.get("type","int"),"dest":dest,"args":[canon]})
-                var2num[dest] = num
+                continue
+            out.append({"op": "id", "type": kty, "dest": dest, "args": [canon]})
+            var2num[dest] = num
         else:
-            num = itertools.count(start=1)  # dummy to force unique? We'll just fresh.
-            num = 0  # shadowed; overwritten below
-            num = len({**table}) + len(out) + 1  # simple monotone fresh; fine for one block
-            # pick dest (rename if overwritten later)
-            dest = ins.get("dest")
-            if dest is None:  # should not happen for value ops
-                dest = f"t{num}"
-                ins["dest"] = dest
-            if will_be_overwritten_later(i, dest, block):
-                canon = f"t{num}"
-                ins["dest"] = canon
+            # first time seeing this value
+            num = generate_fresh_num(next_num)
+            dest = instr.get("dest")
+            if dest is None:
+                dest = generate_fresh_temp(temp_counter)
+                instr["dest"] = dest
+
+            # if dest will be redefined later, keep a stable canonical temp
+            if will_be_overwritten_later(block, i - 1, dest):
+                canon = generate_fresh_temp(temp_counter)
+                instr["dest"] = canon
+                out.append(instr)                  
+                out.append({"op": "id", "type": kty, "dest": dest, "args": [canon]})
             else:
                 canon = dest
-            # record and emit
+                out.append(instr)
+
             table[key] = (num, canon)
-            # set num maps; constant map stays empty
-            # (replacing args already done)
-            out.append(ins)
+            num2var[num] = canon
             var2num[canon] = num
-            # if we renamed, ensure dest gets a copy
-            if canon != dest:
-                out.append({"op":"id","type":ins.get("type","int"),"dest":dest,"args":[canon]})
-                var2num[dest] = num
-            # track canonical var
-            # find a name to remember for this num
-        i += 1
+            var2num[dest] = num 
+
     return out
 
-def tdce_local(instrs):
-    # quick local kill after LVN (reuses logic from tdce.py, compact)
-    blocks = split_blocks(instrs)
-    cleaned = []
-    for b in blocks:
-        last_def, used, keep = {}, {}, [True]*len(b)
-        for idx, ins in enumerate(b):
-            for a in ins.get("args", []):
-                if a in used: used[a] = True
-            d = ins.get("dest")
-            pure = (ins.get("op") not in {"print","jmp","br","ret","call","store","free"})
-            if d:
-                if d in last_def and not used.get(d, False) and pure:
-                    keep[last_def[d]] = False
-                last_def[d] = idx
-                used[d] = False
-        cleaned.extend([x for x,k in zip(b, keep) if k])
-    return cleaned
 
 def lvn_function(func):
     blocks = split_blocks(func["instrs"])
     out_blocks = []
+    temp_counter = [0]
     for b in blocks:
-        # generate unique temps with a closure (here just pass a counter through)
-        out_b = lvn_block(b, None)
-        out_b = tdce_local(out_b)
+        out_b = lvn_block(b, temp_counter)
         out_blocks.append(out_b)
     func["instrs"] = join_blocks(out_blocks)
+
+    changed = True
+    while changed:
+        c1 = remove_locally_killed(func)
+        c2 = remove_global_unused(func)
+        changed = c1 or c2
     return func
 
-def main():
-    prog = json.load(sys.stdin)
+def lvn_program(prog):
     prog = deepcopy(prog)
-    for f in prog["functions"]:
+    for f in prog.get("functions", []):
         lvn_function(f)
+    return prog
+
+
+def main():
+    data = sys.stdin.read()
+    if not data.strip():
+        sys.exit("lvn.py: no input on stdin.\nUsage: bril2json < file.bril | python3 lvn.py | bril2txt")
+    prog = json.loads(data)
+    prog = lvn_program(prog)
     json.dump(prog, sys.stdout, indent=2)
 
 if __name__ == "__main__":

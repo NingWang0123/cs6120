@@ -1,0 +1,10 @@
+@main {
+  x: int = const 3;
+  y: int = const 4;
+
+  a: int = add x y;     # leader
+  b: int = add y x;     # same value (commutative) -> becomes "id a"
+
+  print b;
+  ret;
+}
