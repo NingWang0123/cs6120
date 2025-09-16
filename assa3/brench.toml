@@ -4,33 +4,40 @@ extract = 'total_dyn_inst:\s+(\d+)'
 benchmarks = '../../bril/benchmarks/**/*.bril'
 
 
-timeout = 100
+timeout = 1000
+forbid_missing = true   # <--- Add this to forbid missing metrics
 
 [runs.baseline]
 # Golden run: no optimization, just interpret with profiling.
 pipeline = [
   "bril2json",
-  "brili -p 5",
+  "brili -p",
+]
+
+[runs.tdce_gr]
+pipeline = [
+  "bril2json",
+  "python3 tdce_gr.py",
+  "brili -p",
 ]
 
 [runs.tdce]
 pipeline = [
   "bril2json",
   "python3 tdce.py",
-  "brili -p 5",
+  "brili -p",
 ]
 
 [runs.lvn]
 pipeline = [
   "bril2json",
   "python3 lvn.py",
-  "brili -p 5",
+  "brili -p",
 ]
 
-[runs.lvn_tdce]
+[runs.lvn_gr]
 pipeline = [
   "bril2json",
-  "python3 lvn.py",
-  "python3 tdce.py",
-  "brili -p 5",
+  "python3 lvn_gr.py",
+  "brili -p",
 ]
