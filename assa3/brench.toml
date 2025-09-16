@@ -1,0 +1,36 @@
+# Pull the profiling metric from brili -p output
+extract = 'total_dyn_inst:\s+(\d+)'
+
+benchmarks = '../benchmarks/**/*.bril'
+
+
+timeout = 5
+
+[runs.baseline]
+# Golden run: no optimization, just interpret with profiling.
+pipeline = [
+  "bril2json",
+  "brili -p 5",
+]
+
+[runs.tdce]
+pipeline = [
+  "bril2json",
+  "python3 tdce.py",
+  "brili -p 5",
+]
+
+[runs.lvn]
+pipeline = [
+  "bril2json",
+  "python3 lvn.py",
+  "brili -p 5",
+]
+
+[runs.lvn_tdce]
+pipeline = [
+  "bril2json",
+  "python3 lvn.py",
+  "python3 tdce.py",
+  "brili -p 5",
+]
