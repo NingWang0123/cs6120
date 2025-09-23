@@ -1,0 +1,8 @@
+# Simple linear program for testing basic dataflow
+@main {
+  a: int = const 5;
+  b: int = const 10;
+  c: int = add a b;
+  print c;
+  ret;
+}
