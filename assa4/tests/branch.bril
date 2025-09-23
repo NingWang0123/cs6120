@@ -1,0 +1,22 @@
+# Branch program to test control flow
+@main(n: int) {
+  a: int = const 1;
+  b: int = const 2;
+  cond: bool = lt a n;
+  br cond .then .else;
+
+.then:
+  c: int = add a b;
+  d: int = mul c a;
+  jmp .end;
+
+.else:
+  c: int = sub b a;
+  e: int = div b a;
+  jmp .end;
+
+.end:
+  result: int = add c a;
+  print result;
+  ret;
+}

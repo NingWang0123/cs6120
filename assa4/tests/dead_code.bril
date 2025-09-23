@@ -1,0 +1,14 @@
+# Program with dead code and unused variables
+@main {
+  a: int = const 5;
+  b: int = const 10;
+  c: int = add a b;  # c is never used
+
+  x: int = const 1;
+  y: int = const 2;
+  z: int = mul x y;
+  print z;
+
+  dead: int = const 999;  # dead assignment
+  ret;
+}
