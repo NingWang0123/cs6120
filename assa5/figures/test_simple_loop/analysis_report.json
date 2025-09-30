@@ -1,0 +1,68 @@
+{
+  "test_name": "test_simple_loop",
+  "blocks": [
+    "b0",
+    "loop_start",
+    "loop_body",
+    "loop_end"
+  ],
+  "reachable_blocks": [
+    "b0",
+    "loop_start",
+    "loop_body",
+    "loop_end"
+  ],
+  "dominators": {
+    "b0": [
+      "b0"
+    ],
+    "loop_start": [
+      "b0",
+      "loop_start"
+    ],
+    "loop_body": [
+      "b0",
+      "loop_body",
+      "loop_start"
+    ],
+    "loop_end": [
+      "b0",
+      "loop_end",
+      "loop_start"
+    ]
+  },
+  "idom": {
+    "b0": null,
+    "loop_start": "b0",
+    "loop_body": "loop_start",
+    "loop_end": "loop_start"
+  },
+  "dom_tree_children": {
+    "b0": [
+      "loop_start"
+    ],
+    "loop_start": [
+      "loop_body",
+      "loop_end"
+    ],
+    "loop_body": [],
+    "loop_end": []
+  },
+  "dominance_frontier": {
+    "b0": [],
+    "loop_start": [
+      "loop_start"
+    ],
+    "loop_body": [
+      "loop_start"
+    ],
+    "loop_end": []
+  },
+  "stats": {
+    "total_blocks": 4,
+    "reachable_blocks": 4,
+    "cfg_edges": 4,
+    "dom_tree_edges": 3,
+    "dom_frontier_edges": 2
+  }
+}

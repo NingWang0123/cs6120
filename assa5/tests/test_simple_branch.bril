@@ -1,0 +1,21 @@
+# Simple if-then-else pattern
+# Tests dominance with basic branching
+
+@main(x: int) {
+  zero: int = const 0;
+  cond: bool = gt x zero;
+  br cond .positive .negative;
+
+.positive:
+  pos_msg: int = const 1;
+  jmp .end;
+
+.negative:
+  neg_msg: int = const -1;
+  jmp .end;
+
+.end:
+  result: int = const 42;
+  print result;
+  ret;
+}

@@ -1,0 +1,30 @@
+{
+  "test_name": "test_linear",
+  "blocks": [
+    "b0"
+  ],
+  "reachable_blocks": [
+    "b0"
+  ],
+  "dominators": {
+    "b0": [
+      "b0"
+    ]
+  },
+  "idom": {
+    "b0": null
+  },
+  "dom_tree_children": {
+    "b0": []
+  },
+  "dominance_frontier": {
+    "b0": []
+  },
+  "stats": {
+    "total_blocks": 1,
+    "reachable_blocks": 1,
+    "cfg_edges": 0,
+    "dom_tree_edges": 0,
+    "dom_frontier_edges": 0
+  }
+}

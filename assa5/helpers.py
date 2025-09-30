@@ -11,7 +11,6 @@ def split_blocks(instrs):
         # check block boundary 
         if 'label' in instr or start_new:
             if cur_block:
-                print(cur_block)
                 blocks.append(cur_block)
 
             cur_block = []
@@ -21,7 +20,6 @@ def split_blocks(instrs):
 
         # split block when the op is one of terminators
         if instr.get('op') in terminators:
-            print(cur_block)
             blocks.append(cur_block)
             cur_block = []
             start_new = True

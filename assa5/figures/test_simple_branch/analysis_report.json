@@ -1,0 +1,65 @@
+{
+  "test_name": "test_simple_branch",
+  "blocks": [
+    "b0",
+    "positive",
+    "negative",
+    "end"
+  ],
+  "reachable_blocks": [
+    "b0",
+    "positive",
+    "negative",
+    "end"
+  ],
+  "dominators": {
+    "b0": [
+      "b0"
+    ],
+    "positive": [
+      "b0",
+      "positive"
+    ],
+    "negative": [
+      "b0",
+      "negative"
+    ],
+    "end": [
+      "b0",
+      "end"
+    ]
+  },
+  "idom": {
+    "b0": null,
+    "positive": "b0",
+    "negative": "b0",
+    "end": "b0"
+  },
+  "dom_tree_children": {
+    "b0": [
+      "positive",
+      "negative",
+      "end"
+    ],
+    "positive": [],
+    "negative": [],
+    "end": []
+  },
+  "dominance_frontier": {
+    "b0": [],
+    "positive": [
+      "end"
+    ],
+    "negative": [
+      "end"
+    ],
+    "end": []
+  },
+  "stats": {
+    "total_blocks": 4,
+    "reachable_blocks": 4,
+    "cfg_edges": 4,
+    "dom_tree_edges": 3,
+    "dom_frontier_edges": 2
+  }
+}

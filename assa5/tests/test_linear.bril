@@ -1,0 +1,12 @@
+# Simple linear control flow - no branches
+# Tests basic dominance in straight-line code
+
+@main {
+  x: int = const 10;
+  y: int = const 20;
+  z: int = add x y;
+  two: int = const 2;
+  result: int = mul z two;
+  print result;
+  ret;
+}

@@ -1,0 +1,17 @@
+{
+  "total_tests": 6,
+  "tests": [
+    "grad_desc",
+    "test_linear",
+    "test_nested_loops",
+    "test_simple_branch",
+    "test_simple_loop",
+    "test_unreachable"
+  ],
+  "aggregate_stats": {
+    "total_blocks": 23,
+    "total_cfg_edges": 21,
+    "total_dom_tree_edges": 15,
+    "total_dom_frontier_edges": 12
+  }
+}

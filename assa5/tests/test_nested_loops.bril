@@ -1,0 +1,32 @@
+# Nested loop pattern
+# Tests dominance with complex loop nesting
+
+@main(n: int, m: int) {
+  i: int = const 0;
+  sum: int = const 0;
+
+.outer_loop:
+  i_cond: bool = lt i n;
+  br i_cond .outer_body .end;
+
+.outer_body:
+  j: int = const 0;
+
+.inner_loop:
+  j_cond: bool = lt j m;
+  br j_cond .inner_body .inner_end;
+
+.inner_body:
+  one_val: int = const 1;
+  sum = add sum one_val;
+  j = add j one_val;
+  jmp .inner_loop;
+
+.inner_end:
+  i = add i one_val;
+  jmp .outer_loop;
+
+.end:
+  print sum;
+  ret;
+}
