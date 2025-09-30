@@ -1,0 +1,115 @@
+{
+  "test_name": "test_nested_loops",
+  "blocks": [
+    "b0",
+    "outer_loop",
+    "outer_body",
+    "inner_loop",
+    "inner_body",
+    "inner_end",
+    "end"
+  ],
+  "reachable_blocks": [
+    "b0",
+    "outer_loop",
+    "outer_body",
+    "inner_loop",
+    "inner_body",
+    "inner_end",
+    "end"
+  ],
+  "dominators": {
+    "b0": [
+      "b0"
+    ],
+    "outer_loop": [
+      "b0",
+      "outer_loop"
+    ],
+    "outer_body": [
+      "b0",
+      "outer_body",
+      "outer_loop"
+    ],
+    "inner_loop": [
+      "b0",
+      "inner_loop",
+      "outer_body",
+      "outer_loop"
+    ],
+    "inner_body": [
+      "b0",
+      "inner_body",
+      "inner_loop",
+      "outer_body",
+      "outer_loop"
+    ],
+    "inner_end": [
+      "b0",
+      "inner_end",
+      "inner_loop",
+      "outer_body",
+      "outer_loop"
+    ],
+    "end": [
+      "b0",
+      "end",
+      "outer_loop"
+    ]
+  },
+  "idom": {
+    "b0": null,
+    "outer_loop": "b0",
+    "outer_body": "outer_loop",
+    "inner_loop": "outer_body",
+    "inner_body": "inner_loop",
+    "inner_end": "inner_loop",
+    "end": "outer_loop"
+  },
+  "dom_tree_children": {
+    "b0": [
+      "outer_loop"
+    ],
+    "outer_loop": [
+      "outer_body",
+      "end"
+    ],
+    "outer_body": [
+      "inner_loop"
+    ],
+    "inner_loop": [
+      "inner_body",
+      "inner_end"
+    ],
+    "inner_body": [],
+    "inner_end": [],
+    "end": []
+  },
+  "dominance_frontier": {
+    "b0": [],
+    "outer_loop": [
+      "outer_loop"
+    ],
+    "outer_body": [
+      "outer_loop"
+    ],
+    "inner_loop": [
+      "inner_loop",
+      "outer_loop"
+    ],
+    "inner_body": [
+      "inner_loop"
+    ],
+    "inner_end": [
+      "outer_loop"
+    ],
+    "end": []
+  },
+  "stats": {
+    "total_blocks": 7,
+    "reachable_blocks": 7,
+    "cfg_edges": 8,
+    "dom_tree_edges": 6,
+    "dom_frontier_edges": 6
+  }
+}

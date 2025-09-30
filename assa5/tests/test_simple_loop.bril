@@ -1,0 +1,21 @@
+# Simple loop pattern
+# Tests dominance in loops and back edges
+
+@main(n: int) {
+  i: int = const 0;
+  sum: int = const 0;
+
+.loop_start:
+  cond: bool = lt i n;
+  br cond .loop_body .loop_end;
+
+.loop_body:
+  sum = add sum i;
+  one: int = const 1;
+  i = add i one;
+  jmp .loop_start;
+
+.loop_end:
+  print sum;
+  ret;
+}
