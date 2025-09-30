@@ -1,0 +1,10 @@
+# Program with uninitialized variable usage
+@main {
+  # x is used before being initialized
+  five: int = const 5;
+  y: int = add x five;  # ERROR: x not initialized
+  x: int = const 10;
+  z: int = add x y;  # OK: both x and y are initialized
+  print z;
+  ret;
+}
