@@ -1,0 +1,19 @@
+# Unreachable code pattern
+# Tests dominance analysis with unreachable blocks
+
+@main(x: int) {
+  y: int = const 10;
+  result: int = add x y;
+  print result;
+  ret;
+
+.unreachable1:
+  dead_code: int = const 999;
+  print dead_code;
+  jmp .unreachable2;
+
+.unreachable2:
+  more_dead: int = const 888;
+  print more_dead;
+  ret;
+}

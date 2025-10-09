@@ -1,0 +1,40 @@
+{
+  "test_name": "test_unreachable",
+  "blocks": [
+    "b0",
+    "unreachable1",
+    "unreachable2"
+  ],
+  "reachable_blocks": [
+    "b0"
+  ],
+  "dominators": {
+    "b0": [
+      "b0"
+    ],
+    "unreachable1": [],
+    "unreachable2": []
+  },
+  "idom": {
+    "b0": null,
+    "unreachable1": null,
+    "unreachable2": null
+  },
+  "dom_tree_children": {
+    "b0": [],
+    "unreachable1": [],
+    "unreachable2": []
+  },
+  "dominance_frontier": {
+    "b0": [],
+    "unreachable1": [],
+    "unreachable2": []
+  },
+  "stats": {
+    "total_blocks": 3,
+    "reachable_blocks": 1,
+    "cfg_edges": 1,
+    "dom_tree_edges": 0,
+    "dom_frontier_edges": 0
+  }
+}

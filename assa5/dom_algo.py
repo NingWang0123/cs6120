@@ -1,8 +1,6 @@
 from helpers import split_blocks,build_cfg,block_label
 import sys, json
 from collections import Counter
-import networkx as nx
-import matplotlib.pyplot as plt
 
 # DFS from entry over succs to collect all nodes can reach
 def reachable_from(entry, succs):

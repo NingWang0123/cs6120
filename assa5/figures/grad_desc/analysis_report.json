@@ -1,0 +1,68 @@
+{
+  "test_name": "grad_desc",
+  "blocks": [
+    "b0",
+    "loop",
+    "body",
+    "done"
+  ],
+  "reachable_blocks": [
+    "b0",
+    "loop",
+    "body",
+    "done"
+  ],
+  "dominators": {
+    "b0": [
+      "b0"
+    ],
+    "loop": [
+      "b0",
+      "loop"
+    ],
+    "body": [
+      "b0",
+      "body",
+      "loop"
+    ],
+    "done": [
+      "b0",
+      "done",
+      "loop"
+    ]
+  },
+  "idom": {
+    "b0": null,
+    "loop": "b0",
+    "body": "loop",
+    "done": "loop"
+  },
+  "dom_tree_children": {
+    "b0": [
+      "loop"
+    ],
+    "loop": [
+      "body",
+      "done"
+    ],
+    "body": [],
+    "done": []
+  },
+  "dominance_frontier": {
+    "b0": [],
+    "loop": [
+      "loop"
+    ],
+    "body": [
+      "loop"
+    ],
+    "done": []
+  },
+  "stats": {
+    "total_blocks": 4,
+    "reachable_blocks": 4,
+    "cfg_edges": 4,
+    "dom_tree_edges": 3,
+    "dom_frontier_edges": 2
+  }
+}
