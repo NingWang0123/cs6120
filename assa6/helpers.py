@@ -3,15 +3,17 @@ from collections import Counter
 
 terminators = {"jmp", "br", "ret"}
 
+def is_term(instr):
+    return instr.get('op') in terminators
+
 # samilar ideas from the class (from_blocks and blocks_map)
 def split_blocks(instrs):
     blocks, cur_block, start_new = [], [], True
 
     for instr in instrs:
-        # check block boundary 
+        # check block boundary
         if 'label' in instr or start_new:
             if cur_block:
-                print(cur_block)
                 blocks.append(cur_block)
 
             cur_block = []
@@ -21,7 +23,6 @@ def split_blocks(instrs):
 
         # split block when the op is one of terminators
         if instr.get('op') in terminators:
-            print(cur_block)
             blocks.append(cur_block)
             cur_block = []
             start_new = True

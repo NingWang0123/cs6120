@@ -1,0 +1,622 @@
+[
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/ackermann.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 18,
+    "static_ssa": 18,
+    "static_final": 18,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/armstrong.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 38,
+    "static_ssa": 46,
+    "static_final": 46,
+    "static_overhead": 8,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/bbs.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 21,
+    "static_ssa": 27,
+    "static_final": 27,
+    "static_overhead": 6,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/bin-search.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 49,
+    "static_ssa": 76,
+    "static_final": 85,
+    "static_overhead": 36,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/binary-fmt.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 13,
+    "static_ssa": 16,
+    "static_final": 16,
+    "static_overhead": 3,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/binpow.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 24,
+    "static_ssa": 24,
+    "static_final": 24,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/bitshift.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 63,
+    "static_ssa": 68,
+    "static_final": 73,
+    "static_overhead": 10,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/bitwise-ops.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 53,
+    "static_ssa": 65,
+    "static_final": 69,
+    "static_overhead": 16,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/catalan.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 20,
+    "static_ssa": 27,
+    "static_final": 34,
+    "static_overhead": 14,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/check-primes.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 56,
+    "static_ssa": 92,
+    "static_final": 114,
+    "static_overhead": 58,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/collatz.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 17,
+    "static_ssa": 22,
+    "static_final": 27,
+    "static_overhead": 10,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/combination.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 29,
+    "static_ssa": 31,
+    "static_final": 31,
+    "static_overhead": 2,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/dayofweek.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 226,
+    "static_ssa": 573,
+    "static_final": 920,
+    "static_overhead": 694,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/delannoy.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 38,
+    "static_ssa": 38,
+    "static_final": 38,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/digital-root.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 27,
+    "static_ssa": 36,
+    "static_final": 39,
+    "static_overhead": 12,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/euclid.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 48,
+    "static_ssa": 63,
+    "static_final": 63,
+    "static_overhead": 15,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/fact.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 16,
+    "static_ssa": 16,
+    "static_final": 16,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/factors.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 15,
+    "static_ssa": 22,
+    "static_final": 27,
+    "static_overhead": 12,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/fib_recursive.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 29,
+    "static_ssa": 29,
+    "static_final": 29,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/fitsinside.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 10,
+    "static_ssa": 10,
+    "static_final": 10,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/fizz-buzz.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 57,
+    "static_ssa": 130,
+    "static_final": 160,
+    "static_overhead": 103,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/gcd.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 17,
+    "static_ssa": 23,
+    "static_final": 27,
+    "static_overhead": 10,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/gebmm.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 73,
+    "static_ssa": 112,
+    "static_final": 139,
+    "static_overhead": 66,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/geometric-sum.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 13,
+    "static_ssa": 16,
+    "static_final": 16,
+    "static_overhead": 3,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/gpf.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 50,
+    "static_ssa": 90,
+    "static_final": 114,
+    "static_overhead": 64,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/grad_desc.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 18,
+    "static_ssa": 27,
+    "static_final": 27,
+    "static_overhead": 9,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/hamming.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 28,
+    "static_ssa": 35,
+    "static_final": 35,
+    "static_overhead": 7,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/hanoi.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 13,
+    "static_ssa": 15,
+    "static_final": 15,
+    "static_overhead": 2,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/is-decreasing.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 32,
+    "static_ssa": 41,
+    "static_final": 41,
+    "static_overhead": 9,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/karatsuba.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 75,
+    "static_ssa": 110,
+    "static_final": 128,
+    "static_overhead": 53,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/lcm.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 21,
+    "static_ssa": 30,
+    "static_final": 39,
+    "static_overhead": 18,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/legendre.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 42,
+    "static_ssa": 61,
+    "static_final": 61,
+    "static_overhead": 19,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/loopfact.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 21,
+    "static_ssa": 32,
+    "static_final": 32,
+    "static_overhead": 11,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/mccarthy91.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 13,
+    "static_ssa": 13,
+    "static_final": 13,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/mod_inv.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 53,
+    "static_ssa": 85,
+    "static_final": 91,
+    "static_overhead": 38,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/mod_pow.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 60,
+    "static_ssa": 94,
+    "static_final": 128,
+    "static_overhead": 68,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/montgomery.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 15,
+    "static_ssa": 16,
+    "static_final": 16,
+    "static_overhead": 1,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/orders.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 47,
+    "static_ssa": 53,
+    "static_final": 56,
+    "static_overhead": 9,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/palindrome.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 55,
+    "static_ssa": 74,
+    "static_final": 98,
+    "static_overhead": 43,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/pascals-row.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 38,
+    "static_ssa": 60,
+    "static_final": 60,
+    "static_overhead": 22,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/perfect.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 23,
+    "static_ssa": 33,
+    "static_final": 35,
+    "static_overhead": 12,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/permutation.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 40,
+    "static_ssa": 51,
+    "static_final": 51,
+    "static_overhead": 11,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/primes-between.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 37,
+    "static_ssa": 66,
+    "static_final": 111,
+    "static_overhead": 74,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/pythagorean_triple.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 16,
+    "static_ssa": 29,
+    "static_final": 35,
+    "static_overhead": 19,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/quadratic.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 62,
+    "static_ssa": 76,
+    "static_final": 76,
+    "static_overhead": 14,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/recfact.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 23,
+    "static_ssa": 23,
+    "static_final": 23,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/rectangles-area-difference.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 11,
+    "static_ssa": 13,
+    "static_final": 13,
+    "static_overhead": 2,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/relative-primes.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 69,
+    "static_ssa": 92,
+    "static_final": 100,
+    "static_overhead": 31,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/reverse.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 21,
+    "static_ssa": 30,
+    "static_final": 38,
+    "static_overhead": 17,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/rot13.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 9,
+    "static_ssa": 10,
+    "static_final": 10,
+    "static_overhead": 1,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sqrt_bin_search.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 39,
+    "static_ssa": 47,
+    "static_final": 55,
+    "static_overhead": 16,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sum-bits.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 16,
+    "static_ssa": 20,
+    "static_final": 20,
+    "static_overhead": 4,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sum-check.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 21,
+    "static_ssa": 24,
+    "static_final": 24,
+    "static_overhead": 3,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sum-digits.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 26,
+    "static_ssa": 45,
+    "static_final": 45,
+    "static_overhead": 19,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sum-divisors.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 28,
+    "static_ssa": 37,
+    "static_final": 58,
+    "static_overhead": 30,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sum-of-cubes.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 8,
+    "static_ssa": 8,
+    "static_final": 8,
+    "static_overhead": 0,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sum-sq-diff.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 60,
+    "static_ssa": 86,
+    "static_final": 86,
+    "static_overhead": 26,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/sum-to-ten.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 22,
+    "static_ssa": 33,
+    "static_final": 33,
+    "static_overhead": 11,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/tail-call.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 7,
+    "static_ssa": 9,
+    "static_final": 9,
+    "static_overhead": 2,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/totient.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 32,
+    "static_ssa": 54,
+    "static_final": 66,
+    "static_overhead": 34,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/triangle.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 11,
+    "static_ssa": 14,
+    "static_final": 14,
+    "static_overhead": 3,
+    "error": null
+  },
+  {
+    "file": "/Users/jl4492/Projects/cs6120/bril/benchmarks/core/up-arrow.bril",
+    "ssa_correct": true,
+    "round_trip_success": true,
+    "static_original": 16,
+    "static_ssa": 23,
+    "static_final": 25,
+    "static_overhead": 9,
+    "error": null
+  }
+]
