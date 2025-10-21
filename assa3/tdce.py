@@ -142,7 +142,10 @@ def tdce_program(prog):
     out = deepcopy(prog)
     for f in out.get("functions", []):
         tdce_func(f)  # modifies in place
+
     return out
+
+
 
 def main():
     prog = json.load(sys.stdin)
