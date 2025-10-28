@@ -1,0 +1,82 @@
+Testing 62 files with LICM optimization...
+
+✓ ackermann.bril                 OK (No optimization opportunity)
+✓ armstrong.bril                 OK (No optimization opportunity)
+✓ bbs.bril                       OK (No optimization opportunity)
+✓ bin-search.bril                OK (No optimization opportunity)
+✓ binary-fmt.bril                OK (No optimization opportunity)
+✓ binpow.bril                    OK (No optimization opportunity)
+✓ bitshift.bril                  OK (No optimization opportunity)
+✓ bitwise-ops.bril               OK (No optimization opportunity)
+✓ catalan.bril                   OK (No optimization opportunity)
+✓ check-primes.bril              OK (Dynamic: -364 instrs, +4.3%, speedup: 1.045x)
+✗ collatz.bril                   ERROR: 4
+✓ combination.bril               OK (No optimization opportunity)
+✓ dayofweek.bril                 OK (No optimization opportunity)
+✓ delannoy.bril                  OK (No optimization opportunity)
+✓ digital-root.bril              OK (No optimization opportunity)
+✓ euclid.bril                    OK (No optimization opportunity)
+✓ fact.bril                      OK (No optimization opportunity)
+✗ factors.bril                   ERROR: 5
+✓ fib_recursive.bril             OK (No optimization opportunity)
+✓ fitsinside.bril                OK (No loops detected)
+✓ fizz-buzz.bril                 OK (No optimization opportunity)
+✗ gcd.bril                       ERROR: 8
+✗ gebmm.bril                     ERROR: 1
+✓ geometric-sum.bril             OK (No optimization opportunity)
+✗ gpf.bril                       ERROR: 10
+✓ grad_desc.bril                 OK (No optimization opportunity)
+✓ hamming.bril                   OK (No optimization opportunity)
+✓ hanoi.bril                     OK (No optimization opportunity)
+✓ is-decreasing.bril             OK (No optimization opportunity)
+✓ karatsuba.bril                 OK (No optimization opportunity)
+✗ lcm.bril                       ERROR: brili failed: error: mismatched main argument arity: expected 2; got 0
+
+✗ legendre.bril                  FAILED: Output mismatch
+✓ loopfact.bril                  OK (Dynamic: -7 instrs, +6.0%, speedup: 1.064x)
+✓ mccarthy91.bril                OK (No optimization opportunity)
+✓ mod_inv.bril                   OK (No optimization opportunity)
+✓ mod_pow.bril                   OK (No optimization opportunity)
+✓ montgomery.bril                OK (No optimization opportunity)
+✓ orders.bril                    OK (No optimization opportunity)
+✗ palindrome.bril                ERROR: 5
+✓ pascals-row.bril               OK (Dynamic: -4 instrs, +2.7%, speedup: 1.028x)
+✓ perfect.bril                   OK (No optimization opportunity)
+✓ permutation.bril               OK (Dynamic: -2 instrs, +1.5%, speedup: 1.016x)
+✗ primes-between.bril            ERROR: 2
+✗ pythagorean_triple.bril        FAILED: Output mismatch
+✓ quadratic.bril                 OK (Dynamic: -76 instrs, +9.7%, speedup: 1.107x)
+✓ recfact.bril                   OK (No optimization opportunity)
+✓ rectangles-area-difference.bril OK (No optimization opportunity)
+✓ relative-primes.bril           OK (No optimization opportunity)
+✗ reverse.bril                   ERROR: 5
+✓ rot13.bril                     OK (No optimization opportunity)
+✗ sqrt_bin_search.bril           ERROR: brili failed: error: mismatched main argument arity: expected 3; got 0
+
+✓ sum-bits.bril                  OK (No optimization opportunity)
+✓ sum-check.bril                 OK (No optimization opportunity)
+✓ sum-digits.bril                OK (Dynamic: -9 instrs, +4.1%, speedup: 1.043x)
+✗ sum-divisors.bril              ERROR: 1
+✓ sum-of-cubes.bril              OK (No loops detected)
+✓ sum-sq-diff.bril               OK (Dynamic: -199 instrs, +6.6%, speedup: 1.070x)
+✓ sum-to-ten.bril                OK (Dynamic: -10 instrs, +7.0%, speedup: 1.075x)
+✗ tail-call.bril                 ERROR: brili failed: error: mismatched main argument arity: expected 1; got 0
+
+✓ totient.bril                   OK (No optimization opportunity)
+✓ triangle.bril                  OK (No optimization opportunity)
+✓ up-arrow.bril                  OK (No optimization opportunity)
+
+Summary: 48 passed, 14 failed out of 62 tests
+Programs with optimization: 8
+
+Total programs tested: 48
+Programs with loops: 46
+Programs optimized: 8
+Total dynamic instructions (original): 7,913,720
+Total dynamic instructions (optimized): 9,115,568
+Total dynamic reduction: -1,201,848 (-15.19%)
+
+Average speedup (optimized programs): 1.056x
+Best speedup: 1.107x (quadratic.bril)
+
+Detailed results saved to licm_results.json
