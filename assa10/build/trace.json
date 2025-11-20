@@ -3,69 +3,105 @@
   "type": "func",
   "args": [
     {
-      "name": "w",
-      "type": "int"
-    },
-    {
-      "name": "t",
-      "type": "int"
-    },
-    {
-      "name": "lr",
-      "type": "int"
-    },
-    {
-      "name": "steps",
+      "name": "n",
       "type": "int"
     }
   ],
   "ret": null,
   "instrs": [
     {
-      "dest": "s",
+      "dest": "v2",
       "op": "const",
       "type": "int",
-      "value": 1000
-    },
-    {
-      "dest": "i",
-      "op": "const",
-      "type": "int",
-      "value": 0
+      "value": 1
     },
     {
       "args": [
-        "i",
-        "steps"
+        "v2"
       ],
-      "dest": "cond",
+      "dest": "i",
+      "op": "id",
+      "type": "int"
+    },
+    {
+      "args": [
+        "i"
+      ],
+      "dest": "v3",
+      "op": "id",
+      "type": "int"
+    },
+    {
+      "args": [
+        "n"
+      ],
+      "dest": "v4",
+      "op": "id",
+      "type": "int"
+    },
+    {
+      "args": [
+        "v3",
+        "v4"
+      ],
+      "dest": "v5",
       "op": "lt",
       "type": "bool"
     },
     {
       "op": "guard",
       "args": [
-        "cond"
+        "v5"
       ],
       "labels": []
     },
     {
       "args": [
-        "w",
-        "t"
+        "i"
       ],
-      "dest": "err2",
-      "op": "sub",
+      "dest": "v6",
+      "op": "id",
       "type": "int"
     },
     {
       "args": [
-        "err2",
-        "err2"
+        "v6"
       ],
-      "dest": "loss",
-      "op": "mul",
-      "type": "int"
+      "dest": "isPrime",
+      "funcs": [
+        "checkPrime"
+      ],
+      "op": "call",
+      "type": "bool"
+    },
+    {
+      "args": [
+        "isPrime"
+      ],
+      "dest": "isPrime",
+      "op": "id",
+      "type": "bool"
+    },
+    {
+      "args": [
+        "isPrime"
+      ],
+      "dest": "v8",
+      "op": "id",
+      "type": "bool"
+    },
+    {
+      "op": "guard",
+      "args": [
+        "v8"
+      ],
+      "labels": []
+    },
+    {
+      "dest": "v11",
+      "op": "const",
+      "type": "int",
+      "value": 0
     }
   ]
 }
