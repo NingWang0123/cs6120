@@ -1,0 +1,238 @@
+{
+  "functions": [
+    {
+      "args": [
+        {
+          "name": "w",
+          "type": "int"
+        },
+        {
+          "name": "t",
+          "type": "int"
+        },
+        {
+          "name": "lr",
+          "type": "int"
+        },
+        {
+          "name": "steps",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "label": "__trace_entry"
+        },
+        {
+          "op": "speculate"
+        },
+        {
+          "dest": "s",
+          "op": "const",
+          "type": "int",
+          "value": 1000
+        },
+        {
+          "dest": "i",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "i",
+            "steps"
+          ],
+          "dest": "cond",
+          "op": "lt",
+          "type": "bool"
+        },
+        {
+          "op": "guard",
+          "args": [
+            "cond"
+          ],
+          "labels": [
+            "__slow_path"
+          ]
+        },
+        {
+          "args": [
+            "w",
+            "t"
+          ],
+          "dest": "err2",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "args": [
+            "err2",
+            "err2"
+          ],
+          "dest": "loss",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "op": "commit"
+        },
+        {
+          "op": "jmp",
+          "labels": [
+            "__slow_path"
+          ]
+        },
+        {
+          "label": "__slow_path"
+        },
+        {
+          "dest": "s",
+          "op": "const",
+          "type": "int",
+          "value": 1000
+        },
+        {
+          "dest": "i",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "label": "loop"
+        },
+        {
+          "args": [
+            "i",
+            "steps"
+          ],
+          "dest": "cond",
+          "op": "lt",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "cond"
+          ],
+          "labels": [
+            "body",
+            "done"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "body"
+        },
+        {
+          "args": [
+            "w",
+            "t"
+          ],
+          "dest": "err",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "dest": "two",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "args": [
+            "two",
+            "err"
+          ],
+          "dest": "grad",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "args": [
+            "lr",
+            "grad"
+          ],
+          "dest": "theta",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "args": [
+            "theta",
+            "s"
+          ],
+          "dest": "delta",
+          "op": "div",
+          "type": "int"
+        },
+        {
+          "args": [
+            "w",
+            "delta"
+          ],
+          "dest": "w",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "dest": "one",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "i",
+            "one"
+          ],
+          "dest": "i",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "loop"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "done"
+        },
+        {
+          "args": [
+            "w",
+            "t"
+          ],
+          "dest": "err2",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "args": [
+            "err2",
+            "err2"
+          ],
+          "dest": "loss",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "args": [
+            "w"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "loss"
+          ],
+          "op": "print"
+        },
+        {
+          "op": "ret"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

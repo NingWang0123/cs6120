@@ -1,0 +1,71 @@
+{
+  "name": "trace_main",
+  "type": "func",
+  "args": [
+    {
+      "name": "w",
+      "type": "int"
+    },
+    {
+      "name": "t",
+      "type": "int"
+    },
+    {
+      "name": "lr",
+      "type": "int"
+    },
+    {
+      "name": "steps",
+      "type": "int"
+    }
+  ],
+  "ret": null,
+  "instrs": [
+    {
+      "dest": "s",
+      "op": "const",
+      "type": "int",
+      "value": 1000
+    },
+    {
+      "dest": "i",
+      "op": "const",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "args": [
+        "i",
+        "steps"
+      ],
+      "dest": "cond",
+      "op": "lt",
+      "type": "bool"
+    },
+    {
+      "op": "guard",
+      "args": [
+        "cond"
+      ],
+      "labels": []
+    },
+    {
+      "args": [
+        "w",
+        "t"
+      ],
+      "dest": "err2",
+      "op": "sub",
+      "type": "int"
+    },
+    {
+      "args": [
+        "err2",
+        "err2"
+      ],
+      "dest": "loss",
+      "op": "mul",
+      "type": "int"
+    }
+  ]
+}
