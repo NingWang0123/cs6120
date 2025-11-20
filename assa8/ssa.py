@@ -189,6 +189,24 @@ def rename_block(
 
 def to_ssa(func):
     instrs = [dict(i) for i in func['instrs']]
+
+    # Handle function arguments: insert id instructions at the start
+    # to initialize .0 versions from the original argument names
+    # This allows SSA to use arg.0 throughout while brili provides the original arg names
+    if 'args' in func and func['args']:
+        arg_init_instrs = []
+        for arg in func['args']:
+            arg_name = arg['name']
+            arg_type = arg['type']
+            # Insert: arg_name.0 = id arg_name
+            arg_init_instrs.append({
+                'op': 'id',
+                'dest': f'{arg_name}.0',
+                'type': arg_type,
+                'args': [arg_name]
+            })
+        instrs = arg_init_instrs + instrs
+
     blocks = helpers.split_blocks(instrs)
     succs, preds, label2bid = helpers.build_cfg(blocks)
 

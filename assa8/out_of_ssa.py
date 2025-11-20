@@ -66,6 +66,30 @@ def schedule_parallel_copies(pairs, typeof):
     return moves
 
 
+def remove_ssa_suffixes(instrs):
+    """
+    Remove SSA version suffixes from all variable names.
+    Converts names like 'x.0', 'y.42' back to 'x', 'y'.
+    """
+    def unversion(name):
+        """Remove .N suffix from SSA variable name."""
+        if isinstance(name, str) and '.' in name:
+            parts = name.rsplit('.', 1)
+            if len(parts) == 2 and parts[1].isdigit():
+                return parts[0]
+        return name
+
+    for instr in instrs:
+        # Rename destination
+        if 'dest' in instr:
+            instr['dest'] = unversion(instr['dest'])
+        # Rename arguments
+        if 'args' in instr:
+            instr['args'] = [unversion(a) for a in instr['args']]
+
+    return instrs
+
+
 def out_of_ssa(func):
     instrs = [dict(i) for i in func['instrs']]
     blocks = helpers.split_blocks(instrs)
@@ -102,6 +126,20 @@ def out_of_ssa(func):
         blocks[bi] = blocks[bi][:lo] + blocks[bi][hi:]
 
     new_instrs = [ins for b in blocks for ins in b]
+
+    # Remove SSA version suffixes from all variable names
+    new_instrs = remove_ssa_suffixes(new_instrs)
+
+    # Remove redundant self-assignments (x = id x) that may have been created
+    # These often come from argument initialization in SSA
+    filtered_instrs = []
+    for instr in new_instrs:
+        if (instr.get('op') == 'id' and
+            'dest' in instr and 'args' in instr and len(instr['args']) == 1 and
+            instr['dest'] == instr['args'][0]):
+            continue  # Skip redundant x = id x
+        filtered_instrs.append(instr)
+
     new_func = dict(func)
-    new_func['instrs'] = new_instrs
+    new_func['instrs'] = filtered_instrs
     return new_func
