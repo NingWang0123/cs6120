@@ -1,0 +1,1 @@
+- Just update the README.md with simple, clear, and concise sentences. No need to create and maintain other documents.
