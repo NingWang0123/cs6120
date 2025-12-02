@@ -30,6 +30,11 @@ static cl::opt<bool> EnableParallelization(
     cl::desc("Enable automatic loop parallelization"),
     cl::init(true));
 
+static cl::opt<bool> EnableLoopFusion(
+    "enable-loop-fusion",
+    cl::desc("Enable loop fusion before parallelization"),
+    cl::init(true));
+
 static cl::opt<unsigned> NumThreads(
     "parallel-threads",
     cl::desc("Number of threads for parallel execution (0 = auto)"),
@@ -54,8 +59,36 @@ public:
 
     bool Changed = false;
     std::vector<Loop *> LoopsToParallelize;
+    std::vector<std::pair<Loop*, Loop*>> LoopsToFuse;
 
-    // Collect parallelizable loops (only top-level loops for now)
+    // Step 1: Identify fusible loop pairs (consecutive independent loops)
+    if (EnableLoopFusion) {
+      std::vector<Loop *> TopLevelLoops;
+      for (Loop *L : LI) {
+        TopLevelLoops.push_back(L);
+      }
+
+      // Check consecutive loops for fusion opportunities
+      for (size_t i = 0; i + 1 < TopLevelLoops.size(); i++) {
+        Loop *L1 = TopLevelLoops[i];
+        Loop *L2 = TopLevelLoops[i + 1];
+
+        if (canFuseLoops(L1, L2, F, SE, LI, DT, TTI, AA, AC, TLI)) {
+          LoopsToFuse.push_back({L1, L2});
+          errs() << "Found fusible loops in function: " << F.getName() << "\n";
+        }
+      }
+    }
+
+    // Step 2: Perform loop fusion
+    for (auto &LoopPair : LoopsToFuse) {
+      if (fuseLoops(LoopPair.first, LoopPair.second, F, SE, LI, DT)) {
+        Changed = true;
+        errs() << "Fused loops in function: " << F.getName() << "\n";
+      }
+    }
+
+    // Step 3: Collect parallelizable loops (after fusion)
     for (Loop *L : LI) {
       if (isLoopParallelizable(L, F, SE, LI, DT, TTI, AA, AC, TLI)) {
         LoopsToParallelize.push_back(L);
@@ -63,7 +96,7 @@ public:
       }
     }
 
-    // Parallelize the loops
+    // Step 4: Parallelize the loops
     for (Loop *L : LoopsToParallelize) {
       if (parallelizeLoop(L, F, SE, LI, DT)) {
         Changed = true;
@@ -274,6 +307,75 @@ private:
     }
 
     return true;
+  }
+
+  // Check if two loops can be fused
+  bool canFuseLoops(Loop *L1, Loop *L2, Function &F, ScalarEvolution &SE,
+                    LoopInfo &LI, DominatorTree &DT, TargetTransformInfo &TTI,
+                    AAResults &AA, AssumptionCache &AC, TargetLibraryInfo &TLI) {
+    // Both loops must be valid
+    if (!L1 || !L2) return false;
+
+    // Both must be parallelizable independently
+    if (!isLoopParallelizable(L1, F, SE, LI, DT, TTI, AA, AC, TLI)) return false;
+    if (!isLoopParallelizable(L2, F, SE, LI, DT, TTI, AA, AC, TLI)) return false;
+
+    // Must have same trip count
+    const SCEV *TC1 = SE.getBackedgeTakenCount(L1);
+    const SCEV *TC2 = SE.getBackedgeTakenCount(L2);
+    if (isa<SCEVCouldNotCompute>(TC1) || isa<SCEVCouldNotCompute>(TC2)) return false;
+    if (TC1 != TC2) return false;
+
+    // Check that L2 comes immediately after L1 in control flow
+    BasicBlock *L1Exit = L1->getExitBlock();
+    BasicBlock *L2Preheader = L2->getLoopPreheader();
+    if (!L1Exit || !L2Preheader) return false;
+
+    // Simple check: L1 exit should branch to L2 preheader
+    BranchInst *BR = dyn_cast<BranchInst>(L1Exit->getTerminator());
+    if (!BR || BR->isConditional()) return false;
+    if (BR->getSuccessor(0) != L2Preheader) return false;
+
+    // Check for dependencies between L1 and L2
+    // For simplicity, we check if L2 reads what L1 writes
+    for (BasicBlock *BB1 : L1->getBlocks()) {
+      for (Instruction &I1 : *BB1) {
+        if (StoreInst *SI = dyn_cast<StoreInst>(&I1)) {
+          Value *Ptr1 = SI->getPointerOperand();
+
+          // Check if any load in L2 aliases with this store
+          for (BasicBlock *BB2 : L2->getBlocks()) {
+            for (Instruction &I2 : *BB2) {
+              if (LoadInst *LI = dyn_cast<LoadInst>(&I2)) {
+                Value *Ptr2 = LI->getPointerOperand();
+                if (AA.alias(Ptr1, Ptr2) != AliasResult::NoAlias) {
+                  LLVM_DEBUG(dbgs() << "Loop fusion blocked: L2 reads from L1\n");
+                  return false;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    LLVM_DEBUG(dbgs() << "Loops can be fused\n");
+    return true;
+  }
+
+  // Fuse two consecutive loops
+  bool fuseLoops(Loop *L1, Loop *L2, Function &F, ScalarEvolution &SE,
+                 LoopInfo &LI, DominatorTree &DT) {
+    // For simplicity, mark that fusion is possible but don't actually transform
+    // Full loop fusion is complex and would require:
+    // 1. Merging loop headers
+    // 2. Combining loop bodies
+    // 3. Updating PHI nodes
+    // 4. Fixing dominance tree
+
+    // Instead, we'll just log it and let parallelization handle each loop
+    LLVM_DEBUG(dbgs() << "Loop fusion identified (not transformed in this version)\n");
+    return false; // Don't claim we changed anything
   }
 };
 

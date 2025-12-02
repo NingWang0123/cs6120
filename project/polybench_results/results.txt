@@ -1,0 +1,284 @@
+PolyBench Loop Parallelization Results
+Date: Tue Dec  2 13:47:26 EST 2025
+Total Benchmarks: 30
+=========================================
+
+correlation:
+  Category: datamining
+  Parallelizable loops: 00
+  Serial: .000233s
+  Parallel (1T): .000326s (.71x)
+  Parallel (2T): .000256s (.91x)
+  Parallel (4T): .000212s (1.09x)
+  Parallel (8T): .000199s (1.17x)
+
+covariance:
+  Category: datamining
+  Parallelizable loops: 00
+  Serial: .000271s
+  Parallel (1T): .000322s (.84x)
+  Parallel (2T): .000271s (1.00x)
+  Parallel (4T): .000242s (1.11x)
+  Parallel (8T): .000239s (1.13x)
+
+gemm:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000059s
+  Parallel (1T): .000084s (.70x)
+  Parallel (2T): .000058s (1.01x)
+  Parallel (4T): .000051s (1.15x)
+  Parallel (8T): .000045s (1.31x)
+
+gemver:
+  Category: linear-algebra
+  Parallelizable loops: 1
+  Serial: .000021s
+  Parallel (1T): .000026s (.80x)
+  Parallel (2T): .000023s (.91x)
+  Parallel (4T): .000022s (.95x)
+  Parallel (8T): .000020s (1.05x)
+
+gesummv:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000025s
+  Parallel (1T): .000016s (1.56x)
+  Parallel (2T): .000011s (2.27x)
+  Parallel (4T): .000015s (1.66x)
+  Parallel (8T): .000011s (2.27x)
+
+symm:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000123s
+  Parallel (1T): .000163s (.75x)
+  Parallel (2T): .000112s (1.09x)
+  Parallel (4T): .000104s (1.18x)
+  Parallel (8T): .000093s (1.32x)
+
+syr2k:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000124s
+  Parallel (1T): .000151s (.82x)
+  Parallel (2T): .000139s (.89x)
+  Parallel (4T): .000130s (.95x)
+  Parallel (8T): .000126s (.98x)
+
+syrk:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000089s
+  Parallel (1T): .000092s (.96x)
+  Parallel (2T): .000086s (1.03x)
+  Parallel (4T): .000079s (1.12x)
+  Parallel (8T): .000080s (1.11x)
+
+trmm:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000066s
+  Parallel (1T): .000083s (.79x)
+  Parallel (2T): .000073s (.90x)
+  Parallel (4T): .000062s (1.06x)
+  Parallel (8T): .000057s (1.15x)
+
+2mm:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000159s
+  Parallel (1T): .000142s (1.11x)
+  Parallel (2T): .000143s (1.11x)
+  Parallel (4T): .000149s (1.06x)
+  Parallel (8T): .000142s (1.11x)
+
+3mm:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000283s
+  Parallel (1T): .000308s (.91x)
+  Parallel (2T): .000309s (.91x)
+  Parallel (4T): .000312s (.90x)
+  Parallel (8T): .000301s (.94x)
+
+atax:
+  Category: linear-algebra
+  Parallelizable loops: 1
+  Serial: .000020s
+  Parallel (1T): .000017s (1.17x)
+  Parallel (2T): .000014s (1.42x)
+  Parallel (4T): .000013s (1.53x)
+  Parallel (8T): .000012s (1.66x)
+
+bicg:
+  Category: linear-algebra
+  Parallelizable loops: 1
+  Serial: .000023s
+  Parallel (1T): .000024s (.95x)
+  Parallel (2T): .000022s (1.04x)
+  Parallel (4T): .000022s (1.04x)
+  Parallel (8T): .000019s (1.21x)
+
+doitgen:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000215s
+  Parallel (1T): .000205s (1.04x)
+  Parallel (2T): .000181s (1.18x)
+  Parallel (4T): .000168s (1.27x)
+  Parallel (8T): .000157s (1.36x)
+
+mvt:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000019s
+  Parallel (1T): .000019s (1.00x)
+  Parallel (2T): .000016s (1.18x)
+  Parallel (4T): .000015s (1.26x)
+  Parallel (8T): .000015s (1.26x)
+
+cholesky:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000241s
+  Parallel (1T): .000168s (1.43x)
+  Parallel (2T): .000159s (1.51x)
+  Parallel (4T): .000227s (1.06x)
+  Parallel (8T): .000205s (1.17x)
+
+durbin:
+  Category: linear-algebra
+  Parallelizable loops: 1
+  Serial: .000012s
+  Parallel (1T): .000011s (1.09x)
+  Parallel (2T): .000010s (1.20x)
+  Parallel (4T): .000010s (1.20x)
+  Parallel (8T): .000009s (1.33x)
+
+gramschmidt:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000259s
+  Parallel (1T): .000258s (1.00x)
+  Parallel (2T): .000251s (1.03x)
+  Parallel (4T): .000267s (.97x)
+  Parallel (8T): .000251s (1.03x)
+
+lu:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000429s
+  Parallel (1T): .000403s (1.06x)
+  Parallel (2T): .000358s (1.19x)
+  Parallel (4T): .000342s (1.25x)
+  Parallel (8T): .000331s (1.29x)
+
+ludcmp:
+  Category: linear-algebra
+  Parallelizable loops: 2
+  Serial: .000331s
+  Parallel (1T): .000576s (.57x)
+  Parallel (2T): .000390s (.84x)
+  Parallel (4T): .000413s (.80x)
+  Parallel (8T): .000362s (.91x)
+
+trisolv:
+  Category: linear-algebra
+  Parallelizable loops: 00
+  Serial: .000008s
+  Parallel (1T): .000009s (.88x)
+  Parallel (2T): .000006s (1.33x)
+  Parallel (4T): .000007s (1.14x)
+  Parallel (8T): .000005s (1.60x)
+
+deriche:
+  Category: medley
+  Parallelizable loops: 00
+  Serial: .000307s
+  Parallel (1T): .000352s (.87x)
+  Parallel (2T): .000241s (1.27x)
+  Parallel (4T): .000229s (1.34x)
+  Parallel (8T): .000231s (1.32x)
+
+floyd-warshall:
+  Category: medley
+  Parallelizable loops: 00
+  Serial: .002119s
+  Parallel (1T): .002014s (1.05x)
+  Parallel (2T): .005732s (.36x)
+  Parallel (4T): .001931s (1.09x)
+  Parallel (8T): .002048s (1.03x)
+
+nussinov:
+  Category: medley
+  Parallelizable loops: 00
+  Serial: .001021s
+  Parallel (1T): .000930s (1.09x)
+  Parallel (2T): .000726s (1.40x)
+  Parallel (4T): .000366s (2.78x)
+  Parallel (8T): .000707s (1.44x)
+
+adi:
+  Category: stencils
+  Parallelizable loops: 00
+  Serial: .001567s
+  Parallel (1T): .001987s (.78x)
+  Parallel (2T): .001316s (1.19x)
+  Parallel (4T): .001380s (1.13x)
+  Parallel (8T): .001303s (1.20x)
+
+fdtd-2d:
+  Category: stencils
+  Parallelizable loops: 00
+  Serial: .000197s
+  Parallel (1T): .000127s (1.55x)
+  Parallel (2T): .000126s (1.56x)
+  Parallel (4T): .000133s (1.48x)
+  Parallel (8T): .000128s (1.53x)
+
+heat-3d:
+  Category: stencils
+  Parallelizable loops: 00
+  Serial: .000195s
+  Parallel (1T): .000248s (.78x)
+  Parallel (2T): .000233s (.83x)
+  Parallel (4T): .000208s (.93x)
+  Parallel (8T): .000184s (1.05x)
+
+jacobi-1d:
+  Category: stencils
+  Parallelizable loops: 2
+  Serial: .000003s
+  Parallel (1T): .000004s (.75x)
+  Parallel (2T): .000003s (1.00x)
+  Parallel (4T): .000004s (.75x)
+  Parallel (8T): .000002s (1.50x)
+
+jacobi-2d:
+  Category: stencils
+  Parallelizable loops: 00
+  Serial: .000213s
+  Parallel (1T): .000239s (.89x)
+  Parallel (2T): .000192s (1.10x)
+  Parallel (4T): .000179s (1.18x)
+  Parallel (8T): .000155s (1.37x)
+
+seidel-2d:
+  Category: stencils
+  Parallelizable loops: 00
+  Serial: .004576s
+  Parallel (1T): .005064s (.90x)
+  Parallel (2T): .003639s (1.25x)
+  Parallel (4T): .003384s (1.35x)
+  Parallel (8T): .003184s (1.43x)
+
+
+=========================================
+Summary Statistics
+=========================================
+Total benchmarks: 30
+Successfully run: 30
+With parallelizable loops: 6
+
+Average speedup (parallelized only): 0.89x

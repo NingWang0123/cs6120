@@ -1,0 +1,50 @@
+============================================================
+Loop Parallelization Performance Report
+============================================================
+
+
+Array ops:
+----------------------------------------
+  Serial              : 0.029762 ± 0.016669 seconds
+  1 threads           : 0.022543 ± 0.002177 seconds (Speedup: 1.32x)
+  2 threads           : 0.019593 ± 0.000411 seconds (Speedup: 1.52x)
+  4 threads           : 0.019469 ± 0.000259 seconds (Speedup: 1.53x)
+  8 threads           : 0.020071 ± 0.000647 seconds (Speedup: 1.48x)
+
+Scale offset:
+----------------------------------------
+  Serial              : 0.009630 ± 0.003688 seconds
+  1 threads           : 0.008566 ± 0.001605 seconds (Speedup: 1.12x)
+  2 threads           : 0.006934 ± 0.000102 seconds (Speedup: 1.39x)
+  4 threads           : 0.006967 ± 0.000207 seconds (Speedup: 1.38x)
+  8 threads           : 0.007187 ± 0.000402 seconds (Speedup: 1.34x)
+
+Elementwise:
+----------------------------------------
+  Serial              : 0.007655 ± 0.001068 seconds
+  1 threads           : 0.007094 ± 0.000079 seconds (Speedup: 1.08x)
+  2 threads           : 0.006974 ± 0.000037 seconds (Speedup: 1.10x)
+  4 threads           : 0.007022 ± 0.000073 seconds (Speedup: 1.09x)
+  8 threads           : 0.007222 ± 0.000314 seconds (Speedup: 1.06x)
+
+============================================================
+Analysis Summary:
+============================================================
+
+Array ops:
+  1 threads: Speedup = 1.32x, Efficiency = 132.0%
+  2 threads: Speedup = 1.52x, Efficiency = 76.0%
+  4 threads: Speedup = 1.53x, Efficiency = 38.2%
+  8 threads: Speedup = 1.48x, Efficiency = 18.5%
+
+Scale offset:
+  1 threads: Speedup = 1.12x, Efficiency = 112.4%
+  2 threads: Speedup = 1.39x, Efficiency = 69.4%
+  4 threads: Speedup = 1.38x, Efficiency = 34.6%
+  8 threads: Speedup = 1.34x, Efficiency = 16.8%
+
+Elementwise:
+  1 threads: Speedup = 1.08x, Efficiency = 107.9%
+  2 threads: Speedup = 1.10x, Efficiency = 54.9%
+  4 threads: Speedup = 1.09x, Efficiency = 27.3%
+  8 threads: Speedup = 1.06x, Efficiency = 13.3%

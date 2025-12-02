@@ -10,46 +10,35 @@ def parse_benchmark_results(filename):
     results = defaultdict(lambda: defaultdict(list))
 
     with open(filename, 'r') as f:
-        content = f.read()
-
-    # Parse different sections
-    sections = re.split(r'(?:Original|Parallelized)', content)
+        lines = f.readlines()
 
     current_config = None
-    for section in sections:
-        if 'Serial' in section or 'Version' in section:
-            # Original serial version
+
+    for line in lines:
+        # Detect configuration
+        if 'Serial (Original) Version:' in line:
             current_config = 'Serial'
-            times = re.findall(r'Array ops: ([\d.]+) seconds', section)
-            if times:
-                results['Array ops'][current_config].extend([float(t) for t in times])
-
-            times = re.findall(r'Scale offset: ([\d.]+) seconds', section)
-            if times:
-                results['Scale offset'][current_config].extend([float(t) for t in times])
-
-            times = re.findall(r'Elementwise: ([\d.]+) seconds', section)
-            if times:
-                results['Elementwise'][current_config].extend([float(t) for t in times])
-
-        elif 'threads' in section:
-            # Parallel version with thread count
-            match = re.search(r'(\d+) threads', section)
+        elif 'Parallelized Version (' in line and 'threads' in line:
+            match = re.search(r'(\d+) threads', line)
             if match:
-                num_threads = match.group(1)
-                current_config = f'{num_threads} threads'
+                current_config = f'{match.group(1)} threads'
 
-                times = re.findall(r'Array ops: ([\d.]+) seconds', section)
-                if times:
-                    results['Array ops'][current_config].extend([float(t) for t in times])
+        # Parse timing data
+        if current_config:
+            if 'Array ops:' in line:
+                match = re.search(r'Array ops: ([\d.]+) seconds', line)
+                if match:
+                    results['Array ops'][current_config].append(float(match.group(1)))
 
-                times = re.findall(r'Scale offset: ([\d.]+) seconds', section)
-                if times:
-                    results['Scale offset'][current_config].extend([float(t) for t in times])
+            elif 'Scale offset:' in line:
+                match = re.search(r'Scale offset: ([\d.]+) seconds', line)
+                if match:
+                    results['Scale offset'][current_config].append(float(match.group(1)))
 
-                times = re.findall(r'Elementwise: ([\d.]+) seconds', section)
-                if times:
-                    results['Elementwise'][current_config].extend([float(t) for t in times])
+            elif 'Elementwise:' in line:
+                match = re.search(r'Elementwise: ([\d.]+) seconds', line)
+                if match:
+                    results['Elementwise'][current_config].append(float(match.group(1)))
 
     return results
 
@@ -67,17 +56,18 @@ def plot_results(results, output_file='results/performance_comparison.png'):
         print("No benchmark data found!")
         return
 
-    # Extract configurations
+    # Extract configurations and sort them
     configs = set()
     for bench in benchmarks:
         configs.update(results[bench].keys())
 
-    # Sort configurations: Serial first, then by thread count
+    # Sort: Serial first, then by thread count
     configs = sorted(configs, key=lambda x: (
         0 if x == 'Serial' else 1,
         int(re.search(r'(\d+)', x).group(1)) if re.search(r'(\d+)', x) else 0
     ))
 
+    # Create subplots
     fig, axes = plt.subplots(1, len(benchmarks), figsize=(15, 5))
     if len(benchmarks) == 1:
         axes = [axes]
@@ -90,7 +80,7 @@ def plot_results(results, output_file='results/performance_comparison.png'):
         labels = []
 
         for config in configs:
-            if config in results[benchmark]:
+            if config in results[benchmark] and results[benchmark][config]:
                 mean, std = calculate_statistics(results[benchmark][config])
                 means.append(mean)
                 stds.append(std)
@@ -102,10 +92,11 @@ def plot_results(results, output_file='results/performance_comparison.png'):
         x = np.arange(len(labels))
         bars = ax.bar(x, means, yerr=stds, capsize=5, alpha=0.7)
 
-        # Color serial differently
-        bars[0].set_color('red')
-        for i in range(1, len(bars)):
-            bars[i].set_color('green')
+        # Color: serial=red, parallel=green
+        if labels:
+            bars[0].set_color('red')
+            for i in range(1, len(bars)):
+                bars[i].set_color('green')
 
         ax.set_xlabel('Configuration')
         ax.set_ylabel('Time (seconds)')
@@ -115,55 +106,58 @@ def plot_results(results, output_file='results/performance_comparison.png'):
         ax.grid(axis='y', alpha=0.3)
 
         # Add speedup annotations
-        if means and means[0] > 0:
+        if len(means) > 1 and means[0] > 0:
             for i, (label, mean) in enumerate(zip(labels[1:], means[1:]), start=1):
-                speedup = means[0] / mean if mean > 0 else 0
-                ax.text(i, mean, f'{speedup:.2f}x', ha='center', va='bottom', fontsize=8)
+                if mean > 0:
+                    speedup = means[0] / mean
+                    ax.text(i, mean, f'{speedup:.2f}x', ha='center', va='bottom', fontsize=8)
 
     plt.tight_layout()
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
     print(f"Visualization saved to: {output_file}")
 
     # Create speedup chart
-    fig, ax = plt.subplots(figsize=(10, 6))
+    if len(configs) > 1:
+        fig, ax = plt.subplots(figsize=(10, 6))
 
-    thread_counts = []
-    speedups_by_benchmark = defaultdict(list)
+        thread_counts = []
+        speedups_by_benchmark = defaultdict(list)
 
-    for config in configs[1:]:  # Skip serial
-        match = re.search(r'(\d+)', config)
-        if match:
-            threads = int(match.group(1))
-            thread_counts.append(threads)
+        for config in configs[1:]:  # Skip serial
+            match = re.search(r'(\d+)', config)
+            if match:
+                threads = int(match.group(1))
+                thread_counts.append(threads)
 
+                for benchmark in benchmarks:
+                    if config in results[benchmark] and 'Serial' in results[benchmark]:
+                        if results[benchmark][config] and results[benchmark]['Serial']:
+                            serial_mean, _ = calculate_statistics(results[benchmark]['Serial'])
+                            parallel_mean, _ = calculate_statistics(results[benchmark][config])
+
+                            if parallel_mean > 0 and serial_mean > 0:
+                                speedup = serial_mean / parallel_mean
+                                speedups_by_benchmark[benchmark].append(speedup)
+
+        if thread_counts:
             for benchmark in benchmarks:
-                if config in results[benchmark] and 'Serial' in results[benchmark]:
-                    serial_mean, _ = calculate_statistics(results[benchmark]['Serial'])
-                    parallel_mean, _ = calculate_statistics(results[benchmark][config])
+                if speedups_by_benchmark[benchmark]:
+                    ax.plot(thread_counts, speedups_by_benchmark[benchmark],
+                           marker='o', label=benchmark, linewidth=2, markersize=8)
 
-                    if parallel_mean > 0:
-                        speedup = serial_mean / parallel_mean
-                        speedups_by_benchmark[benchmark].append(speedup)
+            # Plot ideal speedup
+            ax.plot(thread_counts, thread_counts, 'k--', label='Ideal Speedup', alpha=0.5)
 
-    if thread_counts:
-        for benchmark in benchmarks:
-            if speedups_by_benchmark[benchmark]:
-                ax.plot(thread_counts, speedups_by_benchmark[benchmark],
-                       marker='o', label=benchmark, linewidth=2)
+            ax.set_xlabel('Number of Threads', fontsize=12)
+            ax.set_ylabel('Speedup', fontsize=12)
+            ax.set_title('Parallel Speedup vs Thread Count', fontsize=14)
+            ax.legend(fontsize=10)
+            ax.grid(True, alpha=0.3)
+            ax.set_xticks(thread_counts)
 
-        # Plot ideal speedup
-        ax.plot(thread_counts, thread_counts, 'k--', label='Ideal Speedup', alpha=0.5)
-
-        ax.set_xlabel('Number of Threads')
-        ax.set_ylabel('Speedup')
-        ax.set_title('Parallel Speedup vs Thread Count')
-        ax.legend()
-        ax.grid(True, alpha=0.3)
-        ax.set_xticks(thread_counts)
-
-        plt.tight_layout()
-        plt.savefig('results/speedup_analysis.png', dpi=300, bbox_inches='tight')
-        print(f"Speedup analysis saved to: results/speedup_analysis.png")
+            plt.tight_layout()
+            plt.savefig('results/speedup_analysis.png', dpi=300, bbox_inches='tight')
+            print(f"Speedup analysis saved to: results/speedup_analysis.png")
 
 def generate_report(results, output_file='results/performance_report.txt'):
     """Generate a detailed text report."""
@@ -177,19 +171,22 @@ def generate_report(results, output_file='results/performance_report.txt'):
             f.write("-" * 40 + "\n")
 
             serial_mean = 0
-            for config in sorted(results[benchmark].keys(),
-                               key=lambda x: (0 if x == 'Serial' else 1,
-                                            int(re.search(r'(\d+)', x).group(1))
-                                            if re.search(r'(\d+)', x) else 0)):
-                mean, std = calculate_statistics(results[benchmark][config])
+            configs = sorted(results[benchmark].keys(),
+                           key=lambda x: (0 if x == 'Serial' else 1,
+                                        int(re.search(r'(\d+)', x).group(1))
+                                        if re.search(r'(\d+)', x) else 0))
 
-                if config == 'Serial':
-                    serial_mean = mean
-                    f.write(f"  {config:20s}: {mean:.6f} ± {std:.6f} seconds\n")
-                else:
-                    speedup = serial_mean / mean if mean > 0 and serial_mean > 0 else 0
-                    f.write(f"  {config:20s}: {mean:.6f} ± {std:.6f} seconds "
-                           f"(Speedup: {speedup:.2f}x)\n")
+            for config in configs:
+                if results[benchmark][config]:
+                    mean, std = calculate_statistics(results[benchmark][config])
+
+                    if config == 'Serial':
+                        serial_mean = mean
+                        f.write(f"  {config:20s}: {mean:.6f} ± {std:.6f} seconds\n")
+                    else:
+                        speedup = serial_mean / mean if mean > 0 and serial_mean > 0 else 0
+                        f.write(f"  {config:20s}: {mean:.6f} ± {std:.6f} seconds "
+                               f"(Speedup: {speedup:.2f}x)\n")
 
         f.write("\n" + "=" * 60 + "\n")
         f.write("Analysis Summary:\n")
@@ -198,18 +195,21 @@ def generate_report(results, output_file='results/performance_report.txt'):
         # Calculate average speedups
         for benchmark in results:
             f.write(f"\n{benchmark}:\n")
-            serial_mean, _ = calculate_statistics(results[benchmark].get('Serial', []))
+            if 'Serial' in results[benchmark] and results[benchmark]['Serial']:
+                serial_mean, _ = calculate_statistics(results[benchmark]['Serial'])
 
-            if serial_mean > 0:
-                for config in results[benchmark]:
-                    if config != 'Serial':
-                        parallel_mean, _ = calculate_statistics(results[benchmark][config])
-                        if parallel_mean > 0:
-                            speedup = serial_mean / parallel_mean
-                            efficiency = (speedup / int(re.search(r'(\d+)', config).group(1))) * 100 \
-                                       if re.search(r'(\d+)', config) else 0
-                            f.write(f"  {config}: Speedup = {speedup:.2f}x, "
-                                   f"Efficiency = {efficiency:.1f}%\n")
+                if serial_mean > 0:
+                    for config in results[benchmark]:
+                        if config != 'Serial' and results[benchmark][config]:
+                            parallel_mean, _ = calculate_statistics(results[benchmark][config])
+                            if parallel_mean > 0:
+                                speedup = serial_mean / parallel_mean
+                                match = re.search(r'(\d+)', config)
+                                if match:
+                                    threads = int(match.group(1))
+                                    efficiency = (speedup / threads) * 100
+                                    f.write(f"  {config}: Speedup = {speedup:.2f}x, "
+                                           f"Efficiency = {efficiency:.1f}%\n")
 
     print(f"Performance report saved to: {output_file}")
 
@@ -231,7 +231,13 @@ if __name__ == '__main__':
         print("No results found in file!")
         sys.exit(1)
 
-    print("Generating visualizations...")
+    print(f"Found {len(results)} benchmarks with data")
+    for bench, configs in results.items():
+        print(f"  {bench}: {len(configs)} configurations")
+        for config, times in configs.items():
+            print(f"    {config}: {len(times)} data points")
+
+    print("\nGenerating visualizations...")
     plot_results(results)
 
     print("Generating performance report...")

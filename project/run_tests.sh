@@ -4,9 +4,11 @@
 
 set -e
 
-CLANG=${CLANG:-clang}
-OPT=${OPT:-opt}
-LLC=${LLC:-llc}
+# Use Homebrew LLVM tools
+LLVM_DIR="/opt/homebrew/opt/llvm/bin"
+CLANG="${CLANG:-${LLVM_DIR}/clang}"
+OPT="${OPT:-${LLVM_DIR}/opt}"
+LLC="${LLC:-${LLVM_DIR}/llc}"
 PASS_LIB="./LoopParallelizationPass.dylib"
 
 echo "=========================================="

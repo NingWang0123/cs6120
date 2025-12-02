@@ -1,6 +1,6 @@
 ; ModuleID = 'tests/test_simple.c'
 source_filename = "tests/test_simple.c"
-target datalayout = "e-m:o-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-n32:64-S128-Fn32"
+target datalayout = "e-m:o-i64:64-i128:128-n32:64-S128"
 target triple = "arm64-apple-macosx15.0.0"
 
 @.str = private unnamed_addr constant [18 x i8] c"Time: %f seconds\0A\00", align 1
@@ -8,12 +8,12 @@ target triple = "arm64-apple-macosx15.0.0"
 @str = private unnamed_addr constant [21 x i8] c"Verification passed!\00", align 1
 
 ; Function Attrs: nofree norecurse nosync nounwind ssp memory(argmem: readwrite) uwtable(sync)
-define void @array_add(ptr noundef readonly captures(none) %0, ptr noundef readonly captures(none) %1, ptr noundef writeonly captures(none) %2, i32 noundef %3) local_unnamed_addr #0 {
+define void @array_add(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1, ptr nocapture noundef writeonly %2, i32 noundef %3) local_unnamed_addr #0 {
   %5 = icmp sgt i32 %3, 0
   br i1 %5, label %6, label %8
 
 6:                                                ; preds = %4
-  %7 = zext nneg i32 %3 to i64
+  %7 = zext i32 %3 to i64
   br label %9
 
 8:                                                ; preds = %9, %4
@@ -21,12 +21,12 @@ define void @array_add(ptr noundef readonly captures(none) %0, ptr noundef reado
 
 9:                                                ; preds = %6, %9
   %10 = phi i64 [ 0, %6 ], [ %17, %9 ]
-  %11 = getelementptr inbounds nuw i32, ptr %0, i64 %10
+  %11 = getelementptr inbounds i32, ptr %0, i64 %10
   %12 = load i32, ptr %11, align 4, !tbaa !6
-  %13 = getelementptr inbounds nuw i32, ptr %1, i64 %10
+  %13 = getelementptr inbounds i32, ptr %1, i64 %10
   %14 = load i32, ptr %13, align 4, !tbaa !6
   %15 = add nsw i32 %14, %12
-  %16 = getelementptr inbounds nuw i32, ptr %2, i64 %10
+  %16 = getelementptr inbounds i32, ptr %2, i64 %10
   store i32 %15, ptr %16, align 4, !tbaa !6
   %17 = add nuw nsw i64 %10, 1
   %18 = icmp eq i64 %17, %7
@@ -34,7 +34,7 @@ define void @array_add(ptr noundef readonly captures(none) %0, ptr noundef reado
 }
 
 ; Function Attrs: nounwind ssp uwtable(sync)
-define noundef i32 @main() local_unnamed_addr #1 {
+define i32 @main() local_unnamed_addr #1 {
   %1 = tail call dereferenceable_or_null(40000000) ptr @malloc(i64 noundef 40000000) #7
   %2 = tail call dereferenceable_or_null(40000000) ptr @malloc(i64 noundef 40000000) #7
   %3 = tail call dereferenceable_or_null(40000000) ptr @malloc(i64 noundef 40000000) #7
@@ -46,12 +46,12 @@ define noundef i32 @main() local_unnamed_addr #1 {
 
 6:                                                ; preds = %6, %4
   %7 = phi i64 [ 0, %4 ], [ %14, %6 ]
-  %8 = getelementptr inbounds nuw i32, ptr %1, i64 %7
+  %8 = getelementptr inbounds i32, ptr %1, i64 %7
   %9 = load i32, ptr %8, align 4, !tbaa !6
-  %10 = getelementptr inbounds nuw i32, ptr %2, i64 %7
+  %10 = getelementptr inbounds i32, ptr %2, i64 %7
   %11 = load i32, ptr %10, align 4, !tbaa !6
   %12 = add nsw i32 %11, %9
-  %13 = getelementptr inbounds nuw i32, ptr %3, i64 %7
+  %13 = getelementptr inbounds i32, ptr %3, i64 %7
   store i32 %12, ptr %13, align 4, !tbaa !6
   %14 = add nuw nsw i64 %7, 1
   %15 = icmp eq i64 %14, 10000000
@@ -63,57 +63,56 @@ define noundef i32 @main() local_unnamed_addr #1 {
   %19 = uitofp i64 %18 to double
   %20 = fdiv double %19, 1.000000e+06
   %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef %20)
-  br label %33
+  br label %32
 
 22:                                               ; preds = %0, %22
-  %23 = phi i64 [ 0, %0 ], [ %29, %22 ]
-  %24 = getelementptr inbounds nuw i32, ptr %1, i64 %23
-  %25 = trunc nuw nsw i64 %23 to i32
+  %23 = phi i64 [ 0, %0 ], [ %28, %22 ]
+  %24 = getelementptr inbounds i32, ptr %1, i64 %23
+  %25 = trunc i64 %23 to i32
   store i32 %25, ptr %24, align 4, !tbaa !6
-  %26 = getelementptr inbounds nuw i32, ptr %2, i64 %23
-  %27 = trunc i64 %23 to i32
-  %28 = shl i32 %27, 1
-  store i32 %28, ptr %26, align 4, !tbaa !6
-  %29 = add nuw nsw i64 %23, 1
-  %30 = icmp eq i64 %29, 10000000
-  br i1 %30, label %4, label %22, !llvm.loop !13
+  %26 = getelementptr inbounds i32, ptr %2, i64 %23
+  %27 = shl i32 %25, 1
+  store i32 %27, ptr %26, align 4, !tbaa !6
+  %28 = add nuw nsw i64 %23, 1
+  %29 = icmp eq i64 %28, 10000000
+  br i1 %29, label %4, label %22, !llvm.loop !13
 
-31:                                               ; preds = %48
-  %32 = icmp eq i32 %49, 0
-  br i1 %32, label %54, label %56
+30:                                               ; preds = %47
+  %31 = icmp eq i32 %48, 0
+  br i1 %31, label %53, label %55
 
-33:                                               ; preds = %16, %48
-  %34 = phi i64 [ 0, %16 ], [ %50, %48 ]
-  %35 = phi i32 [ 0, %16 ], [ %49, %48 ]
-  %36 = getelementptr inbounds nuw i32, ptr %3, i64 %34
-  %37 = load i32, ptr %36, align 4, !tbaa !6
-  %38 = getelementptr inbounds nuw i32, ptr %1, i64 %34
-  %39 = load i32, ptr %38, align 4, !tbaa !6
-  %40 = getelementptr inbounds nuw i32, ptr %2, i64 %34
-  %41 = load i32, ptr %40, align 4, !tbaa !6
-  %42 = add nsw i32 %41, %39
-  %43 = icmp eq i32 %37, %42
-  br i1 %43, label %48, label %44
+32:                                               ; preds = %16, %47
+  %33 = phi i64 [ 0, %16 ], [ %49, %47 ]
+  %34 = phi i32 [ 0, %16 ], [ %48, %47 ]
+  %35 = getelementptr inbounds i32, ptr %3, i64 %33
+  %36 = load i32, ptr %35, align 4, !tbaa !6
+  %37 = getelementptr inbounds i32, ptr %1, i64 %33
+  %38 = load i32, ptr %37, align 4, !tbaa !6
+  %39 = getelementptr inbounds i32, ptr %2, i64 %33
+  %40 = load i32, ptr %39, align 4, !tbaa !6
+  %41 = add nsw i32 %40, %38
+  %42 = icmp eq i32 %36, %41
+  br i1 %42, label %47, label %43
 
-44:                                               ; preds = %33
-  %45 = trunc nuw nsw i64 %34 to i32
-  %46 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %45, i32 noundef %37, i32 noundef %42)
-  %47 = add nsw i32 %35, 1
-  br label %48
+43:                                               ; preds = %32
+  %44 = trunc i64 %33 to i32
+  %45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %44, i32 noundef %36, i32 noundef %41)
+  %46 = add nsw i32 %34, 1
+  br label %47
 
-48:                                               ; preds = %33, %44
-  %49 = phi i32 [ %47, %44 ], [ %35, %33 ]
-  %50 = add nuw nsw i64 %34, 1
-  %51 = icmp samesign ult i64 %34, 9999999
-  %52 = icmp slt i32 %49, 10
-  %53 = select i1 %51, i1 %52, i1 false
-  br i1 %53, label %33, label %31, !llvm.loop !14
+47:                                               ; preds = %32, %43
+  %48 = phi i32 [ %46, %43 ], [ %34, %32 ]
+  %49 = add nuw nsw i64 %33, 1
+  %50 = icmp ult i64 %33, 9999999
+  %51 = icmp slt i32 %48, 10
+  %52 = select i1 %50, i1 %51, i1 false
+  br i1 %52, label %32, label %30, !llvm.loop !14
 
-54:                                               ; preds = %31
-  %55 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %56
+53:                                               ; preds = %30
+  %54 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %55
 
-56:                                               ; preds = %54, %31
+55:                                               ; preds = %53, %30
   tail call void @free(ptr noundef %1)
   tail call void @free(ptr noundef %2)
   tail call void @free(ptr noundef %3)
@@ -126,20 +125,20 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #2
 declare i64 @"\01_clock"() local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @printf(ptr noundef readonly captures(none), ...) local_unnamed_addr #4
+declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)
-declare void @free(ptr allocptr noundef captures(none)) local_unnamed_addr #5
+declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #5
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr noundef readonly captures(none)) local_unnamed_addr #6
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #6
 
-attributes #0 = { nofree norecurse nosync nounwind ssp memory(argmem: readwrite) uwtable(sync) "frame-pointer"="non-leaf" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+altnzcv,+ccdp,+ccidx,+ccpp,+complxnum,+crc,+dit,+dotprod,+flagm,+fp-armv8,+fp16fml,+fptoint,+fullfp16,+jsconv,+lse,+neon,+pauth,+perfmon,+predres,+ras,+rcpc,+rdm,+sb,+sha2,+sha3,+specrestrict,+ssbs,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8a" }
-attributes #1 = { nounwind ssp uwtable(sync) "frame-pointer"="non-leaf" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+altnzcv,+ccdp,+ccidx,+ccpp,+complxnum,+crc,+dit,+dotprod,+flagm,+fp-armv8,+fp16fml,+fptoint,+fullfp16,+jsconv,+lse,+neon,+pauth,+perfmon,+predres,+ras,+rcpc,+rdm,+sb,+sha2,+sha3,+specrestrict,+ssbs,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8a" }
-attributes #2 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "frame-pointer"="non-leaf" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+altnzcv,+ccdp,+ccidx,+ccpp,+complxnum,+crc,+dit,+dotprod,+flagm,+fp-armv8,+fp16fml,+fptoint,+fullfp16,+jsconv,+lse,+neon,+pauth,+perfmon,+predres,+ras,+rcpc,+rdm,+sb,+sha2,+sha3,+specrestrict,+ssbs,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8a" }
-attributes #3 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+altnzcv,+ccdp,+ccidx,+ccpp,+complxnum,+crc,+dit,+dotprod,+flagm,+fp-armv8,+fp16fml,+fptoint,+fullfp16,+jsconv,+lse,+neon,+pauth,+perfmon,+predres,+ras,+rcpc,+rdm,+sb,+sha2,+sha3,+specrestrict,+ssbs,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8a" }
-attributes #4 = { nofree nounwind "frame-pointer"="non-leaf" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+altnzcv,+ccdp,+ccidx,+ccpp,+complxnum,+crc,+dit,+dotprod,+flagm,+fp-armv8,+fp16fml,+fptoint,+fullfp16,+jsconv,+lse,+neon,+pauth,+perfmon,+predres,+ras,+rcpc,+rdm,+sb,+sha2,+sha3,+specrestrict,+ssbs,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8a" }
-attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "frame-pointer"="non-leaf" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+altnzcv,+ccdp,+ccidx,+ccpp,+complxnum,+crc,+dit,+dotprod,+flagm,+fp-armv8,+fp16fml,+fptoint,+fullfp16,+jsconv,+lse,+neon,+pauth,+perfmon,+predres,+ras,+rcpc,+rdm,+sb,+sha2,+sha3,+specrestrict,+ssbs,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8a" }
+attributes #0 = { nofree norecurse nosync nounwind ssp memory(argmem: readwrite) uwtable(sync) "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8.5a,+v8a,+zcm,+zcz" }
+attributes #1 = { nounwind ssp uwtable(sync) "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8.5a,+v8a,+zcm,+zcz" }
+attributes #2 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8.5a,+v8a,+zcm,+zcz" }
+attributes #3 = { "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8.5a,+v8a,+zcm,+zcz" }
+attributes #4 = { nofree nounwind "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8.5a,+v8a,+zcm,+zcz" }
+attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "frame-pointer"="non-leaf" "no-trapping-math"="true" "probe-stack"="__chkstk_darwin" "stack-protector-buffer-size"="8" "target-cpu"="apple-m1" "target-features"="+aes,+crc,+dotprod,+fp-armv8,+fp16fml,+fullfp16,+lse,+neon,+ras,+rcpc,+rdm,+sha2,+sha3,+v8.1a,+v8.2a,+v8.3a,+v8.4a,+v8.5a,+v8a,+zcm,+zcz" }
 attributes #6 = { nofree nounwind }
 attributes #7 = { allocsize(0) }
 attributes #8 = { nounwind }
@@ -152,7 +151,7 @@ attributes #8 = { nounwind }
 !2 = !{i32 8, !"PIC Level", i32 2}
 !3 = !{i32 7, !"uwtable", i32 1}
 !4 = !{i32 7, !"frame-pointer", i32 1}
-!5 = !{!"Homebrew clang version 21.1.2"}
+!5 = !{!"Apple clang version 16.0.0 (clang-1600.0.26.6)"}
 !6 = !{!7, !7, i64 0}
 !7 = !{!"int", !8, i64 0}
 !8 = !{!"omnipotent char", !9, i64 0}
