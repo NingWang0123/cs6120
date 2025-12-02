@@ -1,0 +1,8 @@
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/intrinsics_gen.dir
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/vt_gen.dir
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/omp_gen.dir
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/acc_gen.dir
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/target_parser_gen.dir
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/LoopParallelizationPass.dir
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/edit_cache.dir
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/rebuild_cache.dir
