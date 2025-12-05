@@ -1,303 +1,318 @@
 #!/usr/bin/env python3
 
-import csv
+"""
+Visualize PolyBench results comparing 3 implementations
+with thread counts (2, 4, 8) against serial baseline
+"""
+
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from collections import defaultdict
+import seaborn as sns
+from pathlib import Path
 
-def read_polybench_results(csv_file='polybench_results/results.csv'):
-    """Read PolyBench results from CSV with multiple thread configurations."""
-    data = {
-        'benchmarks': [],
-        'loops': [],
-        'serial_times': [],
-        'parallel_times': {1: [], 2: [], 4: [], 8: []},
-        'speedups': {1: [], 2: [], 4: [], 8: []}
-    }
+# Set style
+sns.set_style("whitegrid")
+plt.rcParams['font.size'] = 10
 
-    with open(csv_file, 'r') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            try:
-                loop_count = int(row['Parallelizable Loops'])
-                serial = float(row['Serial Time (s)'])
+RESULTS_DIR = "polybench_results"
+OUTPUT_DIR = RESULTS_DIR
 
-                # Read all thread configurations
-                valid = True
-                for threads in [1, 2, 4, 8]:
-                    parallel = float(row[f'Parallel {threads}T (s)'])
-                    speedup = float(row[f'Speedup {threads}T'])
-                    if serial > 0 and parallel > 0 and speedup > 0:
-                        data['parallel_times'][threads].append(parallel)
-                        data['speedups'][threads].append(speedup)
-                    else:
-                        valid = False
-                        break
+def load_data():
+    """Load PolyBench results from CSV."""
+    csv_file = Path(RESULTS_DIR) / "results.csv"
+    if not csv_file.exists():
+        print(f"Error: {csv_file} not found")
+        print("Please run './run_polybench.sh' first.")
+        return None
 
-                if valid:
-                    data['benchmarks'].append(row['Benchmark'])
-                    data['loops'].append(loop_count)
-                    data['serial_times'].append(serial)
+    df = pd.read_csv(csv_file)
 
-            except (ValueError, KeyError) as e:
-                continue
+    # Filter out error rows
+    df = df[df['serial_time'] != 'N/A']
 
-    return data
+    # Convert to numeric
+    for col in ['serial_time', 'parallel_2t', 'speedup_2t', 'parallel_4t',
+                'speedup_4t', 'parallel_8t', 'speedup_8t', 'parallelizable_loops']:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
 
-def plot_parallelizable_overview(data, output='polybench_results/parallelizable_overview.png'):
-    """Plot showing how many benchmarks are parallelizable vs total."""
-    total = len(data['benchmarks'])
-    parallelizable = sum(1 for l in data['loops'] if l > 0)
-    non_parallelizable = total - parallelizable
+    # Drop rows with any NaN values
+    df = df.dropna()
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+    return df
 
-    # Pie chart
-    sizes = [parallelizable, non_parallelizable]
-    labels = [f'Parallelizable\n({parallelizable} benchmarks)',
-              f'Not Parallelizable\n({non_parallelizable} benchmarks)']
-    colors = ['#2ecc71', '#e74c3c']
-    explode = (0.05, 0)
+def plot_implementation_speedup_comparison(df):
+    """Compare speedups across all 3 implementations for each thread count."""
 
-    ax1.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%',
-            shadow=True, startangle=90, textprops={'fontsize': 12, 'weight': 'bold'})
-    ax1.set_title(f'Loop Parallelization Coverage\n(Total: {total} benchmarks)',
-                  fontsize=14, weight='bold')
+    implementations = sorted(df['implementation'].unique())
+    thread_counts = [2, 4, 8]
 
-    # Bar chart showing loop counts
-    loop_counts = defaultdict(int)
-    for loops in data['loops']:
-        loop_counts[loops] += 1
+    # Filter to only parallelizable benchmarks
+    df_parallel = df[df['parallelizable_loops'] > 0]
 
-    x_vals = sorted(loop_counts.keys())
-    y_vals = [loop_counts[x] for x in x_vals]
-    colors_bar = ['#e74c3c' if x == 0 else '#2ecc71' for x in x_vals]
-
-    ax2.bar(x_vals, y_vals, color=colors_bar, alpha=0.7, edgecolor='black', width=0.6)
-    ax2.set_xlabel('Number of Parallelizable Loops', fontsize=12, weight='bold')
-    ax2.set_ylabel('Number of Benchmarks', fontsize=12, weight='bold')
-    ax2.set_title('Distribution of Parallelizable Loops', fontsize=14, weight='bold')
-    ax2.grid(axis='y', alpha=0.3)
-
-    # Add value labels on bars
-    for i, (x, y) in enumerate(zip(x_vals, y_vals)):
-        ax2.text(x, y + 0.5, str(y), ha='center', va='bottom', fontsize=10, weight='bold')
-
-    plt.tight_layout()
-    plt.savefig(output, dpi=300, bbox_inches='tight')
-    print(f"Saved: {output}")
-
-def plot_speedup_by_threads(data, output='polybench_results/speedup_by_threads.png'):
-    """Plot speedup for ONLY parallelizable benchmarks with improvements."""
-    # Filter: only parallelizable benchmarks (loops > 0) with any speedup > 1.0
-    filtered_benchmarks = []
-    filtered_speedups = {1: [], 2: [], 4: [], 8: []}
-
-    for i, (bench, loops) in enumerate(zip(data['benchmarks'], data['loops'])):
-        if loops > 0:  # Only parallelizable
-            # Check if any thread count shows improvement
-            has_improvement = any(data['speedups'][t][i] > 1.0 for t in [1, 2, 4, 8])
-            if has_improvement:
-                filtered_benchmarks.append(bench)
-                for threads in [1, 2, 4, 8]:
-                    filtered_speedups[threads].append(data['speedups'][threads][i])
-
-    if not filtered_benchmarks:
-        print("No parallelizable benchmarks with improvements found!")
+    if len(df_parallel) == 0:
+        print("No parallelizable benchmarks found!")
         return
 
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-    x = np.arange(len(filtered_benchmarks))
-    width = 0.2
+    colors = {'Original': '#3498db', 'Fusion': '#2ecc71', 'Fusion+Shared': '#e74c3c'}
 
-    colors = ['#3498db', '#2ecc71', '#f39c12', '#e74c3c']
-    for i, threads in enumerate([1, 2, 4, 8]):
-        offset = (i - 1.5) * width
-        bars = ax.bar(x + offset, filtered_speedups[threads], width,
-                     label=f'{threads} thread{"s" if threads > 1 else ""}',
-                     color=colors[i], alpha=0.8, edgecolor='black')
+    for idx, threads in enumerate(thread_counts):
+        ax = axes[idx]
 
-    ax.set_ylabel('Speedup', fontsize=12, weight='bold')
-    ax.set_title(f'Speedup by Thread Count\n(Parallelizable Benchmarks with Improvements, n={len(filtered_benchmarks)})',
-                 fontsize=14, weight='bold')
-    ax.set_xticks(x)
-    ax.set_xticklabels(filtered_benchmarks, rotation=45, ha='right', fontsize=10)
-    ax.axhline(y=1.0, color='red', linestyle='--', linewidth=2, alpha=0.7, label='No speedup')
-    ax.legend(fontsize=10)
-    ax.grid(axis='y', alpha=0.3)
+        speedup_col = f'speedup_{threads}t'
+
+        # Get data for each implementation
+        data_by_impl = []
+        labels = []
+
+        for impl in implementations:
+            impl_data = df_parallel[df_parallel['implementation'] == impl][speedup_col]
+            if len(impl_data) > 0:
+                data_by_impl.append(impl_data)
+                labels.append(impl)
+
+        if not data_by_impl:
+            continue
+
+        # Create box plot
+        bp = ax.boxplot(data_by_impl, labels=labels, patch_artist=True,
+                        showmeans=True, meanline=True)
+
+        # Color the boxes
+        for patch, label in zip(bp['boxes'], labels):
+            patch.set_facecolor(colors.get(label, '#95a5a6'))
+            patch.set_alpha(0.7)
+
+        ax.axhline(y=1.0, color='red', linestyle='--', linewidth=2, alpha=0.5,
+                  label='No Speedup')
+
+        ax.set_ylabel('Speedup', fontsize=12, weight='bold')
+        ax.set_title(f'Speedup Distribution ({threads} Threads)\nn={len(df_parallel)//len(implementations)} benchmarks',
+                    fontsize=14, weight='bold')
+        ax.grid(axis='y', alpha=0.3)
+        ax.legend()
+
+        # Add mean values as text
+        for i, (data, label) in enumerate(zip(data_by_impl, labels)):
+            mean_val = data.mean()
+            ax.text(i+1, mean_val, f'{mean_val:.2f}x',
+                   ha='center', va='bottom', fontsize=9, weight='bold')
 
     plt.tight_layout()
-    plt.savefig(output, dpi=300, bbox_inches='tight')
-    print(f"Saved: {output}")
+    output_file = Path(OUTPUT_DIR) / 'implementation_speedup_comparison.png'
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_file}")
 
-def plot_speedup_scaling(data, output='polybench_results/speedup_scaling.png'):
-    """Plot speedup scaling across thread counts for parallelizable benchmarks."""
-    # Filter: only parallelizable benchmarks
-    parallelizable_idx = [i for i, l in enumerate(data['loops']) if l > 0]
+def plot_speedup_scaling(df):
+    """Plot how speedup scales with thread count for each implementation."""
 
-    if not parallelizable_idx:
+    implementations = sorted(df['implementation'].unique())
+    thread_counts = [2, 4, 8]
+
+    # Filter to only parallelizable benchmarks
+    df_parallel = df[df['parallelizable_loops'] > 0]
+
+    if len(df_parallel) == 0:
         print("No parallelizable benchmarks found!")
         return
 
     fig, ax = plt.subplots(figsize=(10, 7))
 
-    thread_counts = [1, 2, 4, 8]
-    colors_map = plt.cm.tab10(np.linspace(0, 1, len(parallelizable_idx)))
+    colors = {'Original': '#3498db', 'Fusion': '#2ecc71', 'Fusion+Shared': '#e74c3c'}
 
-    for idx, bench_idx in enumerate(parallelizable_idx):
-        bench_name = data['benchmarks'][bench_idx]
-        speedups = [data['speedups'][t][bench_idx] for t in thread_counts]
-        ax.plot(thread_counts, speedups, marker='o', linewidth=2,
-               label=bench_name, color=colors_map[idx], markersize=8)
+    for impl in implementations:
+        impl_data = df_parallel[df_parallel['implementation'] == impl]
+
+        mean_speedups = []
+        std_speedups = []
+
+        for threads in thread_counts:
+            speedup_col = f'speedup_{threads}t'
+            speedups = impl_data[speedup_col]
+            mean_speedups.append(speedups.mean())
+            std_speedups.append(speedups.std())
+
+        ax.errorbar(thread_counts, mean_speedups, yerr=std_speedups,
+                   marker='o', linewidth=2, markersize=10,
+                   label=impl, color=colors.get(impl, '#95a5a6'),
+                   capsize=5, alpha=0.8)
 
     # Ideal speedup line
-    ax.plot(thread_counts, thread_counts, 'k--', linewidth=2, alpha=0.5, label='Ideal Speedup')
+    ax.plot(thread_counts, thread_counts, 'k--', linewidth=2, alpha=0.5,
+           label='Ideal Speedup')
+
+    ax.axhline(y=1.0, color='red', linestyle=':', linewidth=1, alpha=0.5)
 
     ax.set_xlabel('Number of Threads', fontsize=12, weight='bold')
-    ax.set_ylabel('Speedup', fontsize=12, weight='bold')
-    ax.set_title(f'Speedup Scaling with Thread Count\n(Parallelizable Benchmarks Only, n={len(parallelizable_idx)})',
-                 fontsize=14, weight='bold')
+    ax.set_ylabel('Average Speedup', fontsize=12, weight='bold')
+    ax.set_title(f'Speedup Scaling Across Thread Counts\n(Parallelizable Benchmarks, n={len(df_parallel)//len(implementations)})',
+                fontsize=14, weight='bold')
     ax.set_xticks(thread_counts)
+    ax.legend(fontsize=11)
     ax.grid(True, alpha=0.3)
-    ax.legend(fontsize=9, loc='upper left')
-    ax.axhline(y=1.0, color='red', linestyle='--', alpha=0.5)
 
     plt.tight_layout()
-    plt.savefig(output, dpi=300, bbox_inches='tight')
-    print(f"Saved: {output}")
+    output_file = Path(OUTPUT_DIR) / 'speedup_scaling.png'
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_file}")
 
-def plot_end_to_end_comparison(data, output='polybench_results/end_to_end_comparison.png'):
-    """Plot end-to-end execution time comparison: parallelizable benchmarks only with log scale."""
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10))
+def plot_parallelizable_coverage(df):
+    """Show which benchmarks are parallelizable by each implementation."""
 
-    # Filter to only parallelizable benchmarks
-    parallelizable_idx = [i for i, l in enumerate(data['loops']) if l > 0]
-    benchmarks_filtered = [data['benchmarks'][i] for i in parallelizable_idx]
-    serial_times_filtered = [data['serial_times'][i] for i in parallelizable_idx]
-    parallel_times_4t = [data['parallel_times'][4][i] for i in parallelizable_idx]
-    parallel_times_8t = [data['parallel_times'][8][i] for i in parallelizable_idx]
+    implementations = sorted(df['implementation'].unique())
 
-    x = np.arange(len(benchmarks_filtered))
-    width = 0.25
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
-    # Top plot: Individual benchmark times with log scale
-    bars1 = ax1.bar(x - width, serial_times_filtered, width, label='Serial',
-                   color='#3498db', alpha=0.8, edgecolor='black')
-    bars2 = ax1.bar(x, parallel_times_4t, width, label='Parallel (4 threads)',
-                   color='#2ecc71', alpha=0.8, edgecolor='black')
-    bars3 = ax1.bar(x + width, parallel_times_8t, width, label='Parallel (8 threads)',
-                   color='#e74c3c', alpha=0.8, edgecolor='black')
+    # Count parallelizable benchmarks per implementation
+    impl_counts = []
+    impl_labels = []
 
-    ax1.set_yscale('log')
-    ax1.set_ylabel('Execution Time (s) [Log Scale]', fontsize=12, weight='bold')
-    ax1.set_title(f'End-to-End Execution Time: Parallelizable Benchmarks Only (n={len(benchmarks_filtered)})',
-                  fontsize=14, weight='bold')
-    ax1.set_xticks(x)
-    ax1.set_xticklabels(benchmarks_filtered, rotation=45, ha='right', fontsize=10)
-    ax1.legend(fontsize=10)
-    ax1.grid(axis='y', alpha=0.3, which='both')
+    for impl in implementations:
+        impl_data = df[df['implementation'] == impl]
+        parallelizable = len(impl_data[impl_data['parallelizable_loops'] > 0])
+        total = len(impl_data)
+        impl_counts.append(parallelizable)
+        impl_labels.append(f'{impl}\n({parallelizable}/{total})')
 
-    # Bottom plot: Total cumulative time (use all benchmarks for end-to-end total)
-    total_serial = sum(data['serial_times'])
-    total_parallel = {t: sum(data['parallel_times'][t]) for t in [1, 2, 4, 8]}
+    colors = ['#3498db', '#2ecc71', '#e74c3c']
 
-    categories = ['Serial', '1 Thread', '2 Threads', '4 Threads', '8 Threads']
-    totals = [total_serial, total_parallel[1], total_parallel[2], total_parallel[4], total_parallel[8]]
-    speedups_total = [1.0] + [total_serial/total_parallel[t] for t in [1, 2, 4, 8]]
+    # Bar chart
+    bars = ax1.bar(range(len(implementations)), impl_counts,
+                   color=colors[:len(implementations)], alpha=0.8, edgecolor='black')
+    ax1.set_xticks(range(len(implementations)))
+    ax1.set_xticklabels(impl_labels, fontsize=11)
+    ax1.set_ylabel('Number of Parallelizable Benchmarks', fontsize=12, weight='bold')
+    ax1.set_title('Parallelizable Benchmark Count by Implementation',
+                 fontsize=14, weight='bold')
+    ax1.grid(axis='y', alpha=0.3)
 
-    colors_bars = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6']
-    bars = ax2.bar(categories, totals, color=colors_bars, alpha=0.8, edgecolor='black')
-
-    # Add time and speedup labels
-    for bar, total, speedup in zip(bars, totals, speedups_total):
+    # Add value labels
+    for bar, count in zip(bars, impl_counts):
         height = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width()/2., height,
-                f'{total:.4f}s\n({speedup:.2f}x)',
-                ha='center', va='bottom', fontsize=10, weight='bold')
+        ax1.text(bar.get_x() + bar.get_width()/2., height,
+                f'{count}', ha='center', va='bottom', fontsize=12, weight='bold')
 
-    ax2.set_ylabel('Total Execution Time (s)', fontsize=12, weight='bold')
-    ax2.set_title(f'Total End-to-End Time Across All {len(data["benchmarks"])} Benchmarks',
-                  fontsize=14, weight='bold')
+    # Distribution of loop counts
+    for impl, color in zip(implementations, colors):
+        impl_data = df[df['implementation'] == impl]
+        loop_counts = impl_data[impl_data['parallelizable_loops'] > 0]['parallelizable_loops']
+
+        if len(loop_counts) > 0:
+            ax2.hist(loop_counts, bins=range(1, int(loop_counts.max())+2),
+                    alpha=0.6, label=impl, color=color, edgecolor='black')
+
+    ax2.set_xlabel('Number of Parallelizable Loops', fontsize=12, weight='bold')
+    ax2.set_ylabel('Frequency', fontsize=12, weight='bold')
+    ax2.set_title('Distribution of Parallelizable Loops', fontsize=14, weight='bold')
+    ax2.legend(fontsize=10)
     ax2.grid(axis='y', alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig(output, dpi=300, bbox_inches='tight')
-    print(f"Saved: {output}")
+    output_file = Path(OUTPUT_DIR) / 'parallelizable_coverage.png'
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_file}")
 
-def generate_summary_report(data, output='polybench_results/summary.txt'):
+def generate_summary_report(df):
     """Generate comprehensive text summary."""
-    with open(output, 'w') as f:
-        f.write("=" * 70 + "\n")
+
+    output_file = Path(OUTPUT_DIR) / 'summary.txt'
+    implementations = sorted(df['implementation'].unique())
+    thread_counts = [2, 4, 8]
+
+    with open(output_file, 'w') as f:
+        f.write("=" * 80 + "\n")
         f.write("PolyBench Loop Parallelization Summary\n")
-        f.write("=" * 70 + "\n\n")
+        f.write("Comparing 3 Implementations\n")
+        f.write("=" * 80 + "\n\n")
 
-        total = len(data['benchmarks'])
-        parallelizable = sum(1 for l in data['loops'] if l > 0)
+        # Overall statistics
+        total_benchmarks = len(df['benchmark'].unique())
+        f.write(f"Total unique benchmarks: {total_benchmarks}\n\n")
 
-        f.write(f"Total benchmarks: {total}\n")
-        f.write(f"Benchmarks with parallelizable loops: {parallelizable} ({100*parallelizable/total:.1f}%)\n")
-        f.write(f"Benchmarks without parallelizable loops: {total - parallelizable}\n\n")
+        for impl in implementations:
+            impl_data = df[df['implementation'] == impl]
+            parallelizable = len(impl_data[impl_data['parallelizable_loops'] > 0])
 
-        # Speedup statistics for each thread count
-        for threads in [1, 2, 4, 8]:
-            speedups = data['speedups'][threads]
-            f.write(f"Speedup Statistics ({threads} thread{'s' if threads > 1 else ''}):\n")
-            f.write(f"  Mean: {np.mean(speedups):.2f}x\n")
-            f.write(f"  Median: {np.median(speedups):.2f}x\n")
-            f.write(f"  Min: {np.min(speedups):.2f}x\n")
-            f.write(f"  Max: {np.max(speedups):.2f}x\n")
-            f.write(f"  Std Dev: {np.std(speedups):.2f}\n")
-            improved = sum(1 for s in speedups if s > 1.0)
-            f.write(f"  Benchmarks with speedup > 1.0: {improved} ({100*improved/len(speedups):.1f}%)\n\n")
+            f.write(f"\n{impl} Implementation:\n")
+            f.write("-" * 80 + "\n")
+            f.write(f"  Parallelizable benchmarks: {parallelizable}/{len(impl_data)} ")
+            f.write(f"({100*parallelizable/len(impl_data):.1f}%)\n")
 
-        # End-to-end timing
-        f.write("End-to-End Total Times:\n")
-        total_serial = sum(data['serial_times'])
-        f.write(f"  Serial: {total_serial:.4f}s\n")
-        for threads in [1, 2, 4, 8]:
-            total_parallel = sum(data['parallel_times'][threads])
-            speedup = total_serial / total_parallel
-            f.write(f"  {threads} thread{'s' if threads > 1 else ''}: {total_parallel:.4f}s ({speedup:.2f}x)\n")
-        f.write("\n")
+            if parallelizable > 0:
+                total_loops = impl_data[impl_data['parallelizable_loops'] > 0]['parallelizable_loops'].sum()
+                avg_loops = total_loops / parallelizable
+                f.write(f"  Total parallelizable loops: {int(total_loops)}\n")
+                f.write(f"  Average loops per benchmark: {avg_loops:.2f}\n")
 
-        # Top performers at 4 threads
-        f.write("Top 10 Speedups (4 threads):\n")
-        speedups_4t = data['speedups'][4]
-        sorted_indices = np.argsort(speedups_4t)[::-1][:10]
-        for i, idx in enumerate(sorted_indices, 1):
-            bench = data['benchmarks'][idx]
-            loops = data['loops'][idx]
-            speedup = speedups_4t[idx]
-            f.write(f"  {i}. {bench}: {speedup:.2f}x ({loops} loop{'s' if loops != 1 else ''})\n")
+            f.write("\n  Speedup Statistics:\n")
+            for threads in thread_counts:
+                speedup_col = f'speedup_{threads}t'
+                speedups = impl_data[impl_data['parallelizable_loops'] > 0][speedup_col]
 
-    print(f"Saved: {output}")
+                if len(speedups) > 0:
+                    f.write(f"    {threads} threads:\n")
+                    f.write(f"      Mean: {speedups.mean():.2f}x\n")
+                    f.write(f"      Median: {speedups.median():.2f}x\n")
+                    f.write(f"      Max: {speedups.max():.2f}x\n")
+                    f.write(f"      Min: {speedups.min():.2f}x\n")
+                    improved = len(speedups[speedups > 1.0])
+                    f.write(f"      Speedup > 1.0: {improved}/{len(speedups)} ")
+                    f.write(f"({100*improved/len(speedups):.1f}%)\n")
+
+        # Best performers
+        f.write("\n" + "=" * 80 + "\n")
+        f.write("Top 10 Speedups at 8 Threads (across all implementations)\n")
+        f.write("=" * 80 + "\n")
+
+        df_8t = df[df['parallelizable_loops'] > 0].copy()
+        df_8t = df_8t.sort_values('speedup_8t', ascending=False).head(10)
+
+        for i, (_, row) in enumerate(df_8t.iterrows(), 1):
+            f.write(f"{i:2d}. {row['benchmark']:30s} ({row['implementation']:15s}): ")
+            f.write(f"{row['speedup_8t']:.2f}x ({int(row['parallelizable_loops'])} loops)\n")
+
+        # Implementation comparison
+        f.write("\n" + "=" * 80 + "\n")
+        f.write("Average Speedup Comparison (parallelizable benchmarks only)\n")
+        f.write("=" * 80 + "\n\n")
+
+        for threads in thread_counts:
+            f.write(f"{threads} Threads:\n")
+            speedup_col = f'speedup_{threads}t'
+
+            for impl in implementations:
+                impl_data = df[(df['implementation'] == impl) &
+                             (df['parallelizable_loops'] > 0)]
+                if len(impl_data) > 0:
+                    mean_speedup = impl_data[speedup_col].mean()
+                    f.write(f"  {impl:20s}: {mean_speedup:.2f}x\n")
+            f.write("\n")
+
+    print(f"Saved: {output_file}")
 
 if __name__ == '__main__':
     import sys
-    import os
 
-    csv_file = 'polybench_results/results.csv'
+    print("Loading PolyBench results...")
+    df = load_data()
 
-    if not os.path.exists(csv_file):
-        print(f"Error: {csv_file} not found.")
-        print("Run './run_polybench.sh' first.")
-        sys.exit(1)
-
-    print("Reading PolyBench results...")
-    data = read_polybench_results(csv_file)
-
-    if not data['benchmarks']:
+    if df is None or len(df) == 0:
         print("No valid results found!")
         sys.exit(1)
 
-    print(f"Loaded {len(data['benchmarks'])} benchmark results")
-    print("\nGenerating visualizations...")
+    print(f"Loaded {len(df)} benchmark results")
+    print(f"Implementations: {', '.join(sorted(df['implementation'].unique()))}")
+    print(f"Unique benchmarks: {len(df['benchmark'].unique())}")
+    print()
 
-    plot_parallelizable_overview(data)
-    plot_speedup_by_threads(data)
-    plot_speedup_scaling(data)
-    plot_end_to_end_comparison(data)
-    generate_summary_report(data)
+    print("Generating visualizations...")
+    plot_implementation_speedup_comparison(df)
+    plot_speedup_scaling(df)
+    plot_parallelizable_coverage(df)
 
-    print("\nDone! Check polybench_results/ directory.")
+    print("Generating summary report...")
+    generate_summary_report(df)
+
+    print(f"\nDone! Check {RESULTS_DIR}/ directory for outputs.")

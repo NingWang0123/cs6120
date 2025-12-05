@@ -1,149 +1,124 @@
 #!/bin/bash
 
-# PolyBench evaluation script - ALL benchmarks
+# PolyBench evaluation script - Compare all 3 implementations
+# Tests with 2, 4, and 8 threads against serial baseline
 
 set -e
 
 LLVM_DIR="/opt/homebrew/opt/llvm/bin"
 CLANG="${CLANG:-${LLVM_DIR}/clang}"
 OPT="${OPT:-${LLVM_DIR}/opt}"
-PASS_LIB="./LoopParallelizationPass.dylib"
 POLYBENCH_DIR="./polybench"
 UTILITIES_DIR="$POLYBENCH_DIR/utilities"
+RESULTS_DIR="polybench_results"
+THREAD_COUNTS=(2 4 8)
 
-echo "=========================================="
-echo "PolyBench Loop Parallelization Evaluation"
-echo "=========================================="
+# Color output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+echo -e "${CYAN}========================================${NC}"
+echo -e "${CYAN}  PolyBench Implementation Comparison${NC}"
+echo -e "${CYAN}========================================${NC}"
+echo ""
 
 # Check dependencies
-if [ ! -f "$PASS_LIB" ]; then
-    echo "Error: Pass library not found. Run 'make build' first."
-    exit 1
-fi
-
 if [ ! -d "$POLYBENCH_DIR" ]; then
-    echo "Error: PolyBench not found. Run git clone first."
+    echo -e "${RED}Error: PolyBench not found.${NC}"
+    echo "Clone it with: git clone https://github.com/MatthiasJReisinger/PolyBenchC-4.2.1.git polybench"
     exit 1
 fi
 
 # Create output directories
-mkdir -p polybench_results
-mkdir -p polybench_output
+rm -rf "$RESULTS_DIR"
+mkdir -p "$RESULTS_DIR"
 
-# Find all benchmark C files (exclude utilities and templates)
+# Find all benchmark C files
 BENCHMARK_FILES=()
 while IFS= read -r line; do
     BENCHMARK_FILES+=("$line")
 done < <(find "$POLYBENCH_DIR" -name "*.c" -type f | \
     grep -v polybench.c | grep -v template | grep -v ".orig" | sort)
 
-echo "Found ${#BENCHMARK_FILES[@]} benchmarks"
+echo -e "Found ${YELLOW}${#BENCHMARK_FILES[@]}${NC} PolyBench benchmarks"
 echo ""
 
-# Results files
-RESULTS_FILE="polybench_results/results.txt"
-CSV_FILE="polybench_results/results.csv"
+# Build all implementations
+echo -e "${YELLOW}Step 1: Building implementations${NC}"
+echo ""
 
-echo "PolyBench Loop Parallelization Results" > $RESULTS_FILE
-echo "Date: $(date)" >> $RESULTS_FILE
-echo "Total Benchmarks: ${#BENCHMARK_FILES[@]}" >> $RESULTS_FILE
-echo "=========================================" >> $RESULTS_FILE
-echo "" >> $RESULTS_FILE
+build_implementation() {
+    local name=$1
+    local src_file=$2
+    local output_file=$3
 
-echo "Benchmark,Parallelizable Loops,Serial Time (s),Parallel 1T (s),Speedup 1T,Parallel 2T (s),Speedup 2T,Parallel 4T (s),Speedup 4T,Parallel 8T (s),Speedup 8T" > $CSV_FILE
-
-# Counters
-total=0
-successful=0
-parallelized=0
-
-for c_file in "${BENCHMARK_FILES[@]}"; do
-    total=$((total + 1))
-
-    # Extract benchmark name and category
-    bench_name=$(basename "$c_file" .c)
-    bench_dir=$(dirname "$c_file")
-    category=$(echo "$bench_dir" | sed "s|$POLYBENCH_DIR/||" | cut -d'/' -f1)
-
-    echo "[$total/${#BENCHMARK_FILES[@]}] $category/$bench_name"
-    echo "-------------------------------------------"
-
-    # Compile serial version
-    echo "  [1/6] Compiling serial..."
-    if ! $CLANG -O2 -I"$UTILITIES_DIR" -DPOLYBENCH_TIME \
-        -DSMALL_DATASET \
-        "$c_file" "$UTILITIES_DIR/polybench.c" \
-        -o "polybench_output/${bench_name}_serial" \
-        -lm 2>"polybench_output/${bench_name}_serial.err"; then
-        echo "  ✗ Serial compilation failed"
-        echo "$bench_name: COMPILE_ERROR" >> $RESULTS_FILE
-        echo "$bench_name,0,0,0,0" >> $CSV_FILE
-        echo ""
-        continue
+    echo -e "${BLUE}Building: ${name}${NC}"
+    sed -i '' "s|src/LoopParallelizationPass.*\.cpp|${src_file}|g" CMakeLists.txt
+    rm -rf build
+    mkdir -p build
+    cd build
+    if cmake .. > "../${RESULTS_DIR}/build_${output_file}.log" 2>&1; then
+        if make > "../${RESULTS_DIR}/make_${output_file}.log" 2>&1; then
+            if [ -f "LoopParallelizationPass.dylib" ]; then
+                cd ..
+                cp "build/LoopParallelizationPass.dylib" "${RESULTS_DIR}/${output_file}.dylib"
+                echo -e "  ${GREEN}✓ Success${NC}"
+                return 0
+            fi
+        fi
     fi
+    cd ..
+    echo -e "  ${RED}✗ Build failed${NC}"
+    return 1
+}
 
-    # Generate LLVM IR (only for benchmark file)
-    echo "  [2/6] Generating IR..."
-    if ! $CLANG -S -emit-llvm -O2 -I"$UTILITIES_DIR" -DPOLYBENCH_TIME \
-        -DSMALL_DATASET \
-        "$c_file" \
-        -o "polybench_output/${bench_name}.ll" \
-        2>"polybench_output/${bench_name}_ir.err"; then
-        echo "  ✗ IR generation failed"
-        continue
-    fi
+# Build all three implementations
+build_implementation "Original (No Fusion)" \
+    "src/LoopParallelizationPass.cpp" "pass_original"
+ORIGINAL_OK=$?
 
-    # Compile polybench utility separately
-    if ! $CLANG -c -O2 -I"$UTILITIES_DIR" -DPOLYBENCH_TIME \
-        "$UTILITIES_DIR/polybench.c" \
-        -o "polybench_output/polybench.o" \
-        2>/dev/null; then
-        echo "  ✗ Utility compilation failed"
-        continue
-    fi
+build_implementation "With Loop Fusion" \
+    "src/LoopParallelizationPass_with_fusion.cpp" "pass_fusion"
+FUSION_OK=$?
 
-    # Apply parallelization pass
-    echo "  [3/6] Applying pass..."
-    $OPT -passes="loop-simplify,loop-parallelize" \
-        -load-pass-plugin="$PASS_LIB" \
-        -enable-loop-parallel=true -enable-loop-fusion=true \
-        "polybench_output/${bench_name}.ll" \
-        -S -o "polybench_output/${bench_name}_parallel.ll" \
-        2>&1 | tee "polybench_output/${bench_name}_pass.log" | \
-        grep -E "(Found|Fused)" || true
+build_implementation "Fusion + Shared Builder" \
+    "src/LoopParallelizationPass_with_fusion_shared.cpp" "pass_fusion_shared"
+FUSION_SHARED_OK=$?
 
-    # Count parallelizable loops
-    loop_count=$(grep -c "Found parallelizable loop" \
-        "polybench_output/${bench_name}_pass.log" 2>/dev/null || echo "0")
-    loop_count=$(echo "$loop_count" | tr -d '\n\r ')
+echo ""
+echo -e "${YELLOW}Step 2: Compiling and running benchmarks${NC}"
+echo ""
 
-    if [ "$loop_count" -gt 0 ]; then
-        parallelized=$((parallelized + 1))
-        echo "  ✓ Found $loop_count parallelizable loops"
-    else
-        echo "  - No parallelizable loops found"
-    fi
+# CSV header
+echo "benchmark,implementation,serial_time,parallel_2t,speedup_2t,parallel_4t,speedup_4t,parallel_8t,speedup_8t,parallelizable_loops" > "${RESULTS_DIR}/results.csv"
 
-    # Compile parallel version (link with polybench.o)
-    echo "  [4/6] Compiling parallel..."
-    if ! $CLANG -O2 "polybench_output/${bench_name}_parallel.ll" \
-        "polybench_output/polybench.o" \
-        -o "polybench_output/${bench_name}_parallel" \
-        -fopenmp -L/opt/homebrew/opt/libomp/lib -lm \
-        2>"polybench_output/${bench_name}_parallel.err"; then
-        echo "  ✗ Parallel compilation failed"
-        echo "$bench_name: PARALLEL_COMPILE_ERROR (loops: $loop_count)" >> $RESULTS_FILE
-        echo "$bench_name,$loop_count,0,0,0" >> $CSV_FILE
-        echo ""
-        continue
+# Function to compile and run a single benchmark with a specific pass
+run_benchmark() {
+    local benchmark_file=$1
+    local pass_name=$2
+    local pass_file=$3
+    local impl_name=$4
+
+    local benchmark_name=$(basename "$benchmark_file" .c)
+
+    # Compile serial version (no pass)
+    ${CLANG} -O2 -I${UTILITIES_DIR} -DPOLYBENCH_TIME -DSMALL_DATASET \
+        ${UTILITIES_DIR}/polybench.c "$benchmark_file" \
+        -o "${RESULTS_DIR}/${benchmark_name}_serial" -lm 2>/dev/null
+
+    if [ ! -f "${RESULTS_DIR}/${benchmark_name}_serial" ]; then
+        return 1
     fi
 
     # Run serial version (3 times, take average)
-    echo "  [5/6] Running serial (3 runs)..."
     serial_sum=0
     serial_runs=0
     for run in {1..3}; do
-        if output=$("polybench_output/${bench_name}_serial" 2>&1); then
+        if output=$("${RESULTS_DIR}/${benchmark_name}_serial" 2>&1); then
             time_val=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+' | head -1)
             if [ -n "$time_val" ]; then
                 serial_sum=$(echo "$serial_sum + $time_val" | bc)
@@ -153,129 +128,150 @@ for c_file in "${BENCHMARK_FILES[@]}"; do
     done
 
     if [ $serial_runs -eq 0 ]; then
-        echo "  ✗ Serial execution failed"
-        echo "$bench_name: SERIAL_RUN_ERROR" >> $RESULTS_FILE
-        echo "$bench_name,$loop_count,0,0,0" >> $CSV_FILE
-        echo ""
-        continue
+        serial_time="N/A"
+    else
+        serial_time=$(echo "scale=6; $serial_sum / $serial_runs" | bc)
     fi
 
-    serial_time=$(echo "scale=6; $serial_sum / $serial_runs" | bc)
-    echo "    Serial: ${serial_time}s"
+    # Generate LLVM IR for benchmark file only
+    if ! ${CLANG} -S -emit-llvm -O2 -I${UTILITIES_DIR} -DPOLYBENCH_TIME -DSMALL_DATASET \
+        "$benchmark_file" \
+        -o "${RESULTS_DIR}/${benchmark_name}.ll" 2>"${RESULTS_DIR}/${benchmark_name}_ir.log"; then
+        echo "${benchmark_name},${impl_name},${serial_time},N/A,N/A,N/A,N/A,N/A,N/A,0" >> "${RESULTS_DIR}/results.csv"
+        return 1
+    fi
 
-    # Run parallel version with different thread counts
-    echo "  [6/6] Running parallel (3 runs per thread count)..."
+    # Apply parallelization pass
+    ${OPT} -passes="loop-simplify,loop-parallelize" \
+        -load-pass-plugin="${pass_file}" \
+        -enable-loop-parallel=true \
+        -enable-loop-fusion=true \
+        "${RESULTS_DIR}/${benchmark_name}.ll" \
+        -S -o "${RESULTS_DIR}/${benchmark_name}_${pass_name}_parallel.ll" \
+        2>"${RESULTS_DIR}/${benchmark_name}_${pass_name}_pass.log"
 
-    # Run with 1 thread
-    parallel_sum=0
-    parallel_runs=0
-    for run in {1..3}; do
-        if output=$(OMP_NUM_THREADS=1 "polybench_output/${bench_name}_parallel" 2>&1); then
-            time_val=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+' | head -1)
-            if [ -n "$time_val" ]; then
-                parallel_sum=$(echo "$parallel_sum + $time_val" | bc)
-                parallel_runs=$((parallel_runs + 1))
+    # Count parallelizable loops
+    loop_count=$(grep -c "Found parallelizable loop" \
+        "${RESULTS_DIR}/${benchmark_name}_${pass_name}_pass.log" 2>/dev/null || echo "0")
+
+    # Compile parallel version (link with polybench utilities)
+    ${CLANG} -O2 -I${UTILITIES_DIR} -DPOLYBENCH_TIME -DSMALL_DATASET \
+        "${RESULTS_DIR}/${benchmark_name}_${pass_name}_parallel.ll" \
+        ${UTILITIES_DIR}/polybench.c \
+        -o "${RESULTS_DIR}/${benchmark_name}_${pass_name}_parallel" \
+        -fopenmp -L/opt/homebrew/opt/libomp/lib -lm 2>"${RESULTS_DIR}/${benchmark_name}_${pass_name}_compile.log"
+
+    if [ ! -f "${RESULTS_DIR}/${benchmark_name}_${pass_name}_parallel" ]; then
+        echo "${benchmark_name},${impl_name},${serial_time},N/A,N/A,N/A,N/A,N/A,N/A,${loop_count}" >> "${RESULTS_DIR}/results.csv"
+        return 1
+    fi
+
+    # Run parallel version with different thread counts (3 runs each, average)
+    parallel_times=()
+    speedups=()
+
+    for threads in "${THREAD_COUNTS[@]}"; do
+        parallel_sum=0
+        parallel_runs=0
+        for run in {1..3}; do
+            if output=$(OMP_NUM_THREADS=$threads "${RESULTS_DIR}/${benchmark_name}_${pass_name}_parallel" 2>&1); then
+                time_val=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+' | head -1)
+                if [ -n "$time_val" ]; then
+                    parallel_sum=$(echo "$parallel_sum + $time_val" | bc)
+                    parallel_runs=$((parallel_runs + 1))
+                fi
+            fi
+        done
+
+        if [ $parallel_runs -eq 0 ] || [ "$serial_time" = "N/A" ]; then
+            parallel_times+=("N/A")
+            speedups+=("N/A")
+        else
+            parallel_time=$(echo "scale=6; $parallel_sum / $parallel_runs" | bc)
+            parallel_times+=("$parallel_time")
+            if [ "$(echo "$parallel_time > 0" | bc)" -eq 1 ]; then
+                speedup=$(echo "scale=2; $serial_time / $parallel_time" | bc)
+                speedups+=("$speedup")
+            else
+                speedups+=("N/A")
             fi
         fi
     done
-    parallel_time_1t=$([ $parallel_runs -eq 0 ] && echo "0" || echo "scale=6; $parallel_sum / $parallel_runs" | bc)
-    speedup_1t=$([ "$parallel_time_1t" = "0" ] && echo "0" || echo "scale=2; $serial_time / $parallel_time_1t" | bc)
-    echo "    1T: ${parallel_time_1t}s (${speedup_1t}x)"
 
-    # Run with 2 threads
-    parallel_sum=0
-    parallel_runs=0
-    for run in {1..3}; do
-        if output=$(OMP_NUM_THREADS=2 "polybench_output/${bench_name}_parallel" 2>&1); then
-            time_val=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+' | head -1)
-            if [ -n "$time_val" ]; then
-                parallel_sum=$(echo "$parallel_sum + $time_val" | bc)
-                parallel_runs=$((parallel_runs + 1))
-            fi
+    # Save results
+    echo "${benchmark_name},${impl_name},${serial_time},${parallel_times[0]},${speedups[0]},${parallel_times[1]},${speedups[1]},${parallel_times[2]},${speedups[2]},${loop_count}" >> "${RESULTS_DIR}/results.csv"
+}
+
+# Run each benchmark with each implementation
+total_benchmarks=${#BENCHMARK_FILES[@]}
+current=0
+
+for benchmark_file in "${BENCHMARK_FILES[@]}"; do
+    current=$((current + 1))
+    benchmark_name=$(basename "$benchmark_file" .c)
+
+    echo -e "${CYAN}[${current}/${total_benchmarks}]${NC} ${benchmark_name}"
+
+    # Original implementation
+    if [ $ORIGINAL_OK -eq 0 ]; then
+        echo -n "  Original... "
+        if run_benchmark "$benchmark_file" "original" \
+            "${RESULTS_DIR}/pass_original.dylib" "Original"; then
+            echo -e "${GREEN}✓${NC}"
+        else
+            echo -e "${YELLOW}⚠${NC}"
         fi
-    done
-    parallel_time_2t=$([ $parallel_runs -eq 0 ] && echo "0" || echo "scale=6; $parallel_sum / $parallel_runs" | bc)
-    speedup_2t=$([ "$parallel_time_2t" = "0" ] && echo "0" || echo "scale=2; $serial_time / $parallel_time_2t" | bc)
-    echo "    2T: ${parallel_time_2t}s (${speedup_2t}x)"
+    fi
 
-    # Run with 4 threads
-    parallel_sum=0
-    parallel_runs=0
-    for run in {1..3}; do
-        if output=$(OMP_NUM_THREADS=4 "polybench_output/${bench_name}_parallel" 2>&1); then
-            time_val=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+' | head -1)
-            if [ -n "$time_val" ]; then
-                parallel_sum=$(echo "$parallel_sum + $time_val" | bc)
-                parallel_runs=$((parallel_runs + 1))
-            fi
+    # Fusion implementation
+    if [ $FUSION_OK -eq 0 ]; then
+        echo -n "  Fusion... "
+        if run_benchmark "$benchmark_file" "fusion" \
+            "${RESULTS_DIR}/pass_fusion.dylib" "Fusion"; then
+            echo -e "${GREEN}✓${NC}"
+        else
+            echo -e "${YELLOW}⚠${NC}"
         fi
-    done
-    parallel_time_4t=$([ $parallel_runs -eq 0 ] && echo "0" || echo "scale=6; $parallel_sum / $parallel_runs" | bc)
-    speedup_4t=$([ "$parallel_time_4t" = "0" ] && echo "0" || echo "scale=2; $serial_time / $parallel_time_4t" | bc)
-    echo "    4T: ${parallel_time_4t}s (${speedup_4t}x)"
+    fi
 
-    # Run with 8 threads
-    parallel_sum=0
-    parallel_runs=0
-    for run in {1..3}; do
-        if output=$(OMP_NUM_THREADS=8 "polybench_output/${bench_name}_parallel" 2>&1); then
-            time_val=$(echo "$output" | grep -oE '[0-9]+\.[0-9]+' | head -1)
-            if [ -n "$time_val" ]; then
-                parallel_sum=$(echo "$parallel_sum + $time_val" | bc)
-                parallel_runs=$((parallel_runs + 1))
-            fi
+    # Fusion + Shared implementation
+    if [ $FUSION_SHARED_OK -eq 0 ]; then
+        echo -n "  Fusion+Shared... "
+        if run_benchmark "$benchmark_file" "fusion_shared" \
+            "${RESULTS_DIR}/pass_fusion_shared.dylib" "Fusion+Shared"; then
+            echo -e "${GREEN}✓${NC}"
+        else
+            echo -e "${YELLOW}⚠${NC}"
         fi
-    done
-    parallel_time_8t=$([ $parallel_runs -eq 0 ] && echo "0" || echo "scale=6; $parallel_sum / $parallel_runs" | bc)
-    speedup_8t=$([ "$parallel_time_8t" = "0" ] && echo "0" || echo "scale=2; $serial_time / $parallel_time_8t" | bc)
-    echo "    8T: ${parallel_time_8t}s (${speedup_8t}x)"
-
-    successful=$((successful + 1))
-
-    # Log results
-    echo "$bench_name:" >> $RESULTS_FILE
-    echo "  Category: $category" >> $RESULTS_FILE
-    echo "  Parallelizable loops: $loop_count" >> $RESULTS_FILE
-    echo "  Serial: ${serial_time}s" >> $RESULTS_FILE
-    echo "  Parallel (1T): ${parallel_time_1t}s (${speedup_1t}x)" >> $RESULTS_FILE
-    echo "  Parallel (2T): ${parallel_time_2t}s (${speedup_2t}x)" >> $RESULTS_FILE
-    echo "  Parallel (4T): ${parallel_time_4t}s (${speedup_4t}x)" >> $RESULTS_FILE
-    echo "  Parallel (8T): ${parallel_time_8t}s (${speedup_8t}x)" >> $RESULTS_FILE
-    echo "" >> $RESULTS_FILE
-
-    echo "$bench_name,$loop_count,$serial_time,$parallel_time_1t,$speedup_1t,$parallel_time_2t,$speedup_2t,$parallel_time_4t,$speedup_4t,$parallel_time_8t,$speedup_8t" >> $CSV_FILE
-    echo ""
+    fi
 done
 
-# Summary
-echo "=========================================="
-echo "Evaluation Complete!"
-echo "=========================================="
-echo "Total benchmarks: $total"
-echo "Successfully run: $successful"
-echo "With parallelizable loops: $parallelized"
 echo ""
-echo "Results saved to:"
-echo "  - $RESULTS_FILE (detailed)"
-echo "  - $CSV_FILE (CSV format)"
+echo -e "${YELLOW}Step 3: Generating visualizations${NC}"
 echo ""
 
-# Generate summary statistics
-echo "" >> $RESULTS_FILE
-echo "=========================================" >> $RESULTS_FILE
-echo "Summary Statistics" >> $RESULTS_FILE
-echo "=========================================" >> $RESULTS_FILE
-echo "Total benchmarks: $total" >> $RESULTS_FILE
-echo "Successfully run: $successful" >> $RESULTS_FILE
-echo "With parallelizable loops: $parallelized" >> $RESULTS_FILE
-echo "" >> $RESULTS_FILE
-
-# Calculate average speedup for parallelized benchmarks
-if [ $parallelized -gt 0 ]; then
-    avg_speedup=$(awk -F',' 'NR>1 && $2>0 && $5>0 {sum+=$5; count++} END {if(count>0) printf "%.2f", sum/count; else print "0"}' "$CSV_FILE")
-    echo "Average speedup (parallelized only): ${avg_speedup}x" >> $RESULTS_FILE
-    echo "Average speedup (parallelized): ${avg_speedup}x"
+if command -v python3 &> /dev/null; then
+    echo -e "${CYAN}Running Python visualization script...${NC}"
+    python3 visualize_polybench.py
+    if [ $? -eq 0 ]; then
+        echo -e "  ${GREEN}✓ Visualizations created${NC}"
+    else
+        echo -e "  ${YELLOW}⚠ Visualization script encountered issues${NC}"
+    fi
+else
+    echo -e "  ${YELLOW}⚠ Python3 not found. Skipping visualizations.${NC}"
 fi
 
 echo ""
-echo "To visualize results: python3 visualize_polybench.py"
+echo -e "${CYAN}========================================${NC}"
+echo -e "${CYAN}      Evaluation Complete!${NC}"
+echo -e "${CYAN}========================================${NC}"
+echo ""
+echo -e "Results saved in: ${YELLOW}${RESULTS_DIR}/${NC}"
+echo ""
+echo "Generated files:"
+echo "  - results.csv          : All benchmark results"
+echo "  - pass_*.dylib         : Built implementations"
+echo "  - *_pass.log           : Pass execution logs"
+echo "  - *.png                : Visualization charts"
+echo ""

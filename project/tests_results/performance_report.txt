@@ -1,0 +1,121 @@
+======================================================================
+Loop Parallelization Performance Report
+Comparing 3 Implementations
+======================================================================
+
+Serial Baseline (averaged across all runs):
+----------------------------------------------------------------------
+  array_ops           : 0.027790 ± 0.011708 seconds
+  scale_offset        : 0.014553 ± 0.007031 seconds
+  elementwise         : 0.012365 ± 0.008311 seconds
+
+
+Fusion Implementation:
+======================================================================
+
+Array Ops:
+----------------------------------------------------------------------
+  2 threads: 0.024442 ± 0.002582 seconds
+    Speedup: 1.14x, Efficiency: 56.8%
+  4 threads: 0.021632 ± 0.000603 seconds
+    Speedup: 1.28x, Efficiency: 32.1%
+  8 threads: 0.022237 ± 0.001548 seconds
+    Speedup: 1.25x, Efficiency: 15.6%
+
+Scale Offset:
+----------------------------------------------------------------------
+  2 threads: 0.011988 ± 0.004390 seconds
+    Speedup: 1.21x, Efficiency: 60.7%
+  4 threads: 0.009857 ± 0.002632 seconds
+    Speedup: 1.48x, Efficiency: 36.9%
+  8 threads: 0.008648 ± 0.001701 seconds
+    Speedup: 1.68x, Efficiency: 21.0%
+
+Elementwise:
+----------------------------------------------------------------------
+  2 threads: 0.008331 ± 0.002046 seconds
+    Speedup: 1.48x, Efficiency: 74.2%
+  4 threads: 0.008876 ± 0.002152 seconds
+    Speedup: 1.39x, Efficiency: 34.8%
+  8 threads: 0.007028 ± 0.000093 seconds
+    Speedup: 1.76x, Efficiency: 22.0%
+
+Fusion+Shared Implementation:
+======================================================================
+
+Array Ops:
+----------------------------------------------------------------------
+  2 threads: 0.024588 ± 0.002685 seconds
+    Speedup: 1.13x, Efficiency: 56.5%
+  4 threads: 0.025425 ± 0.004980 seconds
+    Speedup: 1.09x, Efficiency: 27.3%
+  8 threads: 0.025402 ± 0.006831 seconds
+    Speedup: 1.09x, Efficiency: 13.7%
+
+Scale Offset:
+----------------------------------------------------------------------
+  2 threads: 0.009025 ± 0.001928 seconds
+    Speedup: 1.61x, Efficiency: 80.6%
+  4 threads: 0.009624 ± 0.002941 seconds
+    Speedup: 1.51x, Efficiency: 37.8%
+  8 threads: 0.010196 ± 0.004016 seconds
+    Speedup: 1.43x, Efficiency: 17.8%
+
+Elementwise:
+----------------------------------------------------------------------
+  2 threads: 0.007187 ± 0.000093 seconds
+    Speedup: 1.72x, Efficiency: 86.0%
+  4 threads: 0.007597 ± 0.000488 seconds
+    Speedup: 1.63x, Efficiency: 40.7%
+  8 threads: 0.007920 ± 0.001545 seconds
+    Speedup: 1.56x, Efficiency: 19.5%
+
+Original Implementation:
+======================================================================
+
+Array Ops:
+----------------------------------------------------------------------
+  2 threads: 0.026780 ± 0.005454 seconds
+    Speedup: 1.04x, Efficiency: 51.9%
+  4 threads: 0.022964 ± 0.001213 seconds
+    Speedup: 1.21x, Efficiency: 30.3%
+  8 threads: 0.023111 ± 0.001933 seconds
+    Speedup: 1.20x, Efficiency: 15.0%
+
+Scale Offset:
+----------------------------------------------------------------------
+  2 threads: 0.016151 ± 0.004970 seconds
+    Speedup: 0.90x, Efficiency: 45.1%
+  4 threads: 0.014193 ± 0.001177 seconds
+    Speedup: 1.03x, Efficiency: 25.6%
+  8 threads: 0.012936 ± 0.001778 seconds
+    Speedup: 1.12x, Efficiency: 14.1%
+
+Elementwise:
+----------------------------------------------------------------------
+  2 threads: 0.013981 ± 0.004871 seconds
+    Speedup: 0.88x, Efficiency: 44.2%
+  4 threads: 0.012234 ± 0.002712 seconds
+    Speedup: 1.01x, Efficiency: 25.3%
+  8 threads: 0.013314 ± 0.003841 seconds
+    Speedup: 0.93x, Efficiency: 11.6%
+
+======================================================================
+Summary: Best Speedups at 8 Threads
+======================================================================
+
+Array Ops:
+  Fusion              : 1.25x
+  Fusion+Shared       : 1.09x
+  Original            : 1.20x
+
+Scale Offset:
+  Fusion              : 1.68x
+  Fusion+Shared       : 1.43x
+  Original            : 1.12x
+
+Elementwise:
+  Fusion              : 1.76x
+  Fusion+Shared       : 1.56x
+  Original            : 0.93x
+
