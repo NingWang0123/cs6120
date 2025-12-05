@@ -1,246 +1,251 @@
 #!/usr/bin/env python3
 
-import re
+"""
+Visualize benchmark results comparing 3 loop parallelization implementations
+with multiple thread counts (2, 4, 8) against serial baseline
+"""
+
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from collections import defaultdict
+import seaborn as sns
+from pathlib import Path
 
-def parse_benchmark_results(filename):
-    """Parse benchmark results from text file."""
-    results = defaultdict(lambda: defaultdict(list))
+# Set style
+sns.set_style("whitegrid")
+plt.rcParams['font.size'] = 10
 
-    with open(filename, 'r') as f:
-        lines = f.readlines()
+RESULTS_DIR = "tests_results"
+OUTPUT_DIR = RESULTS_DIR
 
-    current_config = None
+def load_data():
+    """Load benchmark results from CSV."""
+    csv_file = Path(RESULTS_DIR) / "raw_data.csv"
+    if not csv_file.exists():
+        print(f"Error: {csv_file} not found")
+        print("Please run './run_benchmarks.sh' first.")
+        return None
 
-    for line in lines:
-        # Detect configuration
-        if 'Serial (Original) Version:' in line:
-            current_config = 'Serial'
-        elif 'Parallelized Version (' in line and 'threads' in line:
-            match = re.search(r'(\d+) threads', line)
-            if match:
-                current_config = f'{match.group(1)} threads'
+    df = pd.read_csv(csv_file)
+    return df
 
-        # Parse timing data
-        if current_config:
-            if 'Array ops:' in line:
-                match = re.search(r'Array ops: ([\d.]+) seconds', line)
-                if match:
-                    results['Array ops'][current_config].append(float(match.group(1)))
+def plot_implementation_comparison(df):
+    """Compare all 3 implementations across benchmarks and thread counts."""
 
-            elif 'Scale offset:' in line:
-                match = re.search(r'Scale offset: ([\d.]+) seconds', line)
-                if match:
-                    results['Scale offset'][current_config].append(float(match.group(1)))
+    # Get unique implementations and benchmarks
+    implementations = df['implementation'].unique()
+    benchmarks = ['array_ops', 'scale_offset', 'elementwise']
+    thread_counts = sorted(df['threads'].unique())
 
-            elif 'Elementwise:' in line:
-                match = re.search(r'Elementwise: ([\d.]+) seconds', line)
-                if match:
-                    results['Elementwise'][current_config].append(float(match.group(1)))
+    # Create figure with subplots for each benchmark
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-    return results
-
-def calculate_statistics(times):
-    """Calculate mean and standard deviation."""
-    if not times:
-        return 0, 0
-    return np.mean(times), np.std(times)
-
-def plot_results(results, output_file='results/performance_comparison.png'):
-    """Create visualization of benchmark results."""
-    benchmarks = list(results.keys())
-
-    if not benchmarks:
-        print("No benchmark data found!")
-        return
-
-    # Extract configurations and sort them
-    configs = set()
-    for bench in benchmarks:
-        configs.update(results[bench].keys())
-
-    # Sort: Serial first, then by thread count
-    configs = sorted(configs, key=lambda x: (
-        0 if x == 'Serial' else 1,
-        int(re.search(r'(\d+)', x).group(1)) if re.search(r'(\d+)', x) else 0
-    ))
-
-    # Create subplots
-    fig, axes = plt.subplots(1, len(benchmarks), figsize=(15, 5))
-    if len(benchmarks) == 1:
-        axes = [axes]
+    colors = {'Original': '#3498db', 'Fusion': '#2ecc71', 'Fusion+Shared': '#e74c3c'}
 
     for idx, benchmark in enumerate(benchmarks):
         ax = axes[idx]
 
-        means = []
-        stds = []
-        labels = []
+        # Get serial baseline (average across implementations since they should be same)
+        serial_data = df[(df['mode'] == 'Serial') & (df['threads'] == 1)]
+        serial_mean = serial_data[benchmark].mean()
 
-        for config in configs:
-            if config in results[benchmark] and results[benchmark][config]:
-                mean, std = calculate_statistics(results[benchmark][config])
-                means.append(mean)
-                stds.append(std)
-                labels.append(config)
+        # Plot each implementation
+        x = np.arange(len(thread_counts))
+        width = 0.25
 
-        if not means:
-            continue
+        for i, impl in enumerate(implementations):
+            impl_data = df[(df['mode'] == 'Parallel') & (df['implementation'] == impl)]
+            means = []
+            stds = []
 
-        x = np.arange(len(labels))
-        bars = ax.bar(x, means, yerr=stds, capsize=5, alpha=0.7)
+            for threads in thread_counts:
+                thread_data = impl_data[impl_data['threads'] == threads][benchmark]
+                if len(thread_data) > 0:
+                    means.append(thread_data.mean())
+                    stds.append(thread_data.std())
+                else:
+                    means.append(0)
+                    stds.append(0)
 
-        # Color: serial=red, parallel=green
-        if labels:
-            bars[0].set_color('red')
-            for i in range(1, len(bars)):
-                bars[i].set_color('green')
+            offset = (i - 1) * width
+            bars = ax.bar(x + offset, means, width, yerr=stds,
+                         label=impl, color=colors.get(impl, '#95a5a6'),
+                         alpha=0.8, capsize=5, edgecolor='black')
 
-        ax.set_xlabel('Configuration')
-        ax.set_ylabel('Time (seconds)')
-        ax.set_title(f'{benchmark}')
+        # Add serial baseline as horizontal line
+        ax.axhline(y=serial_mean, color='red', linestyle='--',
+                  linewidth=2, alpha=0.7, label='Serial Baseline')
+
+        ax.set_xlabel('Number of Threads', fontsize=12, weight='bold')
+        ax.set_ylabel('Time (seconds)', fontsize=12, weight='bold')
+        ax.set_title(f'{benchmark.replace("_", " ").title()}',
+                    fontsize=14, weight='bold')
         ax.set_xticks(x)
-        ax.set_xticklabels(labels, rotation=45, ha='right')
+        ax.set_xticklabels([f'{t}T' for t in thread_counts])
+        ax.legend(fontsize=9)
         ax.grid(axis='y', alpha=0.3)
 
-        # Add speedup annotations
-        if len(means) > 1 and means[0] > 0:
-            for i, (label, mean) in enumerate(zip(labels[1:], means[1:]), start=1):
-                if mean > 0:
-                    speedup = means[0] / mean
-                    ax.text(i, mean, f'{speedup:.2f}x', ha='center', va='bottom', fontsize=8)
+    plt.tight_layout()
+    output_file = Path(OUTPUT_DIR) / 'performance_comparison.png'
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_file}")
+
+def plot_speedup_analysis(df):
+    """Plot speedup for each implementation across thread counts."""
+
+    implementations = df['implementation'].unique()
+    benchmarks = ['array_ops', 'scale_offset', 'elementwise']
+    thread_counts = sorted(df[df['mode'] == 'Parallel']['threads'].unique())
+
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+    colors = {'Original': '#3498db', 'Fusion': '#2ecc71', 'Fusion+Shared': '#e74c3c'}
+
+    for idx, benchmark in enumerate(benchmarks):
+        ax = axes[idx]
+
+        # Get serial baseline
+        serial_data = df[(df['mode'] == 'Serial')][benchmark]
+        serial_mean = serial_data.mean()
+
+        # Calculate speedups for each implementation
+        for impl in implementations:
+            speedups = []
+            speedup_stds = []
+
+            for threads in thread_counts:
+                parallel_data = df[(df['mode'] == 'Parallel') &
+                                  (df['implementation'] == impl) &
+                                  (df['threads'] == threads)][benchmark]
+
+                if len(parallel_data) > 0 and serial_mean > 0:
+                    # Calculate speedup for each run
+                    run_speedups = serial_mean / parallel_data
+                    speedups.append(run_speedups.mean())
+                    speedup_stds.append(run_speedups.std())
+                else:
+                    speedups.append(0)
+                    speedup_stds.append(0)
+
+            ax.errorbar(thread_counts, speedups, yerr=speedup_stds,
+                       marker='o', linewidth=2, markersize=8,
+                       label=impl, color=colors.get(impl, '#95a5a6'),
+                       capsize=5, alpha=0.8)
+
+        # Plot ideal speedup
+        ax.plot(thread_counts, thread_counts, 'k--',
+               linewidth=2, alpha=0.5, label='Ideal Speedup')
+
+        ax.axhline(y=1.0, color='red', linestyle=':',
+                  linewidth=1, alpha=0.5)
+
+        ax.set_xlabel('Number of Threads', fontsize=12, weight='bold')
+        ax.set_ylabel('Speedup', fontsize=12, weight='bold')
+        ax.set_title(f'{benchmark.replace("_", " ").title()} Speedup',
+                    fontsize=14, weight='bold')
+        ax.legend(fontsize=9)
+        ax.grid(True, alpha=0.3)
+        ax.set_xticks(thread_counts)
 
     plt.tight_layout()
+    output_file = Path(OUTPUT_DIR) / 'speedup_analysis.png'
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
-    print(f"Visualization saved to: {output_file}")
+    print(f"Saved: {output_file}")
 
-    # Create speedup chart
-    if len(configs) > 1:
-        fig, ax = plt.subplots(figsize=(10, 6))
+def generate_report(df):
+    """Generate detailed text report."""
 
-        thread_counts = []
-        speedups_by_benchmark = defaultdict(list)
+    output_file = Path(OUTPUT_DIR) / 'performance_report.txt'
 
-        for config in configs[1:]:  # Skip serial
-            match = re.search(r'(\d+)', config)
-            if match:
-                threads = int(match.group(1))
-                thread_counts.append(threads)
+    implementations = sorted(df['implementation'].unique())
+    benchmarks = ['array_ops', 'scale_offset', 'elementwise']
+    thread_counts = sorted(df[df['mode'] == 'Parallel']['threads'].unique())
 
-                for benchmark in benchmarks:
-                    if config in results[benchmark] and 'Serial' in results[benchmark]:
-                        if results[benchmark][config] and results[benchmark]['Serial']:
-                            serial_mean, _ = calculate_statistics(results[benchmark]['Serial'])
-                            parallel_mean, _ = calculate_statistics(results[benchmark][config])
-
-                            if parallel_mean > 0 and serial_mean > 0:
-                                speedup = serial_mean / parallel_mean
-                                speedups_by_benchmark[benchmark].append(speedup)
-
-        if thread_counts:
-            for benchmark in benchmarks:
-                if speedups_by_benchmark[benchmark]:
-                    ax.plot(thread_counts, speedups_by_benchmark[benchmark],
-                           marker='o', label=benchmark, linewidth=2, markersize=8)
-
-            # Plot ideal speedup
-            ax.plot(thread_counts, thread_counts, 'k--', label='Ideal Speedup', alpha=0.5)
-
-            ax.set_xlabel('Number of Threads', fontsize=12)
-            ax.set_ylabel('Speedup', fontsize=12)
-            ax.set_title('Parallel Speedup vs Thread Count', fontsize=14)
-            ax.legend(fontsize=10)
-            ax.grid(True, alpha=0.3)
-            ax.set_xticks(thread_counts)
-
-            plt.tight_layout()
-            plt.savefig('results/speedup_analysis.png', dpi=300, bbox_inches='tight')
-            print(f"Speedup analysis saved to: results/speedup_analysis.png")
-
-def generate_report(results, output_file='results/performance_report.txt'):
-    """Generate a detailed text report."""
     with open(output_file, 'w') as f:
-        f.write("=" * 60 + "\n")
+        f.write("=" * 70 + "\n")
         f.write("Loop Parallelization Performance Report\n")
-        f.write("=" * 60 + "\n\n")
+        f.write("Comparing 3 Implementations\n")
+        f.write("=" * 70 + "\n\n")
 
-        for benchmark in results:
-            f.write(f"\n{benchmark}:\n")
-            f.write("-" * 40 + "\n")
+        # Serial baseline
+        f.write("Serial Baseline (averaged across all runs):\n")
+        f.write("-" * 70 + "\n")
+        serial_data = df[df['mode'] == 'Serial']
+        for benchmark in benchmarks:
+            mean = serial_data[benchmark].mean()
+            std = serial_data[benchmark].std()
+            f.write(f"  {benchmark:20s}: {mean:.6f} ± {std:.6f} seconds\n")
+        f.write("\n")
 
-            serial_mean = 0
-            configs = sorted(results[benchmark].keys(),
-                           key=lambda x: (0 if x == 'Serial' else 1,
-                                        int(re.search(r'(\d+)', x).group(1))
-                                        if re.search(r'(\d+)', x) else 0))
+        # Each implementation
+        for impl in implementations:
+            f.write(f"\n{impl} Implementation:\n")
+            f.write("=" * 70 + "\n")
 
-            for config in configs:
-                if results[benchmark][config]:
-                    mean, std = calculate_statistics(results[benchmark][config])
+            impl_data = df[(df['mode'] == 'Parallel') & (df['implementation'] == impl)]
 
-                    if config == 'Serial':
-                        serial_mean = mean
-                        f.write(f"  {config:20s}: {mean:.6f} ± {std:.6f} seconds\n")
-                    else:
-                        speedup = serial_mean / mean if mean > 0 and serial_mean > 0 else 0
-                        f.write(f"  {config:20s}: {mean:.6f} ± {std:.6f} seconds "
-                               f"(Speedup: {speedup:.2f}x)\n")
+            for benchmark in benchmarks:
+                f.write(f"\n{benchmark.replace('_', ' ').title()}:\n")
+                f.write("-" * 70 + "\n")
 
-        f.write("\n" + "=" * 60 + "\n")
-        f.write("Analysis Summary:\n")
-        f.write("=" * 60 + "\n")
+                serial_mean = df[df['mode'] == 'Serial'][benchmark].mean()
 
-        # Calculate average speedups
-        for benchmark in results:
-            f.write(f"\n{benchmark}:\n")
-            if 'Serial' in results[benchmark] and results[benchmark]['Serial']:
-                serial_mean, _ = calculate_statistics(results[benchmark]['Serial'])
+                for threads in thread_counts:
+                    thread_data = impl_data[impl_data['threads'] == threads][benchmark]
 
-                if serial_mean > 0:
-                    for config in results[benchmark]:
-                        if config != 'Serial' and results[benchmark][config]:
-                            parallel_mean, _ = calculate_statistics(results[benchmark][config])
-                            if parallel_mean > 0:
-                                speedup = serial_mean / parallel_mean
-                                match = re.search(r'(\d+)', config)
-                                if match:
-                                    threads = int(match.group(1))
-                                    efficiency = (speedup / threads) * 100
-                                    f.write(f"  {config}: Speedup = {speedup:.2f}x, "
-                                           f"Efficiency = {efficiency:.1f}%\n")
+                    if len(thread_data) > 0:
+                        mean = thread_data.mean()
+                        std = thread_data.std()
+                        speedup = serial_mean / mean if mean > 0 else 0
+                        efficiency = (speedup / threads) * 100 if threads > 0 else 0
 
-    print(f"Performance report saved to: {output_file}")
+                        f.write(f"  {threads} threads: {mean:.6f} ± {std:.6f} seconds\n")
+                        f.write(f"    Speedup: {speedup:.2f}x, Efficiency: {efficiency:.1f}%\n")
+
+        # Summary comparison
+        f.write("\n" + "=" * 70 + "\n")
+        f.write("Summary: Best Speedups at 8 Threads\n")
+        f.write("=" * 70 + "\n\n")
+
+        max_threads = max(thread_counts)
+        for benchmark in benchmarks:
+            f.write(f"{benchmark.replace('_', ' ').title()}:\n")
+            serial_mean = df[df['mode'] == 'Serial'][benchmark].mean()
+
+            for impl in implementations:
+                impl_data = df[(df['mode'] == 'Parallel') &
+                             (df['implementation'] == impl) &
+                             (df['threads'] == max_threads)][benchmark]
+
+                if len(impl_data) > 0:
+                    mean = impl_data.mean()
+                    speedup = serial_mean / mean if mean > 0 else 0
+                    f.write(f"  {impl:20s}: {speedup:.2f}x\n")
+            f.write("\n")
+
+    print(f"Saved: {output_file}")
 
 if __name__ == '__main__':
     import sys
     import os
 
-    results_file = 'results/benchmark_results.txt'
+    print("Loading benchmark results...")
+    df = load_data()
 
-    if not os.path.exists(results_file):
-        print(f"Error: Results file not found: {results_file}")
-        print("Please run './run_benchmarks.sh' first.")
+    if df is None or len(df) == 0:
+        print("No results found!")
         sys.exit(1)
 
-    print("Parsing benchmark results...")
-    results = parse_benchmark_results(results_file)
+    print(f"Loaded {len(df)} data points")
+    print(f"Implementations: {', '.join(df['implementation'].unique())}")
+    print(f"Thread counts: {sorted(df['threads'].unique())}")
+    print()
 
-    if not results:
-        print("No results found in file!")
-        sys.exit(1)
-
-    print(f"Found {len(results)} benchmarks with data")
-    for bench, configs in results.items():
-        print(f"  {bench}: {len(configs)} configurations")
-        for config, times in configs.items():
-            print(f"    {config}: {len(times)} data points")
-
-    print("\nGenerating visualizations...")
-    plot_results(results)
+    print("Generating visualizations...")
+    plot_implementation_comparison(df)
+    plot_speedup_analysis(df)
 
     print("Generating performance report...")
-    generate_report(results)
+    generate_report(df)
 
     print("\nDone! Check the results/ directory for outputs.")

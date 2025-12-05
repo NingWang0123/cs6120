@@ -94,30 +94,14 @@ public:
       }
     }
 
-    if (LoopsToParallelize.empty()) {
-      return Changed ? PreservedAnalyses::none() : PreservedAnalyses::all();
-    }
-
-    // NEW STEP: Build a single OpenMPIRBuilder per module / function
+    // Step 4: Create shared OpenMPIRBuilder for all loops
     Module *M = F.getParent();
-    LLVMContext &Ctx = M->getContext();
     OpenMPIRBuilder OMPBuilder(*M);
     OMPBuilder.initialize();
 
-    // NEW: Wrap the function body in a single parallel region + single region.
-    // This reduces fork/join overhead: one team per function.
-    bool Wrapped = wrapFunctionInParallelSingle(F, OMPBuilder, Ctx);
-    if (!Wrapped) {
-      LLVM_DEBUG(dbgs() << "Failed to wrap function in parallel region; "
-                        << "falling back to per-loop parallelization\n");
-    } else {
-      Changed = true;
-    }
-
-
-    // Step 4: Parallelize the loops using the shared OpenMPIRBuilder
+    // Step 5: Parallelize loops using worksharing (reuses thread team)
     for (Loop *L : LoopsToParallelize) {
-      if (parallelizeLoop(L, F, SE, LI, DT, OMPBuilder)) {
+      if (parallelizeLoopWithWorksharing(L, F, SE, LI, DT, OMPBuilder)) {
         Changed = true;
         errs() << "Successfully parallelized loop in function: "
                << F.getName() << "\n";
@@ -170,149 +154,85 @@ private:
   }
 
   // --------------------------------------------------------------------------
-  //  Wrap function body in:   parallel { single { original body } }
+  //  Loop parallelization using worksharing (for shared parallel region)
   // --------------------------------------------------------------------------
-  bool wrapFunctionInParallelSingle(Function &F,
-                                    OpenMPIRBuilder &OMPBuilder,
-                                    LLVMContext &Ctx) {
-    // We only support non-empty functions with a normal entry.
-    if (F.empty())
+  bool parallelizeLoopWithWorksharing(Loop *L, Function &F, ScalarEvolution &SE,
+                                      LoopInfo &LI, DominatorTree &DT,
+                                      OpenMPIRBuilder &OMPBuilder) {
+    // Get loop components
+    BasicBlock *Preheader = L->getLoopPreheader();
+    BasicBlock *Header = L->getHeader();
+    BasicBlock *Latch = L->getLoopLatch();
+
+    if (!Preheader || !Header || !Latch) {
       return false;
-
-    BasicBlock &EntryBB = F.getEntryBlock();
-
-    // Split the entry block so we can insert the parallel region in the original
-    // entry, and branch into the "real" code from inside the single region.
-    Instruction *SplitPt = EntryBB.getFirstNonPHI();
-    if (!SplitPt)
-      return false;
-
-    BasicBlock *OrigEntry =
-        EntryBB.splitBasicBlock(SplitPt, "omp.orig.entry");
-
-    // Now EntryBB ends with an unconditional branch to OrigEntry. We will
-    // erase that branch and replace it with the OpenMP parallel region.
-    Instruction *OldTerm = EntryBB.getTerminator();
-    if (!OldTerm)
-      return false;
-    OldTerm->eraseFromParent();
-
-    IRBuilder<> Builder(&EntryBB);
-    Builder.SetInsertPoint(&EntryBB);
-
-    OpenMPIRBuilder::LocationDescription Loc(Builder);
-
-    // Optional num_threads clause
-    Value *NumThreadsVal = nullptr;
-    if (NumThreads.getValue() != 0) {
-      NumThreadsVal =
-          ConstantInt::get(Type::getInt32Ty(Ctx), NumThreads.getValue());
     }
 
-    // Build the parallel region: parallel { single { br OrigEntry } }
-    OMPBuilder.createParallel(
-        Loc,
-        [&](OpenMPIRBuilder::InsertPointTy AllocaIP,
-            OpenMPIRBuilder::InsertPointTy CodeGenIP, BasicBlock &ExitBB) {
-          // Body of the parallel region
-          IRBuilder<> BodyBuilder(CodeGenIP.getBlock(),
-                                  CodeGenIP.getPoint());
-          OpenMPIRBuilder::LocationDescription BodyLoc(BodyBuilder);
-
-          // Single region so only one thread executes the original CFG.
-          OMPBuilder.createSingle(
-              BodyLoc,
-              [&](OpenMPIRBuilder::InsertPointTy SingleIP,
-                  BasicBlock &SingleContBB) {
-                IRBuilder<> SingleBuilder(SingleIP.getBlock(),
-                                          SingleIP.getPoint());
-                // Jump into the original entry (which now holds all the real code)
-                SingleBuilder.CreateBr(OrigEntry);
-              },
-              /*IsNowait=*/false);
-
-          // After single ends, control flows to SingleContBB and then through
-          // the rest of the parallel region into ExitBB. We don't need special
-          // handling here; returns are inside the original CFG.
-        },
-        /*IfCondition=*/nullptr,
-        /*NumThreads=*/NumThreadsVal,
-        /*ProcBind=*/omp::OMP_PROC_BIND_unknown,
-        /*IsCancellable=*/false);
-
-    return true;
-  }
-
-  // --------------------------------------------------------------------------
-  //  Loop parallelization using a shared OpenMPIRBuilder
-  // --------------------------------------------------------------------------
-  bool parallelizeLoop(Loop *L, Function &F, ScalarEvolution &SE,
-                       LoopInfo &LI, DominatorTree &DT,
-                       OpenMPIRBuilder &OMPBuilder) {
-    Module *M = F.getParent();
-
-    BasicBlock *Preheader = L->getLoopPreheader();
-    BasicBlock *Header    = L->getHeader();
-    BasicBlock *Latch     = L->getLoopLatch();
-
-    if (!Preheader || !Header || !Latch)
-      return false;
-
+    // Find the induction variable
     PHINode *IndVar = L->getCanonicalInductionVariable();
     if (!IndVar) {
       LLVM_DEBUG(dbgs() << "No canonical induction variable found\n");
       return false;
     }
 
+    // Get trip count
     const SCEV *TripCountSCEV = SE.getBackedgeTakenCount(L);
     if (isa<SCEVCouldNotCompute>(TripCountSCEV)) {
       LLVM_DEBUG(dbgs() << "Could not compute trip count\n");
       return false;
     }
 
+    // Get the start and end values
     Value *StartVal = IndVar->getIncomingValueForBlock(Preheader);
-    Value *EndVal   = nullptr;
+    Value *EndVal = nullptr;
 
+    // Extract end value from loop exit condition
     BranchInst *LatchBr = dyn_cast<BranchInst>(Latch->getTerminator());
-    if (!LatchBr || !LatchBr->isConditional())
+    if (!LatchBr || !LatchBr->isConditional()) {
       return false;
+    }
 
     ICmpInst *Cmp = dyn_cast<ICmpInst>(LatchBr->getCondition());
-    if (!Cmp)
+    if (!Cmp) {
       return false;
+    }
 
-    if (Cmp->getOperand(0) == IndVar)
+    // Determine the end value from the comparison
+    if (Cmp->getOperand(0) == IndVar) {
       EndVal = Cmp->getOperand(1);
-    else if (Cmp->getOperand(1) == IndVar)
+    } else if (Cmp->getOperand(1) == IndVar) {
       EndVal = Cmp->getOperand(0);
-    else
+    } else {
       return false;
+    }
 
-    // IMPORTANT: For true correctness, you'd want to map IV = StartVal + IV.
-    // Here we keep the original approximation: IV ~ [0, NumIters).
+    // Use shared OpenMPIRBuilder (passed as parameter)
     IRBuilder<> Builder(Preheader->getTerminator());
     OpenMPIRBuilder::LocationDescription Loc(Builder);
 
+    // Calculate number of iterations
     Value *NumIters = Builder.CreateSub(EndVal, StartVal, "num_iters");
 
+    // Create a canonical loop using the simpler API
     auto CLIOrError = OMPBuilder.createCanonicalLoop(
         Loc,
-        [&](IRBuilderBase::InsertPoint IP, Value *IV) -> Error {
+        [&](IRBuilderBase::InsertPoint IP, Value *IV) -> llvm::Error {
           Builder.restoreIP(IP);
 
+          // Clone loop body instructions for this iteration
           ValueToValueMapTy VMap;
           VMap[IndVar] = IV;
 
-          // Clone instructions from header (after PHIs)
+          // Clone instructions from header (after PHI nodes)
           for (Instruction &I : *Header) {
-            if (isa<PHINode>(&I) || I.isTerminator())
-              continue;
+            if (isa<PHINode>(&I) || I.isTerminator()) continue;
 
             Instruction *ClonedI = I.clone();
             for (unsigned i = 0; i < ClonedI->getNumOperands(); ++i) {
               Value *Op = ClonedI->getOperand(i);
-              if (VMap.count(Op))
+              if (VMap.count(Op)) {
                 ClonedI->setOperand(i, VMap[Op]);
+              }
             }
             Builder.Insert(ClonedI);
             VMap[&I] = ClonedI;
@@ -320,18 +240,17 @@ private:
 
           // Clone loop body blocks (excluding header and latch)
           for (BasicBlock *BB : L->getBlocks()) {
-            if (BB == Header || BB == Latch)
-              continue;
+            if (BB == Header || BB == Latch) continue;
 
             for (Instruction &I : *BB) {
-              if (I.isTerminator())
-                continue;
+              if (I.isTerminator()) continue;
 
               Instruction *ClonedI = I.clone();
               for (unsigned i = 0; i < ClonedI->getNumOperands(); ++i) {
                 Value *Op = ClonedI->getOperand(i);
-                if (VMap.count(Op))
+                if (VMap.count(Op)) {
                   ClonedI->setOperand(i, VMap[Op]);
+                }
               }
               Builder.Insert(ClonedI);
               VMap[&I] = ClonedI;
@@ -350,19 +269,20 @@ private:
 
     CanonicalLoopInfo *CLI = *CLIOrError;
 
+    // Apply OpenMP worksharing schedule
     IRBuilderBase::InsertPoint AllocaIP(
         &F.getEntryBlock(), F.getEntryBlock().getFirstInsertionPt());
 
     auto ResultOrError = OMPBuilder.applyWorkshareLoop(
         DebugLoc(), CLI, AllocaIP,
-        /*NeedsBarrier=*/true,
-        /*SchedKind=*/llvm::omp::OMP_SCHEDULE_Static,
-        /*ChunkSize=*/nullptr,
-        /*HasSimdModifier=*/false,
-        /*HasMonotonicModifier=*/false,
-        /*HasNonmonotonicModifier=*/false,
-        /*HasOrderedClause=*/false,
-        /*LoopType=*/llvm::omp::WorksharingLoopType::ForStaticLoop);
+        /* NeedsBarrier */ true,
+        /* SchedKind */ llvm::omp::OMP_SCHEDULE_Static,
+        /* ChunkSize */ nullptr,
+        /* HasSimdModifier */ false,
+        /* HasMonotonicModifier */ false,
+        /* HasNonmonotonicModifier */ false,
+        /* HasOrderedClause */ false,
+        /* LoopType */ llvm::omp::WorksharingLoopType::ForStaticLoop);
 
     if (!ResultOrError) {
       LLVM_DEBUG(dbgs() << "Failed to apply workshare loop\n");
@@ -381,10 +301,12 @@ private:
       Builder.CreateBr(Exit);
 
       // Delete old loop blocks
-      for (BasicBlock *BB : L->getBlocks())
+      for (BasicBlock *BB : L->getBlocks()) {
         BB->dropAllReferences();
-      for (BasicBlock *BB : L->getBlocks())
+      }
+      for (BasicBlock *BB : L->getBlocks()) {
         BB->eraseFromParent();
+      }
     }
 
     return true;
@@ -548,9 +470,9 @@ private:
       return false;
     }
 
-    BasicBlock *Preheader1 = Info1.Preheader;
+    // BasicBlock *Preheader1 = Info1.Preheader; // Unused
     BasicBlock *Header1    = Info1.Header;
-    BasicBlock *Latch1     = Info1.Latch;
+    // BasicBlock *Latch1     = Info1.Latch; // Unused
     BasicBlock *Exit1      = Info1.Exit;
 
     BasicBlock *Preheader2 = Info2.Preheader;

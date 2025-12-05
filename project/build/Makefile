@@ -194,29 +194,29 @@ LoopParallelizationPass/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/LoopParallelizationPass.dir/build.make CMakeFiles/LoopParallelizationPass.dir/build
 .PHONY : LoopParallelizationPass/fast
 
-src/LoopParallelizationPass.o: src/LoopParallelizationPass.cpp.o
-.PHONY : src/LoopParallelizationPass.o
+src/LoopParallelizationPass_with_fusion_shared.o: src/LoopParallelizationPass_with_fusion_shared.cpp.o
+.PHONY : src/LoopParallelizationPass_with_fusion_shared.o
 
 # target to build an object file
-src/LoopParallelizationPass.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LoopParallelizationPass.dir/build.make CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o
-.PHONY : src/LoopParallelizationPass.cpp.o
+src/LoopParallelizationPass_with_fusion_shared.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LoopParallelizationPass.dir/build.make CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o
+.PHONY : src/LoopParallelizationPass_with_fusion_shared.cpp.o
 
-src/LoopParallelizationPass.i: src/LoopParallelizationPass.cpp.i
-.PHONY : src/LoopParallelizationPass.i
+src/LoopParallelizationPass_with_fusion_shared.i: src/LoopParallelizationPass_with_fusion_shared.cpp.i
+.PHONY : src/LoopParallelizationPass_with_fusion_shared.i
 
 # target to preprocess a source file
-src/LoopParallelizationPass.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LoopParallelizationPass.dir/build.make CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.i
-.PHONY : src/LoopParallelizationPass.cpp.i
+src/LoopParallelizationPass_with_fusion_shared.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LoopParallelizationPass.dir/build.make CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.i
+.PHONY : src/LoopParallelizationPass_with_fusion_shared.cpp.i
 
-src/LoopParallelizationPass.s: src/LoopParallelizationPass.cpp.s
-.PHONY : src/LoopParallelizationPass.s
+src/LoopParallelizationPass_with_fusion_shared.s: src/LoopParallelizationPass_with_fusion_shared.cpp.s
+.PHONY : src/LoopParallelizationPass_with_fusion_shared.s
 
 # target to generate assembly for a file
-src/LoopParallelizationPass.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/LoopParallelizationPass.dir/build.make CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.s
-.PHONY : src/LoopParallelizationPass.cpp.s
+src/LoopParallelizationPass_with_fusion_shared.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/LoopParallelizationPass.dir/build.make CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.s
+.PHONY : src/LoopParallelizationPass_with_fusion_shared.cpp.s
 
 # Help Target
 help:
@@ -232,9 +232,9 @@ help:
 	@echo "... target_parser_gen"
 	@echo "... vt_gen"
 	@echo "... LoopParallelizationPass"
-	@echo "... src/LoopParallelizationPass.o"
-	@echo "... src/LoopParallelizationPass.i"
-	@echo "... src/LoopParallelizationPass.s"
+	@echo "... src/LoopParallelizationPass_with_fusion_shared.o"
+	@echo "... src/LoopParallelizationPass_with_fusion_shared.i"
+	@echo "... src/LoopParallelizationPass_with_fusion_shared.s"
 .PHONY : help
 
 

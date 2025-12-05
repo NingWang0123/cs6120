@@ -2,22 +2,13 @@
 
 An LLVM compiler pass that automatically parallelizes loops using OpenMP.
 
-## What It Does
-
-This pass:
-1. Detects loops that can be safely parallelized using LLVM's `LoopAccessAnalysis`
-2. Checks for loop fusion opportunities (consecutive independent loops)
-3. Transforms loops to parallel form using `OpenMPIRBuilder`
-4. Verifies correctness by comparing serial and parallel results
-5. Measures performance improvements
-
 ## Quick Start
 
 ### 1. Install Dependencies
 
 ```bash
 brew install llvm libomp
-pip3 install matplotlib numpy  # For visualizations
+pip3 install matplotlib numpy pandas seaborn  # For visualizations
 ```
 
 ### 2. Build
@@ -26,73 +17,72 @@ pip3 install matplotlib numpy  # For visualizations
 make build
 ```
 
-This creates `LoopParallelizationPass.dylib` (572KB).
+This creates `LoopParallelizationPass.dylib`.
 
 ### 3. Run Benchmarks
 
 ```bash
-# Run simple benchmarks
-./run_benchmarks.sh
+# Run simple test benchmarks (compares 3 implementations with 2, 4, 8 threads)
+./run_tests.sh
 
-# Run PolyBench/C real-world benchmarks
+# Run PolyBench real-world benchmarks (compares 3 implementations with 2, 4, 8 threads)
 ./run_polybench.sh
 ```
 
 This will:
-- Verify correctness (serial vs parallel results match)
-- Measure performance with 1, 2, 4, and 8 threads
+- Build all 3 implementations
+- Run benchmarks with serial baseline and multiple thread counts (2, 4, 8)
 - Generate visualization charts automatically
+- Create comprehensive performance reports
 
-## Results
+## What It Does
 
-### Correctness
-All tests verify that parallelized code produces identical results to serial code.
+This pass:
+1. Detects loops that can be safely parallelized using LLVM's `LoopAccessAnalysis`
+2. Checks for loop fusion opportunities (consecutive independent loops)
+3. Transforms loops to parallel form using `OpenMPIRBuilder`
+4. Compares 3 different implementations
+5. Measures performance improvements across multiple thread counts
 
-### Performance - Simple Benchmarks
-Typical speedups on 4 cores:
-- **Automated pass**: 1.2x - 1.5x
-- **Manual OpenMP**: 3.5x - 4.0x
+## Implementation Variants
 
-The automated pass trades peak performance for safety guarantees and zero developer effort.
+The project includes three implementations:
 
-### Performance - PolyBench/C Real-World Benchmarks
-Evaluated on 30 PolyBench/C benchmarks (linear algebra, stencils, data mining) with 1, 2, 4, and 8 threads:
+### 1. Original (LoopParallelizationPass.cpp)
+- Basic parallelization
+- Fusion detection only (doesn't actually fuse)
+- Each loop gets separate parallel region
 
-**Parallelization Coverage:**
-- **Total benchmarks**: 30
-- **Parallelizable loops found**: 6 benchmarks (20%)
-- **Not parallelizable**: 24 benchmarks (80%)
+### 2. Fusion (LoopParallelizationPass_with_fusion.cpp)
+- Actually implements loop fusion
+- Merges consecutive independent loops
+- Reduced loop overhead, better cache locality
 
-**Speedup by Thread Count:**
-- **1 thread**: 0.96x mean, 33% improved (10/30)
-- **2 threads**: 1.13x mean, 67% improved (20/30)
-- **4 threads**: 1.19x mean, 77% improved (23/30)
-- **8 threads**: 1.27x mean, 90% improved (27/30)
+### 3. Fusion+Shared (LoopParallelizationPass_with_fusion_shared.cpp)
+- Loop fusion + shared parallel region
+- Minimal fork/join overhead
 
-**Best Speedups (4 threads):**
-- nussinov: 2.78x
-- gesummv: 1.66x
-- atax: 1.53x (parallelizable)
-- fdtd-2d: 1.48x
-- seidel-2d: 1.35x
+## Results Organization
 
-**End-to-End Total Execution Time:**
-- Serial: 0.0132s
-- 4 threads: 0.0107s (**1.24x speedup**)
-- 8 threads: 0.0106s (**1.24x speedup**)
+### Simple Test Benchmarks
+After running `./run_tests.sh`:
+- `tests_results/raw_data.csv` - All benchmark data
+- `tests_results/performance_comparison.png` - Implementation comparison
+- `tests_results/speedup_analysis.png` - Speedup curves
+- `tests_results/performance_report.txt` - Statistical analysis
 
-Key findings:
-- Conservative safety analysis correctly identifies 6 truly parallelizable benchmarks
-- Small problem sizes (SMALL_DATASET) limit scaling beyond 4 threads
-- Even non-parallelizable benchmarks show improvement (compiler optimizations)
-- Best overall speedup with 4-8 threads
-
-See `polybench_results/` for detailed analysis and 4 comprehensive visualizations.
+### PolyBench Benchmarks
+After running `./run_polybench.sh`:
+- `polybench_results/results.csv` - All benchmark results
+- `polybench_results/implementation_speedup_comparison.png` - Speedup distributions
+- `polybench_results/speedup_scaling.png` - Scaling across thread counts
+- `polybench_results/parallelizable_coverage.png` - Coverage analysis
+- `polybench_results/summary.txt` - Comprehensive report
 
 ## How It Works
 
 ### Safety Check
-Uses `LoopAccessAnalysis` to ensure "no unsafe memory dependences":
+Uses `LoopAccessAnalysis` to ensure no unsafe memory dependences:
 ```cpp
 LoopAccessInfo LAI(L, &SE, &TTI, &TLI, &AA, &DT, &LI);
 if (LAI.canVectorizeMemory() && DepChecker.getDependences()->empty()) {
@@ -118,7 +108,7 @@ Generates parallel code using `OpenMPIRBuilder`:
 
 ```bash
 # Generate LLVM IR
-/opt/homebrew/opt/llvm/bin/clang -S -emit-llvm -O1 mycode.c -o mycode.ll
+/opt/homebrew/opt/llvm/bin/clang -S -emit-llvm -O2 mycode.c -o mycode.ll
 
 # Apply parallelization pass
 /opt/homebrew/opt/llvm/bin/opt \
@@ -170,38 +160,51 @@ The pass identifies these can be fused and parallelized together.
 
 ```
 project/
-├── src/LoopParallelizationPass.cpp  # Main pass implementation
+├── src/
+│   ├── LoopParallelizationPass.cpp                      # Original implementation
+│   ├── LoopParallelizationPass_with_fusion.cpp          # With loop fusion
+│   └── LoopParallelizationPass_with_fusion_shared.cpp   # Fusion + shared region
 ├── tests/
-│   ├── verify_correctness.c         # Correctness verification
-│   ├── benchmark.c                  # Performance tests
+│   ├── verify_correctness.c         # Correctness tests
+│   ├── benchmark.c                  # Performance benchmarks
 │   └── manual_parallel.c            # Manual OpenMP comparison
-├── polybench/                       # PolyBench/C benchmark suite
-│   ├── linear-algebra/              # Matrix operations (gemm, syrk, etc.)
-│   ├── stencils/                    # Stencil computations (jacobi, heat, etc.)
-│   └── datamining/                  # Data analysis (correlation, covariance)
-├── run_benchmarks.sh                # Simple benchmark script
-├── run_polybench.sh                 # PolyBench evaluation script
-├── visualize_results.py             # Simple benchmark charts
-├── visualize_polybench.py           # PolyBench analysis charts
+├── polybench/                       # PolyBench/C benchmark suite (clone separately)
+├── run_tests.sh                     # Simple test benchmark runner
+├── run_polybench.sh                 # PolyBench benchmark runner
+├── visualize_results.py             # Test benchmark visualizations
+├── visualize_polybench.py           # PolyBench visualizations
+├── tests_results/                   # Test benchmark results (generated)
+├── polybench_results/               # PolyBench results (generated)
+├── build/                           # Build artifacts (generated)
 └── README.md                        # This file
 ```
 
-## Implementation Details
+## Switching Between Implementations
 
-### Loop Analysis
-- Uses `LoopAccessAnalysis` for dependence checking
-- Verifies loop structure (preheader, latch, exit)
-- Computes trip counts with `ScalarEvolution`
+The benchmark scripts automatically build and test all three implementations. To use a specific implementation manually, edit `CMakeLists.txt` line 20:
 
-### Loop Fusion Detection
-- Checks consecutive loops for same trip count
-- Uses `AliasAnalysis` to verify independence
-- Ensures proper control flow connection
+```cmake
+# For original:
+add_library(LoopParallelizationPass MODULE
+  src/LoopParallelizationPass.cpp
+)
 
-### Code Generation
-- Creates canonical loop with `createCanonicalLoop()`
-- Applies worksharing with `applyWorkshareLoop()`
-- Uses static scheduling for predictable performance
+# For fusion:
+add_library(LoopParallelizationPass MODULE
+  src/LoopParallelizationPass_with_fusion.cpp
+)
+
+# For fusion+shared:
+add_library(LoopParallelizationPass MODULE
+  src/LoopParallelizationPass_with_fusion_shared.cpp
+)
+```
+
+Then rebuild:
+```bash
+make clean
+make build
+```
 
 ## Limitations
 
@@ -233,24 +236,6 @@ opt -passes="loop-simplify,loop-parallelize" \
 - Problem size may be too small (try N > 1,000,000)
 - Memory bandwidth limited (common with simple operations)
 - Too many threads (try `OMP_NUM_THREADS=4`)
-
-## Key Files
-
-### Simple Benchmarks
-- `LoopParallelizationPass.dylib` - Compiled pass (572KB)
-- `results/benchmark_results.txt` - Performance data
-- `results/performance_comparison.png` - Bar charts
-- `results/speedup_analysis.png` - Speedup curves
-- `results/performance_report.txt` - Statistical summary
-
-### PolyBench Results
-- `polybench_results/results.csv` - All benchmark data (1,2,4,8 threads)
-- `polybench_results/results.txt` - Detailed results per benchmark
-- `polybench_results/parallelizable_overview.png` - Coverage pie chart and loop distribution
-- `polybench_results/speedup_by_threads.png` - Multi-thread speedup comparison (parallelizable only)
-- `polybench_results/speedup_scaling.png` - Scaling curves for parallelizable benchmarks
-- `polybench_results/end_to_end_comparison.png` - Total execution time comparison
-- `polybench_results/summary.txt` - Comprehensive statistical summary
 
 ## References
 

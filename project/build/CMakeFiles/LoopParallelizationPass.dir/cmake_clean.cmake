@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o"
-  "CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o.d"
+  "CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o"
+  "CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o.d"
   "LoopParallelizationPass.dylib"
   "LoopParallelizationPass.pdb"
 )

@@ -1,58 +1,119 @@
-======================================================================
+================================================================================
 PolyBench Loop Parallelization Summary
-======================================================================
+Comparing 3 Implementations
+================================================================================
 
-Total benchmarks: 30
-Benchmarks with parallelizable loops: 6 (20.0%)
-Benchmarks without parallelizable loops: 24
+Total unique benchmarks: 30
 
-Speedup Statistics (1 thread):
-  Mean: 0.96x
-  Median: 0.91x
-  Min: 0.57x
-  Max: 1.56x
-  Std Dev: 0.23
-  Benchmarks with speedup > 1.0: 10 (33.3%)
 
-Speedup Statistics (2 threads):
-  Mean: 1.13x
-  Median: 1.10x
-  Min: 0.36x
-  Max: 2.27x
-  Std Dev: 0.32
-  Benchmarks with speedup > 1.0: 20 (66.7%)
+Fusion Implementation:
+--------------------------------------------------------------------------------
+  Parallelizable benchmarks: 6/30 (20.0%)
+  Total parallelizable loops: 8
+  Average loops per benchmark: 1.33
 
-Speedup Statistics (4 threads):
-  Mean: 1.19x
-  Median: 1.12x
-  Min: 0.75x
-  Max: 2.78x
-  Std Dev: 0.36
-  Benchmarks with speedup > 1.0: 23 (76.7%)
+  Speedup Statistics:
+    2 threads:
+      Mean: 0.86x
+      Median: 0.88x
+      Max: 1.25x
+      Min: 0.57x
+      Speedup > 1.0: 1/6 (16.7%)
+    4 threads:
+      Mean: 1.29x
+      Median: 1.17x
+      Max: 1.88x
+      Min: 1.00x
+      Speedup > 1.0: 3/6 (50.0%)
+    8 threads:
+      Mean: 1.51x
+      Median: 1.42x
+      Max: 2.12x
+      Min: 1.09x
+      Speedup > 1.0: 6/6 (100.0%)
 
-Speedup Statistics (8 threads):
-  Mean: 1.27x
-  Median: 1.23x
-  Min: 0.91x
-  Max: 2.27x
-  Std Dev: 0.27
-  Benchmarks with speedup > 1.0: 27 (90.0%)
+Fusion+Shared Implementation:
+--------------------------------------------------------------------------------
+  Parallelizable benchmarks: 6/30 (20.0%)
+  Total parallelizable loops: 8
+  Average loops per benchmark: 1.33
 
-End-to-End Total Times:
-  Serial: 0.0132s
-  1 thread: 0.0144s (0.92x)
-  2 threads: 0.0151s (0.87x)
-  4 threads: 0.0107s (1.24x)
-  8 threads: 0.0106s (1.24x)
+  Speedup Statistics:
+    2 threads:
+      Mean: 1.13x
+      Median: 1.04x
+      Max: 1.94x
+      Min: 0.78x
+      Speedup > 1.0: 3/6 (50.0%)
+    4 threads:
+      Mean: 1.21x
+      Median: 1.00x
+      Max: 2.31x
+      Min: 0.80x
+      Speedup > 1.0: 2/6 (33.3%)
+    8 threads:
+      Mean: 1.49x
+      Median: 1.47x
+      Max: 2.31x
+      Min: 0.87x
+      Speedup > 1.0: 5/6 (83.3%)
 
-Top 10 Speedups (4 threads):
-  1. nussinov: 2.78x (0 loops)
-  2. gesummv: 1.66x (0 loops)
-  3. atax: 1.53x (1 loop)
-  4. fdtd-2d: 1.48x (0 loops)
-  5. seidel-2d: 1.35x (0 loops)
-  6. deriche: 1.34x (0 loops)
-  7. doitgen: 1.27x (0 loops)
-  8. mvt: 1.26x (0 loops)
-  9. lu: 1.25x (0 loops)
-  10. durbin: 1.20x (1 loop)
+Original Implementation:
+--------------------------------------------------------------------------------
+  Parallelizable benchmarks: 6/30 (20.0%)
+  Total parallelizable loops: 8
+  Average loops per benchmark: 1.33
+
+  Speedup Statistics:
+    2 threads:
+      Mean: 1.01x
+      Median: 0.99x
+      Max: 1.63x
+      Min: 0.65x
+      Speedup > 1.0: 3/6 (50.0%)
+    4 threads:
+      Mean: 1.41x
+      Median: 1.35x
+      Max: 1.93x
+      Min: 1.00x
+      Speedup > 1.0: 5/6 (83.3%)
+    8 threads:
+      Mean: 1.66x
+      Median: 1.71x
+      Max: 1.98x
+      Min: 1.33x
+      Speedup > 1.0: 6/6 (100.0%)
+
+================================================================================
+Top 10 Speedups at 8 Threads (across all implementations)
+================================================================================
+ 1. bicg                           (Fusion+Shared  ): 2.31x (1 loops)
+ 2. bicg                           (Fusion         ): 2.12x (1 loops)
+ 3. ludcmp                         (Original       ): 1.98x (2 loops)
+ 4. atax                           (Original       ): 1.85x (1 loops)
+ 5. bicg                           (Original       ): 1.72x (1 loops)
+ 6. durbin                         (Original       ): 1.70x (1 loops)
+ 7. ludcmp                         (Fusion         ): 1.69x (2 loops)
+ 8. atax                           (Fusion+Shared  ): 1.66x (1 loops)
+ 9. durbin                         (Fusion+Shared  ): 1.60x (1 loops)
+10. atax                           (Fusion         ): 1.50x (1 loops)
+
+================================================================================
+Average Speedup Comparison (parallelizable benchmarks only)
+================================================================================
+
+2 Threads:
+  Fusion              : 0.86x
+  Fusion+Shared       : 1.13x
+  Original            : 1.01x
+
+4 Threads:
+  Fusion              : 1.29x
+  Fusion+Shared       : 1.21x
+  Original            : 1.41x
+
+8 Threads:
+  Fusion              : 1.51x
+  Fusion+Shared       : 1.49x
+  Original            : 1.66x
+

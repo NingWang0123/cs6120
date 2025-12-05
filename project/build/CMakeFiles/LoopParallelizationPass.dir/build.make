@@ -72,28 +72,28 @@ include CMakeFiles/LoopParallelizationPass.dir/flags.make
 CMakeFiles/LoopParallelizationPass.dir/codegen:
 .PHONY : CMakeFiles/LoopParallelizationPass.dir/codegen
 
-CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o: CMakeFiles/LoopParallelizationPass.dir/flags.make
-CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o: /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass.cpp
-CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o: CMakeFiles/LoopParallelizationPass.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o -MF CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o.d -o CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o -c /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass.cpp
+CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o: CMakeFiles/LoopParallelizationPass.dir/flags.make
+CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o: /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass_with_fusion_shared.cpp
+CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o: CMakeFiles/LoopParallelizationPass.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o -MF CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o.d -o CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o -c /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass_with_fusion_shared.cpp
 
-CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass.cpp > CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.i
+CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass_with_fusion_shared.cpp > CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.i
 
-CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass.cpp -o CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.s
+CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass_with_fusion_shared.cpp -o CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.s
 
 # Object files for target LoopParallelizationPass
 LoopParallelizationPass_OBJECTS = \
-"CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o"
+"CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o"
 
 # External object files for target LoopParallelizationPass
 LoopParallelizationPass_EXTERNAL_OBJECTS =
 
-LoopParallelizationPass.dylib: CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass.cpp.o
+LoopParallelizationPass.dylib: CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion_shared.cpp.o
 LoopParallelizationPass.dylib: CMakeFiles/LoopParallelizationPass.dir/build.make
 LoopParallelizationPass.dylib: /opt/homebrew/opt/libomp/lib/libomp.dylib
 LoopParallelizationPass.dylib: CMakeFiles/LoopParallelizationPass.dir/link.txt

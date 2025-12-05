@@ -1,0 +1,13 @@
+[ 50%] Building CXX object CMakeFiles/LoopParallelizationPass.dir/src/LoopParallelizationPass_with_fusion.cpp.o
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass_with_fusion.cpp:153:18: warning: unused variable 'Ctx' [-Wunused-variable]
+  153 |     LLVMContext &Ctx = M->getContext();
+      |                  ^~~
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass_with_fusion.cpp:473:17: warning: unused variable 'Preheader1' [-Wunused-variable]
+  473 |     BasicBlock *Preheader1 = Info1.Preheader;
+      |                 ^~~~~~~~~~
+/Users/jl4492/Projects/cs6120/cs6120-group-work/project/src/LoopParallelizationPass_with_fusion.cpp:475:17: warning: unused variable 'Latch1' [-Wunused-variable]
+  475 |     BasicBlock *Latch1     = Info1.Latch;
+      |                 ^~~~~~
+3 warnings generated.
+[100%] Linking CXX shared module LoopParallelizationPass.dylib
+[100%] Built target LoopParallelizationPass

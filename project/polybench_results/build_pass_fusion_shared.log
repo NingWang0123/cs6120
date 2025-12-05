@@ -1,0 +1,64 @@
+-- The C compiler identification is AppleClang 16.0.0.16000026
+-- The CXX compiler identification is AppleClang 16.0.0.16000026
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test HAVE_FFI_CALL
+-- Performing Test HAVE_FFI_CALL - Success
+-- Found FFI: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libffi.tbd
+-- Looking for histedit.h
+-- Looking for histedit.h - found
+-- Found LibEdit: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include (found version "2.11")
+-- Found ZLIB: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libz.tbd (found version "1.2.12")
+-- Found zstd: /opt/homebrew/lib/libzstd.dylib
+-- Found LibXml2: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libxml2.tbd (found version "2.9.13")
+-- Using LLVMConfig.cmake in: /opt/homebrew/opt/llvm/lib/cmake/llvm
+-- LLVM version: 21.1.2
+-- Linker detection: Apple
+-- Performing Test LLVM_LINKER_SUPPORTS_NO_EXPORTED_SYMBOLS
+-- Performing Test LLVM_LINKER_SUPPORTS_NO_EXPORTED_SYMBOLS - Success
+-- Performing Test LLVM_LINKER_SUPPORTS_NO_WARN_DUPLICATE_LIBRARIES
+-- Performing Test LLVM_LINKER_SUPPORTS_NO_WARN_DUPLICATE_LIBRARIES - Success
+-- Performing Test C_SUPPORTS_FPIC
+-- Performing Test C_SUPPORTS_FPIC - Success
+-- Performing Test CXX_SUPPORTS_FPIC
+-- Performing Test CXX_SUPPORTS_FPIC - Success
+-- Building with -fPIC
+-- Performing Test C_SUPPORTS_FNO_SEMANTIC_INTERPOSITION
+-- Performing Test C_SUPPORTS_FNO_SEMANTIC_INTERPOSITION - Failed
+-- Performing Test CXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION
+-- Performing Test CXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION - Failed
+-- Performing Test SUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG
+-- Performing Test SUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG - Success
+-- Performing Test CXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG
+-- Performing Test CXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG - Success
+-- Performing Test CXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL
+-- Performing Test CXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL - Success
+-- Performing Test C_WCOMMENT_ALLOWS_LINE_WRAP
+-- Performing Test C_WCOMMENT_ALLOWS_LINE_WRAP - Success
+-- Performing Test C_SUPPORTS_MISLEADING_INDENTATION_FLAG
+-- Performing Test C_SUPPORTS_MISLEADING_INDENTATION_FLAG - Success
+-- Performing Test CXX_SUPPORTS_MISLEADING_INDENTATION_FLAG
+-- Performing Test CXX_SUPPORTS_MISLEADING_INDENTATION_FLAG - Success
+-- Performing Test C_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG
+-- Performing Test C_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG - Success
+-- Performing Test CXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG
+-- Performing Test CXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG - Success
+-- Looking for os_signpost_interval_begin
+-- Looking for os_signpost_interval_begin - found
+-- Performing Test macos_signposts_usable
+-- Performing Test macos_signposts_usable - Success
+-- Found OpenMP_C: -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include (found version "5.1")
+-- Found OpenMP_CXX: -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include (found version "5.1")
+-- Found OpenMP: TRUE (found version "5.1")
+-- OpenMP found and linked
+-- Configuring done (5.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/jl4492/Projects/cs6120/cs6120-group-work/project/build
