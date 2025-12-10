@@ -80,22 +80,22 @@ We built our pass using LLVM's modern pass infrastructure:
 
 We implemented three variants to explore different optimization strategies:
 
-## Implementation 1: Original (Baseline)
+## Implementation 1: Original
 
-The baseline implementation focuses solely on parallelization:
+The original implementation focuses solely on parallelization. The core logic is the `isLoopParallelizable` function, which determines if a loop can be safely executed in parallel:
 
 ```cpp
 bool isLoopParallelizable(Loop *L, ...) {
-    // Check loop structure
+    // 1. Check loop has proper structure (preheader and latch)
     if (!L->getLoopPreheader() || !L->getLoopLatch())
         return false;
 
-    // Use LoopAccessAnalysis for dependence checking
+    // 2. Use LLVM's LoopAccessAnalysis for dependence checking
     LoopAccessInfo LAI(L, &SE, &TTI, &TLI, &AA, &DT, &LI);
     if (!LAI.canVectorizeMemory())
         return false;
 
-    // Check for memory dependencies
+    // 3. Verify zero memory dependencies between iterations
     const MemoryDepChecker &DepChecker = LAI.getDepChecker();
     const auto *Deps = DepChecker.getDependences();
     if (Deps && !Deps->empty())
@@ -105,10 +105,39 @@ bool isLoopParallelizable(Loop *L, ...) {
 }
 ```
 
+### Understanding the Dependence Analysis
+
+**LoopAccessInfo (LAI)** is LLVM's built-in framework for analyzing loop dependencies. It answers the question: "Can different loop iterations access the same memory location in a way that creates data races?"
+
+LAI uses several LLVM analysis components:
+- **ScalarEvolution (SE)**: Analyzes how array indices evolve across iterations (e.g., recognizes `a[i]` has stride 1)
+- **AliasAnalysis (AA)**: Determines if two pointers might reference the same memory
+- **DominatorTree (DT) & LoopInfo (LI)**: Provide control-flow and loop structure information
+- **TargetTransformInfo (TTI) & TargetLibraryInfo (TLI)**: Hardware-specific and library function information
+
+**The key method** is `LAI.canVectorizeMemory()`, which returns true only when:
+1. All memory accesses have analyzable patterns
+2. No loop-carried dependencies exist (iteration `i` doesn't depend on iteration `j`)
+3. Memory accesses are safe to execute in any order
+
+**Example of safe loop:**
+```c
+for (int i = 0; i < n; i++)
+    c[i] = a[i] + b[i];  // Each iteration accesses different c[i]
+```
+
+**Example of unsafe loop (detected by LAI):**
+```c
+for (int i = 1; i < n; i++)
+    a[i] = a[i-1] + 1;   // Iteration i reads what iteration i-1 wrote
+```
+
+The `MemoryDepChecker` explicitly verifies no dependencies exist by checking that its internal dependency list is empty. This double-checking ensures we only parallelize loops that are provably safe.
+
 **Key Design Decisions:**
-- Conservative analysis: only parallelize loops with zero detected dependencies
-- Each loop gets its own parallel region
-- Simple and predictable behavior
+- **Conservative analysis**: Only parallelize loops with zero detected dependencies (prioritize correctness over coverage)
+- **Each loop gets its own parallel region**: Simple `#pragma omp parallel for` per loop
+- **Rely on LLVM's battle-tested analysis**: No custom dependency analysis, leverage existing infrastructure
 
 ## Implementation 2: Loop Fusion
 
@@ -191,11 +220,11 @@ Three kernels designed to test different parallelization scenarios:
 For each implementation, we:
 - Compiled benchmarks with `-O2` optimization
 - Ran with thread counts: 2, 4, 8
-- Compared against serial baseline (no parallelization)
+- Compared against **serial baseline** (original code compiled without any parallelization pass applied)
 - Ran 5-10 iterations and computed mean/std deviation
 - Measured execution time using benchmark-internal timers
 
-**Hardware:** Apple M1/M2 (8-10 cores)
+**Hardware:** Apple M3 (8-10 cores)
 **LLVM Version:** 18.1.8
 **Compiler Flags:** `-O2 -fopenmp`
 
@@ -205,10 +234,11 @@ For each implementation, we:
 
 ![Test Performance Comparison](figures/tests_performance_comparison.png)
 
-The synthetic benchmarks reveal surprising results:
+The synthetic benchmarks reveal surprising results (speedup relative to serial baseline):
 
 | Implementation | Array Ops (8T) | Scale Offset (8T) | Elementwise (8T) |
 |----------------|----------------|-------------------|------------------|
+| Serial Baseline| 1.00x          | 1.00x             | 1.00x            |
 | Original       | 0.98x          | 0.99x             | 1.01x            |
 | Fusion         | 0.96x          | 0.97x             | 0.98x            |
 | Fusion+Shared  | 0.95x          | 0.96x             | 0.99x            |
@@ -235,10 +265,11 @@ All three implementations identified the same set of parallelizable loops, confi
 
 ![PolyBench Speedup Scaling](figures/polybench_speedup_scaling.png)
 
-Average speedup on parallelizable benchmarks (8 threads):
+Average speedup on parallelizable benchmarks (8 threads) relative to serial baseline:
 
 | Implementation | Mean Speedup | Median | Best Case |
 |----------------|--------------|--------|-----------|
+| Serial Baseline| 1.00x        | 1.00x  | 1.00x     |
 | Original       | 1.12x        | 1.08x  | 1.85x     |
 | Fusion         | 1.09x        | 1.05x  | 1.78x     |
 | Fusion+Shared  | 1.08x        | 1.04x  | 1.76x     |
@@ -309,25 +340,40 @@ PolyBench uses `SMALL_DATASET` configuration:
 - Parallelization overhead dominates
 - No opportunity for fusion benefits to manifest
 
-## 5. False Sharing and Synchronization
+## 5. Limited Optimization Space in Real-World Benchmarks
 
-The Fusion+Shared implementation keeps threads alive between loops, which can cause:
+The PolyBench benchmarks revealed a fundamental limitation: **only 20% of loops (6 out of 30 benchmarks) were parallelizable** using our conservative analysis.
 
-```cpp
-#pragma omp parallel
-{
-    #pragma omp for
-    for (int i = 0; i < n; i++) a[i] *= 2;
-    // Implicit barrier here
-    #pragma omp for
-    for (int i = 0; i < n; i++) b[i] += 1;
-}
+**Why most loops couldn't be parallelized:**
+
+Many PolyBench kernels have inherent sequential dependencies that prevent parallelization:
+
+```c
+// Example: Jacobi stencil (sequential dependency)
+for (int t = 0; t < tsteps; t++)           // Outer time-step loop
+    for (int i = 1; i < n-1; i++)
+        for (int j = 1; j < n-1; j++)
+            B[i][j] = (A[i][j] + A[i-1][j] + A[i+1][j] +
+                       A[i][j-1] + A[i][j+1]) * 0.2;
 ```
 
-**Problems:**
-- Implicit barriers between workshare constructs
-- Thread synchronization overhead
-- Potential false sharing if arrays are nearby in memory
+The outer time-step loop creates dependencies: iteration `t` depends on results from iteration `t-1`. While the inner spatial loops could be parallelized, our pass currently doesn't handle nested loop parallelization.
+
+**Limited fusion opportunities:**
+
+Even among the 6 parallelizable benchmarks, fusion opportunities were rare because:
+1. **Most benchmarks have single dominant loops** rather than sequences of similar loops
+2. **Different trip counts**: Consecutive loops often iterate over different dimensions (e.g., one over rows, next over columns)
+3. **Data dependencies**: Even when structurally similar, loops often have dependencies (e.g., first loop computes values used by second loop)
+
+**Impact on our results:**
+
+With only 6 parallelizable benchmarks and minimal fusion opportunities, our optimization space was inherently limited:
+- Small sample size makes it hard to see statistical benefits
+- The parallelizable loops tended to be simple (where parallel overhead matters more)
+- Complex loops that would benefit most from parallelization were filtered out by conservative analysis
+
+This explains why our fusion optimizations provided minimal benefit: **there simply weren't enough suitable loops in the benchmark suite to leverage the optimizations effectively**. A more aggressive dependence analysis or different benchmark suite might reveal different results.
 
 # What We Got Right
 
@@ -342,7 +388,26 @@ All three implementations:
 
 This demonstrates that `LoopAccessAnalysis` provides reliable dependence information.
 
-## 2. Conservative Analysis is Appropriate
+## 2. Significant Speedups on Suitable Workloads
+
+While not all benchmarks benefited from parallelization, we achieved meaningful performance improvements on loops that were good candidates:
+
+**Best case: `nussinov` benchmark - 1.85x speedup (8 threads)**
+
+This demonstrates that our pass can deliver substantial performance gains when applied to appropriate workloads. The `nussinov` benchmark (RNA secondary structure prediction using dynamic programming) has parallelizable loops with sufficient computational intensity to overcome parallel overhead.
+
+Other notable successes:
+- `gesummv`: 1.34x speedup (generalized scalar-vector-matrix multiplication)
+- `atax`: 1.28x speedup (matrix transpose and vector multiplication)
+
+These results validate that automatic parallelization works when:
+- Loops have no dependencies (verified by our analysis)
+- Problem size is large enough to amortize overhead
+- Computation-to-memory-access ratio is favorable
+
+The key insight: **our pass successfully identifies and accelerates the right loops** - we just need workloads with more such opportunities.
+
+## 3. Conservative Analysis is Appropriate
 
 Our decision to only parallelize loops with **zero** detected dependencies was validated:
 - All parallelized loops ran correctly in parallel
@@ -359,22 +424,7 @@ We built robust infrastructure for:
 
 # Challenges and Hard Problems
 
-## 1. OpenMP IR Builder API Evolution
-
-The hardest technical challenge was working with LLVM's evolving `OpenMPIRBuilder` API:
-
-```cpp
-// LLVM 15 API
-OMPBuilder.createParallelLoop(..., BodyGenCallable, ...);
-
-// LLVM 18 API - completely different
-auto LoopInfo = OMPBuilder.createCanonicalLoop(...);
-OMPBuilder.applyWorkshareLoop(...);
-```
-
-**Solution:** We maintained compatibility by carefully reading LLVM source code and adapting our implementations to the new API.
-
-## 2. Dependence Analysis Accuracy
+## 1. Dependence Analysis Accuracy
 
 `LoopAccessAnalysis` is conservative and may reject parallelizable loops:
 
@@ -388,7 +438,7 @@ for (int i = 0; i < n; i++) {
 
 **Trade-off:** We accepted this conservatism to guarantee correctness.
 
-## 3. Measurement Accuracy
+## 2. Measurement Accuracy
 
 Getting accurate performance measurements was challenging:
 - Modern CPUs have dynamic frequency scaling
@@ -397,7 +447,7 @@ Getting accurate performance measurements was challenging:
 
 **Solution:** Multiple iterations (5-10) with statistical analysis (mean ± std dev).
 
-## 4. Loop Fusion Legality
+## 3. Loop Fusion Legality
 
 Determining when fusion is safe required checking:
 - Identical iteration spaces
@@ -475,14 +525,14 @@ We successfully implemented an automatic loop parallelization pass with three va
 
 **Successes:**
 - ✅ Correct and safe parallelization using rigorous dependence analysis
-- ✅ Comprehensive comparison of three implementation strategies
+- ✅ Comprehensive comparison of the serial execution and three implementation strategies
 - ✅ Robust evaluation framework with 30+ benchmarks
 - ✅ Deep understanding of why certain optimizations don't help
 
 **Surprising Findings:**
 - Loop fusion can hurt performance in memory-bound code
 - Parallel region overhead is negligible in modern OpenMP
-- Conservative analysis is more practical than aggressive optimization
+- Conservative analysis is helpful but also limits the optimization possibilities
 
 **Key Takeaway:** Automatic parallelization is feasible and can be correct, but achieving significant speedups requires careful consideration of problem characteristics, hardware constraints, and cost modeling. Our work provides a solid foundation for future research in compiler-driven parallelization.
 
@@ -492,7 +542,7 @@ The complete implementation, benchmarks, and evaluation scripts are available in
 
 ## Acknowledgments
 
-We thank Adrian Sampson and the CS 6120 course staff for guidance on LLVM pass development and compiler optimization techniques. We also thank the PolyBench/C authors for providing a comprehensive benchmark suite.
+We thank Professor Adrian Sampson and the CS 6120 course staff for guidance on LLVM pass development and compiler optimization techniques. We also thank the PolyBench/C authors for providing a comprehensive benchmark suite.
 
 ## References
 
@@ -500,4 +550,3 @@ We thank Adrian Sampson and the CS 6120 course staff for guidance on LLVM pass d
 2. LLVM OpenMP IR Builder - https://llvm.org/doxygen/classllvm_1_1OpenMPIRBuilder.html
 3. PolyBench/C Benchmark Suite - https://web.cse.ohio-state.edu/~pouchet.2/software/polybench/
 4. OpenMP 5.0 Specification - https://www.openmp.org/specifications/
-5. Allen, R., & Kennedy, K. (2001). Optimizing Compilers for Modern Architectures. Morgan Kaufmann.
