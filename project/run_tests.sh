@@ -1,13 +1,18 @@
 #!/bin/bash
 
-# Benchmark script for comparing all 3 loop parallelization implementations
+# Benchmark script for comparing all 4 loop parallelization implementations
 # Tests with 2, 4, and 8 threads against serial baseline
 
-set -e
+set -euo pipefail
+
+# macOS SDK (ask Xcode / CLT for the right one)
+SDKROOT="$(xcrun --show-sdk-path)"
 
 LLVM_DIR="/opt/homebrew/opt/llvm/bin"
+# Use Homebrew clang by default; you can override CLANG env if you want
 CLANG="${CLANG:-${LLVM_DIR}/clang}"
 OPT="${OPT:-${LLVM_DIR}/opt}"
+
 RESULTS_DIR="tests_results"
 THREAD_COUNTS=(2 4 8)
 ITERATIONS=5
@@ -27,7 +32,7 @@ echo ""
 echo -e "Configuration:"
 echo -e "  Iterations per test: ${YELLOW}${ITERATIONS}${NC}"
 echo -e "  Thread counts: ${YELLOW}${THREAD_COUNTS[@]}${NC}"
-echo -e "  Implementations: ${YELLOW}3${NC} (Original, Fusion, Fusion+Shared)"
+echo -e "  Implementations: ${YELLOW}4${NC} (Original, Fusion, Fusion+Shared, SharedOnly)"
 echo ""
 
 # Create results directory
@@ -71,24 +76,31 @@ compile_benchmark() {
     local output_prefix=$2
     local enable_parallel=$3
 
-    # Generate LLVM IR
-    ${CLANG} -S -emit-llvm -O2 tests/benchmark.c -o ${RESULTS_DIR}/benchmark.ll
+    # 1) Generate LLVM IR from C benchmark using the correct SDK
+    "${CLANG}" -isysroot "${SDKROOT}" -S -emit-llvm -O2 \
+        tests/benchmark.c -o "${RESULTS_DIR}/benchmark.ll"
 
     if [ "$enable_parallel" = "true" ]; then
-        # Apply parallelization pass
-        ${OPT} \
+        # 2) Apply loop parallelization pass
+        "${OPT}" \
             -passes="loop-simplify,loop-parallelize" \
             -load-pass-plugin="./${pass_file}" \
             -enable-loop-parallel=true \
             -enable-loop-fusion=true \
-            ${RESULTS_DIR}/benchmark.ll -S -o ${RESULTS_DIR}/benchmark_parallel.ll 2>/dev/null
+            "${RESULTS_DIR}/benchmark.ll" -S \
+            -o "${RESULTS_DIR}/benchmark_parallel.ll"
 
-        # Compile with OpenMP
-        ${CLANG} -O2 ${RESULTS_DIR}/benchmark_parallel.ll -o "${output_prefix}" \
+        # 3) Compile the transformed IR with OpenMP and correct SDK
+        "${CLANG}" -isysroot "${SDKROOT}" -O2 \
+            "${RESULTS_DIR}/benchmark_parallel.ll" \
+            -o "${output_prefix}" \
             -fopenmp -L/opt/homebrew/opt/libomp/lib
+            # (Optionally add: -Wl,-rpath,/opt/homebrew/opt/libomp/lib)
     else
-        # Compile without parallelization (serial)
-        ${CLANG} -O2 ${RESULTS_DIR}/benchmark.ll -o "${output_prefix}"
+        # 3b) Compile serial baseline (no pass) with correct SDK
+        "${CLANG}" -isysroot "${SDKROOT}" -O2 \
+            "${RESULTS_DIR}/benchmark.ll" \
+            -o "${output_prefix}"
     fi
 }
 
@@ -183,7 +195,19 @@ else
 fi
 
 echo ""
-echo -e "${CYAN}Build Summary: ${BUILD_SUCCESS}/3 succeeded${NC}"
+
+if build_implementation \
+    "SharedOnly (Shared OpenMP Builder, No Fusion)" \
+    "src/LoopParallelizationPass_shared_only.cpp" \
+    "pass_shared_only"; then
+    SHARED_ONLY_BUILT=1
+    BUILD_SUCCESS=$((BUILD_SUCCESS + 1))
+else
+    SHARED_ONLY_BUILT=0
+fi
+
+echo ""
+echo -e "${CYAN}Build Summary: ${BUILD_SUCCESS}/4 succeeded${NC}"
 echo ""
 
 if [ $BUILD_SUCCESS -eq 0 ]; then
@@ -222,6 +246,15 @@ if [ $FUSION_SHARED_BUILT -eq 1 ]; then
         "Fusion+Shared" \
         "${RESULTS_DIR}/pass_fusion_shared.dylib" \
         "fusion_shared"; then
+        BENCH_SUCCESS=$((BENCH_SUCCESS + 1))
+    fi
+fi
+
+if [ $SHARED_ONLY_BUILT -eq 1 ]; then
+    if benchmark_implementation \
+        "SharedOnly" \
+        "${RESULTS_DIR}/pass_shared_only.dylib" \
+        "shared_only"; then
         BENCH_SUCCESS=$((BENCH_SUCCESS + 1))
     fi
 fi

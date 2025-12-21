@@ -1,0 +1,7 @@
+FUSION_PASS_VERSION=0.3
+FUSION_CHECK function=fuse_simple_independent_novec L1_header=%18 L2_header=%9
+FUSION_CFG L1Exit=%.loopexit L2Pre=%5
+FUSION_REJECT reason=not_consecutive_cfg
+LOOP_FUSION_SUMMARY function=fuse_simple_independent_novec candidates=0 attempts=0 succeeded=0
+Found parallelizable loop in function: fuse_simple_independent_novec
+Found parallelizable loop in function: fuse_simple_independent_novec

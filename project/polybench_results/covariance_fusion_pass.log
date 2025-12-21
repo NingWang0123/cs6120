@@ -1,0 +1,11 @@
+FUSION_PASS_VERSION=0.3_fusion_only
+FUSION_LOOP_ORDER function=main [     ]
+FUSION_CHECK function=main L1_header=%6 L2_header=%39
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%39 L2_header=%99
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%99 L2_header=%274
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%274 L2_header=%308
+FUSION_REJECT reason=L1_not_parallelizable
+LOOP_FUSION_SUMMARY function=main candidates=0 attempts=0 succeeded=0

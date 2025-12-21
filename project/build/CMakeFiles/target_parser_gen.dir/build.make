@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/jl4492/Projects/cs6120/cs6120-group-work/project
+CMAKE_SOURCE_DIR = /Users/wangning/Desktop/cornell_repos/cs6120/project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/jl4492/Projects/cs6120/cs6120-group-work/project/build
+CMAKE_BINARY_DIR = /Users/wangning/Desktop/cornell_repos/cs6120/project/build
 
 # Utility rule file for target_parser_gen.
 
@@ -81,6 +81,6 @@ CMakeFiles/target_parser_gen.dir/clean:
 .PHONY : CMakeFiles/target_parser_gen.dir/clean
 
 CMakeFiles/target_parser_gen.dir/depend:
-	cd /Users/jl4492/Projects/cs6120/cs6120-group-work/project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/jl4492/Projects/cs6120/cs6120-group-work/project /Users/jl4492/Projects/cs6120/cs6120-group-work/project /Users/jl4492/Projects/cs6120/cs6120-group-work/project/build /Users/jl4492/Projects/cs6120/cs6120-group-work/project/build /Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/CMakeFiles/target_parser_gen.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/wangning/Desktop/cornell_repos/cs6120/project/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/wangning/Desktop/cornell_repos/cs6120/project /Users/wangning/Desktop/cornell_repos/cs6120/project /Users/wangning/Desktop/cornell_repos/cs6120/project/build /Users/wangning/Desktop/cornell_repos/cs6120/project/build /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/target_parser_gen.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/target_parser_gen.dir/depend
 

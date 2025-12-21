@@ -1,4 +1,4 @@
-# Install script for directory: /Users/jl4492/Projects/cs6120/cs6120-group-work/project
+# Install script for directory: /Users/wangning/Desktop/cornell_repos/cs6120/project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,13 +34,13 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+  set(CMAKE_OBJDUMP "/opt/homebrew/opt/llvm/bin/llvm-objdump")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/install_local_manifest.txt"
+  file(WRITE "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -56,6 +56,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/jl4492/Projects/cs6120/cs6120-group-work/project/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

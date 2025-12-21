@@ -1,0 +1,10 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=fuse_constN [  ]
+FUSION_CHECK function=fuse_constN L1_header=%3 L2_header=%12
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse_constN
+FUSION_REJECT reason=not_simple_canonical
+LOOP_FUSION_SUMMARY function=fuse_constN candidates=1 attempts=1 succeeded=0
+Found parallelizable loop in function: fuse_constN
+Found parallelizable loop in function: fuse_constN

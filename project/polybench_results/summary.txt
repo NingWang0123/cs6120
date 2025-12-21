@@ -1,119 +1,32 @@
 ================================================================================
 PolyBench Loop Parallelization Summary
-Comparing 3 Implementations
 ================================================================================
 
-Total unique benchmarks: 30
+Unique benchmarks: 31
+Implementations: 0, Fusion, Fusion+Shared, Original
 
+0:
+  Rows: 90
+  Parallelizable: 0/90
 
-Fusion Implementation:
---------------------------------------------------------------------------------
-  Parallelizable benchmarks: 6/30 (20.0%)
-  Total parallelizable loops: 8
-  Average loops per benchmark: 1.33
+Fusion:
+  Rows: 30
+  Parallelizable: 6/30
+  2t mean speedup: 0.85x  (n=6)
+  4t mean speedup: 1.22x  (n=6)
+  8t mean speedup: 1.22x  (n=6)
 
-  Speedup Statistics:
-    2 threads:
-      Mean: 0.86x
-      Median: 0.88x
-      Max: 1.25x
-      Min: 0.57x
-      Speedup > 1.0: 1/6 (16.7%)
-    4 threads:
-      Mean: 1.29x
-      Median: 1.17x
-      Max: 1.88x
-      Min: 1.00x
-      Speedup > 1.0: 3/6 (50.0%)
-    8 threads:
-      Mean: 1.51x
-      Median: 1.42x
-      Max: 2.12x
-      Min: 1.09x
-      Speedup > 1.0: 6/6 (100.0%)
+Fusion+Shared:
+  Rows: 30
+  Parallelizable: 6/30
+  2t mean speedup: 0.77x  (n=6)
+  4t mean speedup: 1.20x  (n=6)
+  8t mean speedup: 1.11x  (n=6)
 
-Fusion+Shared Implementation:
---------------------------------------------------------------------------------
-  Parallelizable benchmarks: 6/30 (20.0%)
-  Total parallelizable loops: 8
-  Average loops per benchmark: 1.33
-
-  Speedup Statistics:
-    2 threads:
-      Mean: 1.13x
-      Median: 1.04x
-      Max: 1.94x
-      Min: 0.78x
-      Speedup > 1.0: 3/6 (50.0%)
-    4 threads:
-      Mean: 1.21x
-      Median: 1.00x
-      Max: 2.31x
-      Min: 0.80x
-      Speedup > 1.0: 2/6 (33.3%)
-    8 threads:
-      Mean: 1.49x
-      Median: 1.47x
-      Max: 2.31x
-      Min: 0.87x
-      Speedup > 1.0: 5/6 (83.3%)
-
-Original Implementation:
---------------------------------------------------------------------------------
-  Parallelizable benchmarks: 6/30 (20.0%)
-  Total parallelizable loops: 8
-  Average loops per benchmark: 1.33
-
-  Speedup Statistics:
-    2 threads:
-      Mean: 1.01x
-      Median: 0.99x
-      Max: 1.63x
-      Min: 0.65x
-      Speedup > 1.0: 3/6 (50.0%)
-    4 threads:
-      Mean: 1.41x
-      Median: 1.35x
-      Max: 1.93x
-      Min: 1.00x
-      Speedup > 1.0: 5/6 (83.3%)
-    8 threads:
-      Mean: 1.66x
-      Median: 1.71x
-      Max: 1.98x
-      Min: 1.33x
-      Speedup > 1.0: 6/6 (100.0%)
-
-================================================================================
-Top 10 Speedups at 8 Threads (across all implementations)
-================================================================================
- 1. bicg                           (Fusion+Shared  ): 2.31x (1 loops)
- 2. bicg                           (Fusion         ): 2.12x (1 loops)
- 3. ludcmp                         (Original       ): 1.98x (2 loops)
- 4. atax                           (Original       ): 1.85x (1 loops)
- 5. bicg                           (Original       ): 1.72x (1 loops)
- 6. durbin                         (Original       ): 1.70x (1 loops)
- 7. ludcmp                         (Fusion         ): 1.69x (2 loops)
- 8. atax                           (Fusion+Shared  ): 1.66x (1 loops)
- 9. durbin                         (Fusion+Shared  ): 1.60x (1 loops)
-10. atax                           (Fusion         ): 1.50x (1 loops)
-
-================================================================================
-Average Speedup Comparison (parallelizable benchmarks only)
-================================================================================
-
-2 Threads:
-  Fusion              : 0.86x
-  Fusion+Shared       : 1.13x
-  Original            : 1.01x
-
-4 Threads:
-  Fusion              : 1.29x
-  Fusion+Shared       : 1.21x
-  Original            : 1.41x
-
-8 Threads:
-  Fusion              : 1.51x
-  Fusion+Shared       : 1.49x
-  Original            : 1.66x
+Original:
+  Rows: 30
+  Parallelizable: 6/30
+  2t mean speedup: 0.99x  (n=6)
+  4t mean speedup: 1.42x  (n=6)
+  8t mean speedup: 1.43x  (n=6)
 

@@ -1,2 +1,21 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=main [          ]
+FUSION_CHECK function=main L1_header=%19 L2_header=%61
+FUSION_REJECT reason=tripcount_mismatch tc1=14 tc2=119
+FUSION_CHECK function=main L1_header=%61 L2_header=%75
+FUSION_REJECT reason=L2_not_parallelizable
+FUSION_CHECK function=main L1_header=%75 L2_header=%136
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%136 L2_header=%160
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%160 L2_header=%189
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%189 L2_header=%238
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%238 L2_header=%301
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%301 L2_header=%383
+FUSION_REJECT reason=L1_not_parallelizable
+LOOP_FUSION_SUMMARY function=main candidates=0 attempts=0 succeeded=0
 Found parallelizable loop in function: main
 Found parallelizable loop in function: main

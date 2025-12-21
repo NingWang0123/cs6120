@@ -1,0 +1,7 @@
+LOOP_FUSION_SUMMARY function=fuse_simple_independent candidates=0 attempts=0 succeeded=0
+Found parallelizable loop in function: fuse_simple_independent
+Found parallelizable loop in function: fuse_simple_independent
+Found parallelizable loop in function: fuse_simple_independent
+Found parallelizable loop in function: fuse_simple_independent
+Found parallelizable loop in function: fuse_simple_independent
+Found parallelizable loop in function: fuse_simple_independent

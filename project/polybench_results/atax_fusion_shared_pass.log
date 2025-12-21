@@ -1,1 +1,10 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=main [     ]
+FUSION_CHECK function=main L1_header=%7 L2_header=%37
+FUSION_REJECT reason=L2_not_parallelizable
+FUSION_CHECK function=main L1_header=%37 L2_header=%120
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%120 L2_header=%221
+FUSION_REJECT reason=L1_not_parallelizable
+LOOP_FUSION_SUMMARY function=main candidates=0 attempts=0 succeeded=0
 Found parallelizable loop in function: main

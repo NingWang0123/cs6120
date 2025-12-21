@@ -1,0 +1,17 @@
+FUSION_PASS_VERSION=0.3_fusion_only
+FUSION_LOOP_ORDER function=main [        ]
+FUSION_CHECK function=main L1_header=%10 L2_header=%30
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%30 L2_header=%51
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%51 L2_header=%71
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%71 L2_header=%93
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%93 L2_header=%114
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%114 L2_header=%135
+FUSION_REJECT reason=L1_not_parallelizable
+FUSION_CHECK function=main L1_header=%135 L2_header=%167
+FUSION_REJECT reason=L1_not_parallelizable
+LOOP_FUSION_SUMMARY function=main candidates=0 attempts=0 succeeded=0
