@@ -1,0 +1,7 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse17_flat_2d.c:8:9: warning: 'N' macro redefined [-Wmacro-redefined]
+    8 | #define N (ROWS*COLS)
+      |         ^
+<command line>:1:9: note: previous definition is here
+    1 | #define N 1048576
+      |         ^
+1 warning generated.

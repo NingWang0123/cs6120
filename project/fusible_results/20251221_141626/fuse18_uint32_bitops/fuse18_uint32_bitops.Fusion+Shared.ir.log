@@ -1,0 +1,25 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse18_uint32_bitops/fuse18_uint32_bitops.driver.c:29:24: warning: incompatible pointer types passing 'float *' to parameter of type 'uint32_t *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
+   29 |   fuse18_uint32_bitops(a, b);
+      |                        ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse18_uint32_bitops.c:6:50: note: passing argument to parameter 'a' here
+    6 | void fuse18_uint32_bitops(uint32_t *__restrict__ a, uint32_t *__restrict__ b) {
+      |                                                  ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse18_uint32_bitops/fuse18_uint32_bitops.driver.c:29:27: warning: incompatible pointer types passing 'float *' to parameter of type 'uint32_t *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
+   29 |   fuse18_uint32_bitops(a, b);
+      |                           ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse18_uint32_bitops.c:6:76: note: passing argument to parameter 'b' here
+    6 | void fuse18_uint32_bitops(uint32_t *__restrict__ a, uint32_t *__restrict__ b) {
+      |                                                                            ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse18_uint32_bitops/fuse18_uint32_bitops.driver.c:39:26: warning: incompatible pointer types passing 'float *' to parameter of type 'uint32_t *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
+   39 |     fuse18_uint32_bitops(a, b);
+      |                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse18_uint32_bitops.c:6:50: note: passing argument to parameter 'a' here
+    6 | void fuse18_uint32_bitops(uint32_t *__restrict__ a, uint32_t *__restrict__ b) {
+      |                                                  ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse18_uint32_bitops/fuse18_uint32_bitops.driver.c:39:29: warning: incompatible pointer types passing 'float *' to parameter of type 'uint32_t *' (aka 'unsigned int *') [-Wincompatible-pointer-types]
+   39 |     fuse18_uint32_bitops(a, b);
+      |                             ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse18_uint32_bitops.c:6:76: note: passing argument to parameter 'b' here
+    6 | void fuse18_uint32_bitops(uint32_t *__restrict__ a, uint32_t *__restrict__ b) {
+      |                                                                            ^
+4 warnings generated.

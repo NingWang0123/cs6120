@@ -2407,8 +2407,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -2421,12 +2421,12 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_65800/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_65800.dir/build.make CMakeFiles/cmTC_65800.dir/build
-        Building C object CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o
-        /opt/homebrew/opt/llvm/bin/clang   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl,-v -MD -MT CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d95cc/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_d95cc.dir/build.make CMakeFiles/cmTC_d95cc.dir/build
+        Building C object CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o
+        /opt/homebrew/opt/llvm/bin/clang   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl,-v -MD -MT CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         Homebrew clang version 21.1.6
         Target: arm64-apple-darwin25.0.0
         Thread model: posix
@@ -2436,7 +2436,7 @@ events:
         User configuration file directory: /Users/wangning/.config/clang
         clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
          (in-process)
-         "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+         "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         clang -cc1 version 21.1.6 based upon LLVM 21.1.6 default target arm64-apple-darwin25.0.0
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
@@ -2447,8 +2447,8 @@ events:
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)
         End of search list.
-        Linking C executable cmTC_65800
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_65800.dir/link.txt --verbose=1
+        Linking C executable cmTC_d95cc
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d95cc.dir/link.txt --verbose=1
         Homebrew clang version 21.1.6
         Target: arm64-apple-darwin25.0.0
         Thread model: posix
@@ -2456,7 +2456,7 @@ events:
         Configuration file: /opt/homebrew/etc/clang/arm64-apple-darwin25.cfg
         System configuration file directory: /opt/homebrew/etc/clang
         User configuration file directory: /Users/wangning/.config/clang
-         "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_65800 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a
+         "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_d95cc -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1230.1
         BUILD 06:36:05 Dec  2 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em armv8m.main armv8.1m.main
@@ -2468,7 +2468,7 @@ events:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -o cmTC_65800
+        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -o cmTC_d95cc
         
       exitCode: 0
   -
@@ -2508,12 +2508,12 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH']
+        ignore line: [Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_65800/fast]
-        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_65800.dir/build.make CMakeFiles/cmTC_65800.dir/build]
-        ignore line: [Building C object CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/opt/homebrew/opt/llvm/bin/clang   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl -v -MD -MT CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d95cc/fast]
+        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_d95cc.dir/build.make CMakeFiles/cmTC_d95cc.dir/build]
+        ignore line: [Building C object CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/opt/homebrew/opt/llvm/bin/clang   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl -v -MD -MT CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Homebrew clang version 21.1.6]
         ignore line: [Target: arm64-apple-darwin25.0.0]
         ignore line: [Thread model: posix]
@@ -2523,7 +2523,7 @@ events:
         ignore line: [User configuration file directory: /Users/wangning/.config/clang]
         ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
         ignore line: [ (in-process)]
-        ignore line: [ "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1LelGH -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [ "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-gqgYOg -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [clang -cc1 version 21.1.6 based upon LLVM 21.1.6 default target arm64-apple-darwin25.0.0]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"]
@@ -2534,8 +2534,8 @@ events:
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking C executable cmTC_65800]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_65800.dir/link.txt --verbose=1]
+        ignore line: [Linking C executable cmTC_d95cc]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d95cc.dir/link.txt --verbose=1]
         ignore line: [Homebrew clang version 21.1.6]
         ignore line: [Target: arm64-apple-darwin25.0.0]
         ignore line: [Thread model: posix]
@@ -2543,7 +2543,7 @@ events:
         ignore line: [Configuration file: /opt/homebrew/etc/clang/arm64-apple-darwin25.cfg]
         ignore line: [System configuration file directory: /opt/homebrew/etc/clang]
         ignore line: [User configuration file directory: /Users/wangning/.config/clang]
-        link line: [ "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_65800 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_d95cc -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a]
           arg [/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -2560,11 +2560,11 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_65800] ==> ignore
+          arg [cmTC_d95cc] ==> ignore
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_65800.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_d95cc.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lSystem] ==> lib [System]
           arg [/opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a] ==> lib [/opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a]
         linker tool for 'C': /usr/bin/ld
@@ -2605,8 +2605,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: ""
@@ -2620,12 +2620,12 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a5a13/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_a5a13.dir/build.make CMakeFiles/cmTC_a5a13.dir/build
-        Building CXX object CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o
-        /opt/homebrew/opt/llvm/bin/clang++   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl,-v -MD -MT CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_dd207/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_dd207.dir/build.make CMakeFiles/cmTC_dd207.dir/build
+        Building CXX object CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o
+        /opt/homebrew/opt/llvm/bin/clang++   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl,-v -MD -MT CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Homebrew clang version 21.1.6
         Target: arm64-apple-darwin25.0.0
         Thread model: posix
@@ -2635,7 +2635,7 @@ events:
         User configuration file directory: /Users/wangning/.config/clang
         clang++: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
          (in-process)
-         "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/bin/../include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+         "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/bin/../include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         clang -cc1 version 21.1.6 based upon LLVM 21.1.6 default target arm64-apple-darwin25.0.0
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
@@ -2647,8 +2647,8 @@ events:
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)
         End of search list.
-        Linking CXX executable cmTC_a5a13
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5a13.dir/link.txt --verbose=1
+        Linking CXX executable cmTC_dd207
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dd207.dir/link.txt --verbose=1
         Homebrew clang version 21.1.6
         Target: arm64-apple-darwin25.0.0
         Thread model: posix
@@ -2656,7 +2656,7 @@ events:
         Configuration file: /opt/homebrew/etc/clang/arm64-apple-darwin25.cfg
         System configuration file directory: /opt/homebrew/etc/clang
         User configuration file directory: /Users/wangning/.config/clang
-         "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_a5a13 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a
+         "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_dd207 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1230.1
         BUILD 06:36:05 Dec  2 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em armv8m.main armv8.1m.main
@@ -2668,7 +2668,7 @@ events:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /opt/homebrew/opt/llvm/bin/clang++  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_a5a13
+        /opt/homebrew/opt/llvm/bin/clang++  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_dd207
         
       exitCode: 0
   -
@@ -2710,12 +2710,12 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X']
+        ignore line: [Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a5a13/fast]
-        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_a5a13.dir/build.make CMakeFiles/cmTC_a5a13.dir/build]
-        ignore line: [Building CXX object CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/opt/homebrew/opt/llvm/bin/clang++   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl -v -MD -MT CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_dd207/fast]
+        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_dd207.dir/build.make CMakeFiles/cmTC_dd207.dir/build]
+        ignore line: [Building CXX object CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/opt/homebrew/opt/llvm/bin/clang++   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -v -Wl -v -MD -MT CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Homebrew clang version 21.1.6]
         ignore line: [Target: arm64-apple-darwin25.0.0]
         ignore line: [Thread model: posix]
@@ -2725,7 +2725,7 @@ events:
         ignore line: [User configuration file directory: /Users/wangning/.config/clang]
         ignore line: [clang++: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
         ignore line: [ (in-process)]
-        ignore line: [ "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-wfmE3X -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/bin/../include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [ "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-21" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Werror=undef-prefix -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -ffp-contract=on -fno-rounding-math -funwind-tables=1 -target-sdk-version=26.2 -fcompatibility-qualified-id-block-type-checking -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.4a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZHDFDg -resource-dir /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21 -dependency-file CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/bin/../include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [clang -cc1 version 21.1.6 based upon LLVM 21.1.6 default target arm64-apple-darwin25.0.0]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"]
@@ -2737,8 +2737,8 @@ events:
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking CXX executable cmTC_a5a13]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5a13.dir/link.txt --verbose=1]
+        ignore line: [Linking CXX executable cmTC_dd207]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dd207.dir/link.txt --verbose=1]
         ignore line: [Homebrew clang version 21.1.6]
         ignore line: [Target: arm64-apple-darwin25.0.0]
         ignore line: [Thread model: posix]
@@ -2746,7 +2746,7 @@ events:
         ignore line: [Configuration file: /opt/homebrew/etc/clang/arm64-apple-darwin25.cfg]
         ignore line: [System configuration file directory: /opt/homebrew/etc/clang]
         ignore line: [User configuration file directory: /Users/wangning/.config/clang]
-        link line: [ "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_a5a13 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/usr/bin/ld" -demangle -lto_library /opt/homebrew/Cellar/llvm/21.1.6/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.2 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_dd207 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a]
           arg [/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -2763,11 +2763,11 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_a5a13] ==> ignore
+          arg [cmTC_dd207] ==> ignore
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_a5a13.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_dd207.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lc++] ==> lib [c++]
           arg [-lSystem] ==> lib [System]
           arg [/opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a] ==> lib [/opt/homebrew/Cellar/llvm/21.1.6/lib/clang/21/lib/darwin/libclang_rt.osx.a]
@@ -3824,8 +3824,8 @@ events:
     checks:
       - "Performing Test HAVE_FFI_CALL"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oZHDUI"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oZHDUI"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ryEhrM"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ryEhrM"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -3839,15 +3839,15 @@ events:
       variable: "HAVE_FFI_CALL"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oZHDUI'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ryEhrM'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1a6ac/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_1a6ac.dir/build.make CMakeFiles/cmTC_1a6ac.dir/build
-        Building C object CMakeFiles/cmTC_1a6ac.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DHAVE_FFI_CALL  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_1a6ac.dir/src.c.o -MF CMakeFiles/cmTC_1a6ac.dir/src.c.o.d -o CMakeFiles/cmTC_1a6ac.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oZHDUI/src.c
-        Linking C executable cmTC_1a6ac
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1a6ac.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_1a6ac.dir/src.c.o -o cmTC_1a6ac  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libffi.tbd
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2395a/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_2395a.dir/build.make CMakeFiles/cmTC_2395a.dir/build
+        Building C object CMakeFiles/cmTC_2395a.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DHAVE_FFI_CALL  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_2395a.dir/src.c.o -MF CMakeFiles/cmTC_2395a.dir/src.c.o.d -o CMakeFiles/cmTC_2395a.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ryEhrM/src.c
+        Linking C executable cmTC_2395a
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2395a.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_2395a.dir/src.c.o -o cmTC_2395a  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libffi.tbd
         
       exitCode: 0
   -
@@ -4343,8 +4343,8 @@ events:
     checks:
       - "Looking for histedit.h"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-jsJH7Z"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-jsJH7Z"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-lPlxmR"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-lPlxmR"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -4358,15 +4358,15 @@ events:
       variable: "HAVE_HISTEDIT_H"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-jsJH7Z'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-lPlxmR'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_61863/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_61863.dir/build.make CMakeFiles/cmTC_61863.dir/build
-        Building C object CMakeFiles/cmTC_61863.dir/CheckIncludeFile.c.o
-        /opt/homebrew/opt/llvm/bin/clang   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_61863.dir/CheckIncludeFile.c.o -MF CMakeFiles/cmTC_61863.dir/CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_61863.dir/CheckIncludeFile.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-jsJH7Z/CheckIncludeFile.c
-        Linking C executable cmTC_61863
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_61863.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_61863.dir/CheckIncludeFile.c.o -o cmTC_61863  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libedit.tbd
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_5ceb4/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_5ceb4.dir/build.make CMakeFiles/cmTC_5ceb4.dir/build
+        Building C object CMakeFiles/cmTC_5ceb4.dir/CheckIncludeFile.c.o
+        /opt/homebrew/opt/llvm/bin/clang   -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_5ceb4.dir/CheckIncludeFile.c.o -MF CMakeFiles/cmTC_5ceb4.dir/CheckIncludeFile.c.o.d -o CMakeFiles/cmTC_5ceb4.dir/CheckIncludeFile.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-lPlxmR/CheckIncludeFile.c
+        Linking C executable cmTC_5ceb4
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5ceb4.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_5ceb4.dir/CheckIncludeFile.c.o -o cmTC_5ceb4  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libedit.tbd
         
       exitCode: 0
   -
@@ -6669,8 +6669,8 @@ events:
     checks:
       - "Performing Test LLVM_LINKER_SUPPORTS_NO_EXPORTED_SYMBOLS"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-3O2NUD"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-3O2NUD"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-u6AShL"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-u6AShL"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -6684,15 +6684,15 @@ events:
       variable: "LLVM_LINKER_SUPPORTS_NO_EXPORTED_SYMBOLS"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-3O2NUD'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-u6AShL'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_5603f/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_5603f.dir/build.make CMakeFiles/cmTC_5603f.dir/build
-        Building C object CMakeFiles/cmTC_5603f.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DLLVM_LINKER_SUPPORTS_NO_EXPORTED_SYMBOLS  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_5603f.dir/src.c.o -MF CMakeFiles/cmTC_5603f.dir/src.c.o.d -o CMakeFiles/cmTC_5603f.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-3O2NUD/src.c
-        Linking C executable cmTC_5603f
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5603f.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Wl,-no_exported_symbols CMakeFiles/cmTC_5603f.dir/src.c.o -o cmTC_5603f
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_ca243/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_ca243.dir/build.make CMakeFiles/cmTC_ca243.dir/build
+        Building C object CMakeFiles/cmTC_ca243.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DLLVM_LINKER_SUPPORTS_NO_EXPORTED_SYMBOLS  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_ca243.dir/src.c.o -MF CMakeFiles/cmTC_ca243.dir/src.c.o.d -o CMakeFiles/cmTC_ca243.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-u6AShL/src.c
+        Linking C executable cmTC_ca243
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca243.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Wl,-no_exported_symbols CMakeFiles/cmTC_ca243.dir/src.c.o -o cmTC_ca243
         
       exitCode: 0
   -
@@ -6706,8 +6706,8 @@ events:
     checks:
       - "Performing Test LLVM_LINKER_SUPPORTS_NO_WARN_DUPLICATE_LIBRARIES"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-42AN9X"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-42AN9X"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-tuZS0p"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-tuZS0p"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -6721,15 +6721,15 @@ events:
       variable: "LLVM_LINKER_SUPPORTS_NO_WARN_DUPLICATE_LIBRARIES"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-42AN9X'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-tuZS0p'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1a5d6/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_1a5d6.dir/build.make CMakeFiles/cmTC_1a5d6.dir/build
-        Building C object CMakeFiles/cmTC_1a5d6.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DLLVM_LINKER_SUPPORTS_NO_WARN_DUPLICATE_LIBRARIES  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_1a5d6.dir/src.c.o -MF CMakeFiles/cmTC_1a5d6.dir/src.c.o.d -o CMakeFiles/cmTC_1a5d6.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-42AN9X/src.c
-        Linking C executable cmTC_1a5d6
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1a5d6.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Wl,-no_warn_duplicate_libraries CMakeFiles/cmTC_1a5d6.dir/src.c.o -o cmTC_1a5d6
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2758e/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_2758e.dir/build.make CMakeFiles/cmTC_2758e.dir/build
+        Building C object CMakeFiles/cmTC_2758e.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DLLVM_LINKER_SUPPORTS_NO_WARN_DUPLICATE_LIBRARIES  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_2758e.dir/src.c.o -MF CMakeFiles/cmTC_2758e.dir/src.c.o.d -o CMakeFiles/cmTC_2758e.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-tuZS0p/src.c
+        Linking C executable cmTC_2758e
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2758e.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names -Wl,-no_warn_duplicate_libraries CMakeFiles/cmTC_2758e.dir/src.c.o -o cmTC_2758e
         
       exitCode: 0
   -
@@ -6743,8 +6743,8 @@ events:
     checks:
       - "Performing Test LLVM_LIBSTDCXX_MIN"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-2tNXJ9"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-2tNXJ9"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-UaRZrb"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-UaRZrb"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: ""
@@ -6758,15 +6758,15 @@ events:
       variable: "LLVM_LIBSTDCXX_MIN"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-2tNXJ9'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-UaRZrb'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_0eb72/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_0eb72.dir/build.make CMakeFiles/cmTC_0eb72.dir/build
-        Building CXX object CMakeFiles/cmTC_0eb72.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DLLVM_LIBSTDCXX_MIN  -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_0eb72.dir/src.cxx.o -MF CMakeFiles/cmTC_0eb72.dir/src.cxx.o.d -o CMakeFiles/cmTC_0eb72.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-2tNXJ9/src.cxx
-        Linking CXX executable cmTC_0eb72
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0eb72.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++   -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_0eb72.dir/src.cxx.o -o cmTC_0eb72
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_18365/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_18365.dir/build.make CMakeFiles/cmTC_18365.dir/build
+        Building CXX object CMakeFiles/cmTC_18365.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DLLVM_LIBSTDCXX_MIN  -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_18365.dir/src.cxx.o -MF CMakeFiles/cmTC_18365.dir/src.cxx.o.d -o CMakeFiles/cmTC_18365.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-UaRZrb/src.cxx
+        Linking CXX executable cmTC_18365
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18365.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++   -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_18365.dir/src.cxx.o -o cmTC_18365
         
       exitCode: 0
   -
@@ -6780,8 +6780,8 @@ events:
     checks:
       - "Performing Test LLVM_LIBSTDCXX_SOFT_ERROR"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-NCKPne"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-NCKPne"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ylq9ZF"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ylq9ZF"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: ""
@@ -6795,15 +6795,15 @@ events:
       variable: "LLVM_LIBSTDCXX_SOFT_ERROR"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-NCKPne'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ylq9ZF'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_28f75/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_28f75.dir/build.make CMakeFiles/cmTC_28f75.dir/build
-        Building CXX object CMakeFiles/cmTC_28f75.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DLLVM_LIBSTDCXX_SOFT_ERROR  -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_28f75.dir/src.cxx.o -MF CMakeFiles/cmTC_28f75.dir/src.cxx.o.d -o CMakeFiles/cmTC_28f75.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-NCKPne/src.cxx
-        Linking CXX executable cmTC_28f75
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_28f75.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++   -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_28f75.dir/src.cxx.o -o cmTC_28f75
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_61a89/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_61a89.dir/build.make CMakeFiles/cmTC_61a89.dir/build
+        Building CXX object CMakeFiles/cmTC_61a89.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DLLVM_LIBSTDCXX_SOFT_ERROR  -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_61a89.dir/src.cxx.o -MF CMakeFiles/cmTC_61a89.dir/src.cxx.o.d -o CMakeFiles/cmTC_61a89.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ylq9ZF/src.cxx
+        Linking CXX executable cmTC_61a89
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_61a89.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++   -std=c++0x -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_61a89.dir/src.cxx.o -o cmTC_61a89
         
       exitCode: 0
   -
@@ -6818,8 +6818,8 @@ events:
     checks:
       - "Performing Test C_SUPPORTS_FPIC"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-qQIdwd"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-qQIdwd"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1by07s"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1by07s"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -6833,15 +6833,15 @@ events:
       variable: "C_SUPPORTS_FPIC"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-qQIdwd'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1by07s'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e5bbf/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_e5bbf.dir/build.make CMakeFiles/cmTC_e5bbf.dir/build
-        Building C object CMakeFiles/cmTC_e5bbf.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_FPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fPIC -MD -MT CMakeFiles/cmTC_e5bbf.dir/src.c.o -MF CMakeFiles/cmTC_e5bbf.dir/src.c.o.d -o CMakeFiles/cmTC_e5bbf.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-qQIdwd/src.c
-        Linking C executable cmTC_e5bbf
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e5bbf.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_e5bbf.dir/src.c.o -o cmTC_e5bbf
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_78990/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_78990.dir/build.make CMakeFiles/cmTC_78990.dir/build
+        Building C object CMakeFiles/cmTC_78990.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_FPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fPIC -MD -MT CMakeFiles/cmTC_78990.dir/src.c.o -MF CMakeFiles/cmTC_78990.dir/src.c.o.d -o CMakeFiles/cmTC_78990.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-1by07s/src.c
+        Linking C executable cmTC_78990
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_78990.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_78990.dir/src.c.o -o cmTC_78990
         
       exitCode: 0
   -
@@ -6856,8 +6856,8 @@ events:
     checks:
       - "Performing Test CXX_SUPPORTS_FPIC"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KJUTrj"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KJUTrj"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-aZ1TUC"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-aZ1TUC"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: ""
@@ -6871,15 +6871,15 @@ events:
       variable: "CXX_SUPPORTS_FPIC"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KJUTrj'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-aZ1TUC'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d2939/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_d2939.dir/build.make CMakeFiles/cmTC_d2939.dir/build
-        Building CXX object CMakeFiles/cmTC_d2939.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_FPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fPIC -MD -MT CMakeFiles/cmTC_d2939.dir/src.cxx.o -MF CMakeFiles/cmTC_d2939.dir/src.cxx.o.d -o CMakeFiles/cmTC_d2939.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KJUTrj/src.cxx
-        Linking CXX executable cmTC_d2939
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d2939.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_d2939.dir/src.cxx.o -o cmTC_d2939
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_e95e4/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_e95e4.dir/build.make CMakeFiles/cmTC_e95e4.dir/build
+        Building CXX object CMakeFiles/cmTC_e95e4.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_FPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fPIC -MD -MT CMakeFiles/cmTC_e95e4.dir/src.cxx.o -MF CMakeFiles/cmTC_e95e4.dir/src.cxx.o.d -o CMakeFiles/cmTC_e95e4.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-aZ1TUC/src.cxx
+        Linking CXX executable cmTC_e95e4
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e95e4.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_e95e4.dir/src.cxx.o -o cmTC_e95e4
         
       exitCode: 0
   -
@@ -6894,8 +6894,8 @@ events:
     checks:
       - "Performing Test C_SUPPORTS_FNO_SEMANTIC_INTERPOSITION"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-uU3ipt"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-uU3ipt"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-C11E58"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-C11E58"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: " -fPIC"
@@ -6909,15 +6909,15 @@ events:
       variable: "C_SUPPORTS_FNO_SEMANTIC_INTERPOSITION"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-uU3ipt'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-C11E58'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2bb50/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_2bb50.dir/build.make CMakeFiles/cmTC_2bb50.dir/build
-        Building C object CMakeFiles/cmTC_2bb50.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_FNO_SEMANTIC_INTERPOSITION  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fno-semantic-interposition -MD -MT CMakeFiles/cmTC_2bb50.dir/src.c.o -MF CMakeFiles/cmTC_2bb50.dir/src.c.o.d -o CMakeFiles/cmTC_2bb50.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-uU3ipt/src.c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a51c7/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_a51c7.dir/build.make CMakeFiles/cmTC_a51c7.dir/build
+        Building C object CMakeFiles/cmTC_a51c7.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_FNO_SEMANTIC_INTERPOSITION  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fno-semantic-interposition -MD -MT CMakeFiles/cmTC_a51c7.dir/src.c.o -MF CMakeFiles/cmTC_a51c7.dir/src.c.o.d -o CMakeFiles/cmTC_a51c7.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-C11E58/src.c
         clang: error: argument unused during compilation: '-fno-semantic-interposition' [-Werror,-Wunused-command-line-argument]
-        make[1]: *** [CMakeFiles/cmTC_2bb50.dir/src.c.o] Error 1
-        make: *** [cmTC_2bb50/fast] Error 2
+        make[1]: *** [CMakeFiles/cmTC_a51c7.dir/src.c.o] Error 1
+        make: *** [cmTC_a51c7/fast] Error 2
         
       exitCode: 2
   -
@@ -6932,8 +6932,8 @@ events:
     checks:
       - "Performing Test CXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-4UtMJO"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-4UtMJO"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KtoyNP"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KtoyNP"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC"
@@ -6947,15 +6947,15 @@ events:
       variable: "CXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-4UtMJO'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KtoyNP'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_00ef1/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_00ef1.dir/build.make CMakeFiles/cmTC_00ef1.dir/build
-        Building CXX object CMakeFiles/cmTC_00ef1.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fno-semantic-interposition -MD -MT CMakeFiles/cmTC_00ef1.dir/src.cxx.o -MF CMakeFiles/cmTC_00ef1.dir/src.cxx.o.d -o CMakeFiles/cmTC_00ef1.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-4UtMJO/src.cxx
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d4ab8/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_d4ab8.dir/build.make CMakeFiles/cmTC_d4ab8.dir/build
+        Building CXX object CMakeFiles/cmTC_d4ab8.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_FNO_SEMANTIC_INTERPOSITION  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -fno-semantic-interposition -MD -MT CMakeFiles/cmTC_d4ab8.dir/src.cxx.o -MF CMakeFiles/cmTC_d4ab8.dir/src.cxx.o.d -o CMakeFiles/cmTC_d4ab8.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-KtoyNP/src.cxx
         clang++: error: argument unused during compilation: '-fno-semantic-interposition' [-Werror,-Wunused-command-line-argument]
-        make[1]: *** [CMakeFiles/cmTC_00ef1.dir/src.cxx.o] Error 1
-        make: *** [cmTC_00ef1/fast] Error 2
+        make[1]: *** [CMakeFiles/cmTC_d4ab8.dir/src.cxx.o] Error 1
+        make: *** [cmTC_d4ab8/fast] Error 2
         
       exitCode: 2
   -
@@ -6969,8 +6969,8 @@ events:
     checks:
       - "Performing Test SUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-khoLQ7"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-khoLQ7"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-bu3hdO"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-bu3hdO"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC"
@@ -6984,15 +6984,15 @@ events:
       variable: "SUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-khoLQ7'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-bu3hdO'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_3c6b8/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_3c6b8.dir/build.make CMakeFiles/cmTC_3c6b8.dir/build
-        Building CXX object CMakeFiles/cmTC_3c6b8.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DSUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -fvisibility-inlines-hidden -MD -MT CMakeFiles/cmTC_3c6b8.dir/src.cxx.o -MF CMakeFiles/cmTC_3c6b8.dir/src.cxx.o.d -o CMakeFiles/cmTC_3c6b8.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-khoLQ7/src.cxx
-        Linking CXX executable cmTC_3c6b8
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3c6b8.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_3c6b8.dir/src.cxx.o -o cmTC_3c6b8
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_77087/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_77087.dir/build.make CMakeFiles/cmTC_77087.dir/build
+        Building CXX object CMakeFiles/cmTC_77087.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DSUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -fvisibility-inlines-hidden -MD -MT CMakeFiles/cmTC_77087.dir/src.cxx.o -MF CMakeFiles/cmTC_77087.dir/src.cxx.o.d -o CMakeFiles/cmTC_77087.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-bu3hdO/src.cxx
+        Linking CXX executable cmTC_77087
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_77087.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -fPIC  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_77087.dir/src.cxx.o -o cmTC_77087
         
       exitCode: 0
   -
@@ -7006,8 +7006,8 @@ events:
     checks:
       - "Performing Test CXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-T2Ey3i"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-T2Ey3i"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DLSTo5"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DLSTo5"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor"
@@ -7021,15 +7021,15 @@ events:
       variable: "CXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-T2Ey3i'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DLSTo5'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_8d343/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_8d343.dir/build.make CMakeFiles/cmTC_8d343.dir/build
-        Building CXX object CMakeFiles/cmTC_8d343.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Wsuggest-override -MD -MT CMakeFiles/cmTC_8d343.dir/src.cxx.o -MF CMakeFiles/cmTC_8d343.dir/src.cxx.o.d -o CMakeFiles/cmTC_8d343.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-T2Ey3i/src.cxx
-        Linking CXX executable cmTC_8d343
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8d343.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_8d343.dir/src.cxx.o -o cmTC_8d343
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_00fe4/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_00fe4.dir/build.make CMakeFiles/cmTC_00fe4.dir/build
+        Building CXX object CMakeFiles/cmTC_00fe4.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_SUGGEST_OVERRIDE_FLAG  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Wsuggest-override -MD -MT CMakeFiles/cmTC_00fe4.dir/src.cxx.o -MF CMakeFiles/cmTC_00fe4.dir/src.cxx.o.d -o CMakeFiles/cmTC_00fe4.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DLSTo5/src.cxx
+        Linking CXX executable cmTC_00fe4
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_00fe4.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_00fe4.dir/src.cxx.o -o cmTC_00fe4
         
       exitCode: 0
   -
@@ -7042,8 +7042,8 @@ events:
     checks:
       - "Performing Test CXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-EA6FcJ"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-EA6FcJ"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-8c9DJM"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-8c9DJM"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor"
@@ -7057,22 +7057,22 @@ events:
       variable: "CXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-EA6FcJ'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-8c9DJM'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_24543/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_24543.dir/build.make CMakeFiles/cmTC_24543.dir/build
-        Building CXX object CMakeFiles/cmTC_24543.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -Werror=suggest-override -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_24543.dir/src.cxx.o -MF CMakeFiles/cmTC_24543.dir/src.cxx.o.d -o CMakeFiles/cmTC_24543.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-EA6FcJ/src.cxx
-        /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-EA6FcJ/src.cxx:1:7: warning: 'base' has virtual functions but non-virtual destructor [-Wnon-virtual-dtor]
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_6d53f/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_6d53f.dir/build.make CMakeFiles/cmTC_6d53f.dir/build
+        Building CXX object CMakeFiles/cmTC_6d53f.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_WSUGGEST_OVERRIDE_ALLOWS_ONLY_FINAL  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -Werror=suggest-override -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_6d53f.dir/src.cxx.o -MF CMakeFiles/cmTC_6d53f.dir/src.cxx.o.d -o CMakeFiles/cmTC_6d53f.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-8c9DJM/src.cxx
+        /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-8c9DJM/src.cxx:1:7: warning: 'base' has virtual functions but non-virtual destructor [-Wnon-virtual-dtor]
             1 | class base {public: virtual void anchor();};
               |       ^
-        /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-EA6FcJ/src.cxx:2:38: warning: 'derived' has virtual functions but non-virtual destructor [-Wnon-virtual-dtor]
+        /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-8c9DJM/src.cxx:2:38: warning: 'derived' has virtual functions but non-virtual destructor [-Wnon-virtual-dtor]
             2 |                                class derived : base {public: void anchor() final;};
               |                                      ^
         2 warnings generated.
-        Linking CXX executable cmTC_24543
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_24543.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -Werror=suggest-override -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_24543.dir/src.cxx.o -o cmTC_24543
+        Linking CXX executable cmTC_6d53f
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6d53f.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor  -Werror=suggest-override -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_6d53f.dir/src.cxx.o -o cmTC_6d53f
         
       exitCode: 0
   -
@@ -7085,8 +7085,8 @@ events:
     checks:
       - "Performing Test C_WCOMMENT_ALLOWS_LINE_WRAP"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FgRvl6"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FgRvl6"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-Fvrixh"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-Fvrixh"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: " -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default"
@@ -7100,15 +7100,15 @@ events:
       variable: "C_WCOMMENT_ALLOWS_LINE_WRAP"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FgRvl6'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-Fvrixh'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_c1a95/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_c1a95.dir/build.make CMakeFiles/cmTC_c1a95.dir/build
-        Building C object CMakeFiles/cmTC_c1a95.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DC_WCOMMENT_ALLOWS_LINE_WRAP  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default  -Werror -Wcomment -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_c1a95.dir/src.c.o -MF CMakeFiles/cmTC_c1a95.dir/src.c.o.d -o CMakeFiles/cmTC_c1a95.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FgRvl6/src.c
-        Linking C executable cmTC_c1a95
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c1a95.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default  -Werror -Wcomment -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_c1a95.dir/src.c.o -o cmTC_c1a95
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_b67c4/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_b67c4.dir/build.make CMakeFiles/cmTC_b67c4.dir/build
+        Building C object CMakeFiles/cmTC_b67c4.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DC_WCOMMENT_ALLOWS_LINE_WRAP  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default  -Werror -Wcomment -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_b67c4.dir/src.c.o -MF CMakeFiles/cmTC_b67c4.dir/src.c.o.d -o CMakeFiles/cmTC_b67c4.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-Fvrixh/src.c
+        Linking C executable cmTC_b67c4
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b67c4.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default  -Werror -Wcomment -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_b67c4.dir/src.c.o -o cmTC_b67c4
         
       exitCode: 0
   -
@@ -7123,8 +7123,8 @@ events:
     checks:
       - "Performing Test C_SUPPORTS_MISLEADING_INDENTATION_FLAG"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-a90tEL"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-a90tEL"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-fDeNwO"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-fDeNwO"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: " -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion"
@@ -7138,15 +7138,15 @@ events:
       variable: "C_SUPPORTS_MISLEADING_INDENTATION_FLAG"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-a90tEL'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-fDeNwO'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_f8994/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_f8994.dir/build.make CMakeFiles/cmTC_f8994.dir/build
-        Building C object CMakeFiles/cmTC_f8994.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_MISLEADING_INDENTATION_FLAG  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wmisleading-indentation -MD -MT CMakeFiles/cmTC_f8994.dir/src.c.o -MF CMakeFiles/cmTC_f8994.dir/src.c.o.d -o CMakeFiles/cmTC_f8994.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-a90tEL/src.c
-        Linking C executable cmTC_f8994
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f8994.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_f8994.dir/src.c.o -o cmTC_f8994
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a2be2/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_a2be2.dir/build.make CMakeFiles/cmTC_a2be2.dir/build
+        Building C object CMakeFiles/cmTC_a2be2.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_MISLEADING_INDENTATION_FLAG  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wmisleading-indentation -MD -MT CMakeFiles/cmTC_a2be2.dir/src.c.o -MF CMakeFiles/cmTC_a2be2.dir/src.c.o.d -o CMakeFiles/cmTC_a2be2.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-fDeNwO/src.c
+        Linking C executable cmTC_a2be2
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a2be2.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_a2be2.dir/src.c.o -o cmTC_a2be2
         
       exitCode: 0
   -
@@ -7161,8 +7161,8 @@ events:
     checks:
       - "Performing Test CXX_SUPPORTS_MISLEADING_INDENTATION_FLAG"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-hUtBJ9"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-hUtBJ9"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-XvwyjC"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-XvwyjC"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion"
@@ -7176,15 +7176,15 @@ events:
       variable: "CXX_SUPPORTS_MISLEADING_INDENTATION_FLAG"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-hUtBJ9'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-XvwyjC'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_74f30/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_74f30.dir/build.make CMakeFiles/cmTC_74f30.dir/build
-        Building CXX object CMakeFiles/cmTC_74f30.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_MISLEADING_INDENTATION_FLAG  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wmisleading-indentation -MD -MT CMakeFiles/cmTC_74f30.dir/src.cxx.o -MF CMakeFiles/cmTC_74f30.dir/src.cxx.o.d -o CMakeFiles/cmTC_74f30.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-hUtBJ9/src.cxx
-        Linking CXX executable cmTC_74f30
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_74f30.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_74f30.dir/src.cxx.o -o cmTC_74f30
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_5c3b1/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_5c3b1.dir/build.make CMakeFiles/cmTC_5c3b1.dir/build
+        Building CXX object CMakeFiles/cmTC_5c3b1.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_MISLEADING_INDENTATION_FLAG  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wmisleading-indentation -MD -MT CMakeFiles/cmTC_5c3b1.dir/src.cxx.o -MF CMakeFiles/cmTC_5c3b1.dir/src.cxx.o.d -o CMakeFiles/cmTC_5c3b1.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-XvwyjC/src.cxx
+        Linking CXX executable cmTC_5c3b1
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c3b1.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_5c3b1.dir/src.cxx.o -o cmTC_5c3b1
         
       exitCode: 0
   -
@@ -7199,8 +7199,8 @@ events:
     checks:
       - "Performing Test C_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-q5PN92"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-q5PN92"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-OpBCfK"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-OpBCfK"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: " -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation"
@@ -7214,15 +7214,15 @@ events:
       variable: "C_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-q5PN92'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-OpBCfK'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_7731c/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_7731c.dir/build.make CMakeFiles/cmTC_7731c.dir/build
-        Building C object CMakeFiles/cmTC_7731c.dir/src.c.o
-        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wctad-maybe-unsupported -MD -MT CMakeFiles/cmTC_7731c.dir/src.c.o -MF CMakeFiles/cmTC_7731c.dir/src.c.o.d -o CMakeFiles/cmTC_7731c.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-q5PN92/src.c
-        Linking C executable cmTC_7731c
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7731c.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_7731c.dir/src.c.o -o cmTC_7731c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_dbd6b/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_dbd6b.dir/build.make CMakeFiles/cmTC_dbd6b.dir/build
+        Building C object CMakeFiles/cmTC_dbd6b.dir/src.c.o
+        /opt/homebrew/opt/llvm/bin/clang -DC_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wctad-maybe-unsupported -MD -MT CMakeFiles/cmTC_dbd6b.dir/src.c.o -MF CMakeFiles/cmTC_dbd6b.dir/src.c.o.d -o CMakeFiles/cmTC_dbd6b.dir/src.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-OpBCfK/src.c
+        Linking C executable cmTC_dbd6b
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dbd6b.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_dbd6b.dir/src.c.o -o cmTC_dbd6b
         
       exitCode: 0
   -
@@ -7237,8 +7237,8 @@ events:
     checks:
       - "Performing Test CXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VkhLvz"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VkhLvz"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oqzkOT"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oqzkOT"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation"
@@ -7252,15 +7252,15 @@ events:
       variable: "CXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VkhLvz'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oqzkOT'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_ccde0/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_ccde0.dir/build.make CMakeFiles/cmTC_ccde0.dir/build
-        Building CXX object CMakeFiles/cmTC_ccde0.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wctad-maybe-unsupported -MD -MT CMakeFiles/cmTC_ccde0.dir/src.cxx.o -MF CMakeFiles/cmTC_ccde0.dir/src.cxx.o.d -o CMakeFiles/cmTC_ccde0.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VkhLvz/src.cxx
-        Linking CXX executable cmTC_ccde0
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ccde0.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_ccde0.dir/src.cxx.o -o cmTC_ccde0
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_8bc14/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_8bc14.dir/build.make CMakeFiles/cmTC_8bc14.dir/build
+        Building CXX object CMakeFiles/cmTC_8bc14.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -DCXX_SUPPORTS_CTAD_MAYBE_UNSPPORTED_FLAG  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk   -Werror -Wctad-maybe-unsupported -MD -MT CMakeFiles/cmTC_8bc14.dir/src.cxx.o -MF CMakeFiles/cmTC_8bc14.dir/src.cxx.o.d -o CMakeFiles/cmTC_8bc14.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-oqzkOT/src.cxx
+        Linking CXX executable cmTC_8bc14
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8bc14.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_8bc14.dir/src.cxx.o -o cmTC_8bc14
         
       exitCode: 0
   -
@@ -7273,8 +7273,8 @@ events:
     checks:
       - "Looking for os_signpost_interval_begin"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nsK9zj"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nsK9zj"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nJL6LP"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nJL6LP"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: " -fPIC  -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported"
@@ -7288,15 +7288,15 @@ events:
       variable: "macos_signposts_available"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nsK9zj'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nJL6LP'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1df51/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_1df51.dir/build.make CMakeFiles/cmTC_1df51.dir/build
-        Building C object CMakeFiles/cmTC_1df51.dir/CheckSymbolExists.c.o
-        /opt/homebrew/opt/llvm/bin/clang   -fPIC  -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_1df51.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_1df51.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_1df51.dir/CheckSymbolExists.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nsK9zj/CheckSymbolExists.c
-        Linking C executable cmTC_1df51
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1df51.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -fPIC  -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_1df51.dir/CheckSymbolExists.c.o -o cmTC_1df51
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_8f672/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_8f672.dir/build.make CMakeFiles/cmTC_8f672.dir/build
+        Building C object CMakeFiles/cmTC_8f672.dir/CheckSymbolExists.c.o
+        /opt/homebrew/opt/llvm/bin/clang   -fPIC  -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_8f672.dir/CheckSymbolExists.c.o -MF CMakeFiles/cmTC_8f672.dir/CheckSymbolExists.c.o.d -o CMakeFiles/cmTC_8f672.dir/CheckSymbolExists.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nJL6LP/CheckSymbolExists.c
+        Linking C executable cmTC_8f672
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8f672.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -fPIC  -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_8f672.dir/CheckSymbolExists.c.o -o cmTC_8f672
         
       exitCode: 0
   -
@@ -7309,8 +7309,8 @@ events:
     checks:
       - "Performing Test macos_signposts_usable"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nxKuiE"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nxKuiE"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZLd1SP"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZLd1SP"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported"
@@ -7324,15 +7324,15 @@ events:
       variable: "macos_signposts_usable"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nxKuiE'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZLd1SP'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_a8f48/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_a8f48.dir/build.make CMakeFiles/cmTC_a8f48.dir/build
-        Building CXX object CMakeFiles/cmTC_a8f48.dir/src.cxx.o
-        /opt/homebrew/opt/llvm/bin/clang++ -Dmacos_signposts_usable  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_a8f48.dir/src.cxx.o -MF CMakeFiles/cmTC_a8f48.dir/src.cxx.o.d -o CMakeFiles/cmTC_a8f48.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-nxKuiE/src.cxx
-        Linking CXX executable cmTC_a8f48
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a8f48.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_a8f48.dir/src.cxx.o -o cmTC_a8f48
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2bced/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_2bced.dir/build.make CMakeFiles/cmTC_2bced.dir/build
+        Building CXX object CMakeFiles/cmTC_2bced.dir/src.cxx.o
+        /opt/homebrew/opt/llvm/bin/clang++ -Dmacos_signposts_usable  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_2bced.dir/src.cxx.o -MF CMakeFiles/cmTC_2bced.dir/src.cxx.o.d -o CMakeFiles/cmTC_2bced.dir/src.cxx.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-ZLd1SP/src.cxx
+        Linking CXX executable cmTC_2bced
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2bced.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_2bced.dir/src.cxx.o -o cmTC_2bced
         
       exitCode: 0
   -
@@ -7343,8 +7343,8 @@ events:
       - "CMakeLists.txt:41 (find_package)"
     description: "Detecting C OpenMP version"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DpD9ZW"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DpD9ZW"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-6TvvYo"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-6TvvYo"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_C_FLAGS: " -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported"
@@ -7358,15 +7358,15 @@ events:
       variable: "OpenMP_SPECTEST_C_"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DpD9ZW'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-6TvvYo'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_0c46c/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_0c46c.dir/build.make CMakeFiles/cmTC_0c46c.dir/build
-        Building C object CMakeFiles/cmTC_0c46c.dir/OpenMPCheckVersion.c.o
-        /opt/homebrew/opt/llvm/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_0c46c.dir/OpenMPCheckVersion.c.o -MF CMakeFiles/cmTC_0c46c.dir/OpenMPCheckVersion.c.o.d -o CMakeFiles/cmTC_0c46c.dir/OpenMPCheckVersion.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-DpD9ZW/OpenMPCheckVersion.c
-        Linking C executable cmTC_0c46c
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0c46c.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_0c46c.dir/OpenMPCheckVersion.c.o -o cmTC_0c46c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_9c468/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_9c468.dir/build.make CMakeFiles/cmTC_9c468.dir/build
+        Building C object CMakeFiles/cmTC_9c468.dir/OpenMPCheckVersion.c.o
+        /opt/homebrew/opt/llvm/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_9c468.dir/OpenMPCheckVersion.c.o -MF CMakeFiles/cmTC_9c468.dir/OpenMPCheckVersion.c.o.d -o CMakeFiles/cmTC_9c468.dir/OpenMPCheckVersion.c.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-6TvvYo/OpenMPCheckVersion.c
+        Linking C executable cmTC_9c468
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9c468.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_9c468.dir/OpenMPCheckVersion.c.o -o cmTC_9c468
         
       exitCode: 0
   -
@@ -7377,8 +7377,8 @@ events:
       - "CMakeLists.txt:41 (find_package)"
     description: "Detecting CXX OpenMP version"
     directories:
-      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FUT0Yn"
-      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FUT0Yn"
+      source: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VNW9oP"
+      binary: "/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VNW9oP"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/opt/homebrew/Cellar/llvm/21.1.6/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: " -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported"
@@ -7392,15 +7392,15 @@ events:
       variable: "OpenMP_SPECTEST_CXX_"
       cached: true
       stdout: |
-        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FUT0Yn'
+        Change Dir: '/Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VNW9oP'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_f8454/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_f8454.dir/build.make CMakeFiles/cmTC_f8454.dir/build
-        Building CXX object CMakeFiles/cmTC_f8454.dir/OpenMPCheckVersion.cpp.o
-        /opt/homebrew/opt/llvm/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_f8454.dir/OpenMPCheckVersion.cpp.o -MF CMakeFiles/cmTC_f8454.dir/OpenMPCheckVersion.cpp.o.d -o CMakeFiles/cmTC_f8454.dir/OpenMPCheckVersion.cpp.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-FUT0Yn/OpenMPCheckVersion.cpp
-        Linking CXX executable cmTC_f8454
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f8454.dir/link.txt --verbose=1
-        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_f8454.dir/OpenMPCheckVersion.cpp.o -o cmTC_f8454
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_da6e2/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_da6e2.dir/build.make CMakeFiles/cmTC_da6e2.dir/build
+        Building CXX object CMakeFiles/cmTC_da6e2.dir/OpenMPCheckVersion.cpp.o
+        /opt/homebrew/opt/llvm/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -MD -MT CMakeFiles/cmTC_da6e2.dir/OpenMPCheckVersion.cpp.o -MF CMakeFiles/cmTC_da6e2.dir/OpenMPCheckVersion.cpp.o.d -o CMakeFiles/cmTC_da6e2.dir/OpenMPCheckVersion.cpp.o -c /Users/wangning/Desktop/cornell_repos/cs6120/project/build/CMakeFiles/CMakeScratch/TryCompile-VNW9oP/OpenMPCheckVersion.cpp
+        Linking CXX executable cmTC_da6e2
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_da6e2.dir/link.txt --verbose=1
+        /opt/homebrew/opt/llvm/bin/clang++  -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -Xpreprocessor -fopenmp -I/opt/homebrew/opt/libomp/include -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_da6e2.dir/OpenMPCheckVersion.cpp.o -o cmTC_da6e2
         
       exitCode: 0
 ...

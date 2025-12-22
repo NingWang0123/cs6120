@@ -1,0 +1,10 @@
+FUSION_PASS_VERSION=0.3_fusion_only
+FUSION_LOOP_ORDER function=fuse18_uint32_bitops [  ]
+FUSION_CHECK function=fuse18_uint32_bitops L1_header=%3 L2_header=%14
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse18_uint32_bitops
+FUSED_OK function=fuse18_uint32_bitops
+FUSION_APPLIED function=fuse18_uint32_bitops fused_pairs_total=1
+LOOP_FUSION_SUMMARY function=fuse18_uint32_bitops candidates=1 attempts=1 succeeded=1
+Found parallelizable loop in function: fuse18_uint32_bitops

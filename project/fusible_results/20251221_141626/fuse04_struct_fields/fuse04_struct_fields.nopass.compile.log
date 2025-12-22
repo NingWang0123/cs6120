@@ -1,0 +1,13 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse04_struct_fields/fuse04_struct_fields.driver.c:29:27: error: too many arguments to function call, expected single argument 'p', have 2 arguments
+   29 |   fuse04_struct_fields(a, b);
+      |   ~~~~~~~~~~~~~~~~~~~~    ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse04_struct_fields.c:6:6: note: 'fuse04_struct_fields' declared here
+    6 | void fuse04_struct_fields(P *__restrict__ p) {
+      |      ^                    ~~~~~~~~~~~~~~~~~
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse04_struct_fields/fuse04_struct_fields.driver.c:39:29: error: too many arguments to function call, expected single argument 'p', have 2 arguments
+   39 |     fuse04_struct_fields(a, b);
+      |     ~~~~~~~~~~~~~~~~~~~~    ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse04_struct_fields.c:6:6: note: 'fuse04_struct_fields' declared here
+    6 | void fuse04_struct_fields(P *__restrict__ p) {
+      |      ^                    ~~~~~~~~~~~~~~~~~
+2 errors generated.

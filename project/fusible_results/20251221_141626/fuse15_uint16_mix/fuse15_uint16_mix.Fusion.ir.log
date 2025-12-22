@@ -1,0 +1,25 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse15_uint16_mix/fuse15_uint16_mix.driver.c:29:21: warning: incompatible pointer types passing 'float *' to parameter of type 'uint16_t *' (aka 'unsigned short *') [-Wincompatible-pointer-types]
+   29 |   fuse15_uint16_mix(a, b);
+      |                     ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse15_uint16_mix.c:6:47: note: passing argument to parameter 'a' here
+    6 | void fuse15_uint16_mix(uint16_t *__restrict__ a, uint16_t *__restrict__ b) {
+      |                                               ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse15_uint16_mix/fuse15_uint16_mix.driver.c:29:24: warning: incompatible pointer types passing 'float *' to parameter of type 'uint16_t *' (aka 'unsigned short *') [-Wincompatible-pointer-types]
+   29 |   fuse15_uint16_mix(a, b);
+      |                        ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse15_uint16_mix.c:6:73: note: passing argument to parameter 'b' here
+    6 | void fuse15_uint16_mix(uint16_t *__restrict__ a, uint16_t *__restrict__ b) {
+      |                                                                         ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse15_uint16_mix/fuse15_uint16_mix.driver.c:39:23: warning: incompatible pointer types passing 'float *' to parameter of type 'uint16_t *' (aka 'unsigned short *') [-Wincompatible-pointer-types]
+   39 |     fuse15_uint16_mix(a, b);
+      |                       ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse15_uint16_mix.c:6:47: note: passing argument to parameter 'a' here
+    6 | void fuse15_uint16_mix(uint16_t *__restrict__ a, uint16_t *__restrict__ b) {
+      |                                               ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse15_uint16_mix/fuse15_uint16_mix.driver.c:39:26: warning: incompatible pointer types passing 'float *' to parameter of type 'uint16_t *' (aka 'unsigned short *') [-Wincompatible-pointer-types]
+   39 |     fuse15_uint16_mix(a, b);
+      |                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse15_uint16_mix.c:6:73: note: passing argument to parameter 'b' here
+    6 | void fuse15_uint16_mix(uint16_t *__restrict__ a, uint16_t *__restrict__ b) {
+      |                                                                         ^
+4 warnings generated.

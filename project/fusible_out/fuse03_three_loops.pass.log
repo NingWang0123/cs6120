@@ -1,0 +1,30 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=fuse03_three_loops [    ]
+FUSION_CHECK function=fuse03_three_loops L1_header=%4 L2_header=%11
+FUSION_CFG L2Pre=%.preheader1 L1Exits={%.preheader1 }
+FUSION_ACCEPT
+Found fusible loops in function: fuse03_three_loops
+FUSION_CHECK function=fuse03_three_loops L1_header=%11 L2_header=%20
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse03_three_loops
+FUSED_OK function=fuse03_three_loops
+FUSION_APPLIED function=fuse03_three_loops fused_pairs_total=1
+PLEASE submit a bug report to https://github.com/Homebrew/homebrew-core/issues and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/homebrew/opt/llvm/bin/opt -load-pass-plugin=./LoopParallelizationPass.dylib -passes=loop-simplify,loop-parallelize -enable-loop-parallel=true -enable-loop-fusion=true ../fusible_out/fuse03_three_loops.ll -S -o ../fusible_out/fuse03_three_loops.out.ll
+1.	Running pass "function(loop-simplify,(anonymous namespace)::LoopParallelizationPass)" on module "../fusible_out/fuse03_three_loops.ll"
+2.	Running pass "(anonymous namespace)::LoopParallelizationPass" on function "fuse03_three_loops"
+ #0 0x0000000111d83dec llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/opt/homebrew/Cellar/llvm/21.1.6/lib/libLLVM.dylib+0x3e47dec)
+ #1 0x0000000111d8461c SignalHandler(int, __siginfo*, void*) (/opt/homebrew/Cellar/llvm/21.1.6/lib/libLLVM.dylib+0x3e4861c)
+ #2 0x000000018391e744 (/usr/lib/system/libsystem_platform.dylib+0x1804d6744)
+ #3 0x0000000104c8d350 (anonymous namespace)::LoopParallelizationPass::getSimpleLoopInfo(llvm::Loop*, llvm::ScalarEvolution&, (anonymous namespace)::LoopParallelizationPass::SimpleLoopInfo&) (/Users/wangning/Desktop/cornell_repos/cs6120/project/build/LoopParallelizationPass.dylib+0x15350)
+ #4 0x0000000104c80870 (anonymous namespace)::LoopParallelizationPass::fuseLoops(llvm::Loop*, llvm::Loop*, llvm::Function&, llvm::ScalarEvolution&, llvm::LoopInfo&, llvm::DominatorTree&) (/Users/wangning/Desktop/cornell_repos/cs6120/project/build/LoopParallelizationPass.dylib+0x8870)
+ #5 0x0000000104c7e9c4 (anonymous namespace)::LoopParallelizationPass::run(llvm::Function&, llvm::AnalysisManager<llvm::Function>&) (/Users/wangning/Desktop/cornell_repos/cs6120/project/build/LoopParallelizationPass.dylib+0x69c4)
+ #6 0x0000000104c7e318 llvm::detail::PassModel<llvm::Function, (anonymous namespace)::LoopParallelizationPass, llvm::AnalysisManager<llvm::Function>>::run(llvm::Function&, llvm::AnalysisManager<llvm::Function>&) (/Users/wangning/Desktop/cornell_repos/cs6120/project/build/LoopParallelizationPass.dylib+0x6318)
+ #7 0x000000010e260b3c llvm::PassManager<llvm::Function, llvm::AnalysisManager<llvm::Function>>::run(llvm::Function&, llvm::AnalysisManager<llvm::Function>&) (/opt/homebrew/Cellar/llvm/21.1.6/lib/libLLVM.dylib+0x324b3c)
+ #8 0x000000010e267a48 llvm::ModuleToFunctionPassAdaptor::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) (/opt/homebrew/Cellar/llvm/21.1.6/lib/libLLVM.dylib+0x32ba48)
+ #9 0x000000010e25f524 llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) (/opt/homebrew/Cellar/llvm/21.1.6/lib/libLLVM.dylib+0x323524)
+#10 0x0000000104ad77d8 llvm::runPassPipeline(llvm::StringRef, llvm::Module&, llvm::TargetMachine*, llvm::TargetLibraryInfoImpl*, llvm::ToolOutputFile*, llvm::ToolOutputFile*, llvm::ToolOutputFile*, llvm::StringRef, llvm::ArrayRef<llvm::PassPlugin>, llvm::ArrayRef<std::__1::function<void (llvm::PassBuilder&)>>, llvm::opt_tool::OutputKind, llvm::opt_tool::VerifierKind, bool, bool, bool, bool, bool, bool, bool) (/opt/homebrew/Cellar/llvm/21.1.6/bin/opt+0x1000037d8)
+#11 0x0000000104adf85c optMain (/opt/homebrew/Cellar/llvm/21.1.6/bin/opt+0x10000b85c)
+#12 0x0000000183555d54

@@ -1,0 +1,25 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse08_int_arrays/fuse08_int_arrays.driver.c:29:21: warning: incompatible pointer types passing 'float *' to parameter of type 'int *' [-Wincompatible-pointer-types]
+   29 |   fuse08_int_arrays(a, b);
+      |                     ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse08_int_arrays.c:5:42: note: passing argument to parameter 'a' here
+    5 | void fuse08_int_arrays(int *__restrict__ a, int *__restrict__ b) {
+      |                                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse08_int_arrays/fuse08_int_arrays.driver.c:29:24: warning: incompatible pointer types passing 'float *' to parameter of type 'int *' [-Wincompatible-pointer-types]
+   29 |   fuse08_int_arrays(a, b);
+      |                        ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse08_int_arrays.c:5:63: note: passing argument to parameter 'b' here
+    5 | void fuse08_int_arrays(int *__restrict__ a, int *__restrict__ b) {
+      |                                                               ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse08_int_arrays/fuse08_int_arrays.driver.c:39:23: warning: incompatible pointer types passing 'float *' to parameter of type 'int *' [-Wincompatible-pointer-types]
+   39 |     fuse08_int_arrays(a, b);
+      |                       ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse08_int_arrays.c:5:42: note: passing argument to parameter 'a' here
+    5 | void fuse08_int_arrays(int *__restrict__ a, int *__restrict__ b) {
+      |                                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse08_int_arrays/fuse08_int_arrays.driver.c:39:26: warning: incompatible pointer types passing 'float *' to parameter of type 'int *' [-Wincompatible-pointer-types]
+   39 |     fuse08_int_arrays(a, b);
+      |                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse08_int_arrays.c:5:63: note: passing argument to parameter 'b' here
+    5 | void fuse08_int_arrays(int *__restrict__ a, int *__restrict__ b) {
+      |                                                               ^
+4 warnings generated.

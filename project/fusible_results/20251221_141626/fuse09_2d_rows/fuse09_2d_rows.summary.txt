@@ -1,0 +1,3 @@
+    OriginalPass: parallel_found=2 parallel_ok=0 fusion_applied=no (cand= att= succ=)
+    Fusion: parallel_found=1 parallel_ok=0 fusion_applied=no (cand= att= succ=)
+    Fusion+Shared: parallel_found=1 parallel_ok=0 fusion_applied=no (cand= att= succ=)

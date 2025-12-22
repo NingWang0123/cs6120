@@ -1,0 +1,25 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse16_struct_store/fuse16_struct_store.driver.c:29:23: warning: incompatible pointer types passing 'float *' to parameter of type 'S *' [-Wincompatible-pointer-types]
+   29 |   fuse16_struct_store(a, b);
+      |                       ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse16_struct_store.c:7:42: note: passing argument to parameter 'a' here
+    7 | void fuse16_struct_store(S *__restrict__ a, S *__restrict__ b) {
+      |                                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse16_struct_store/fuse16_struct_store.driver.c:29:26: warning: incompatible pointer types passing 'float *' to parameter of type 'S *' [-Wincompatible-pointer-types]
+   29 |   fuse16_struct_store(a, b);
+      |                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse16_struct_store.c:7:61: note: passing argument to parameter 'b' here
+    7 | void fuse16_struct_store(S *__restrict__ a, S *__restrict__ b) {
+      |                                                             ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse16_struct_store/fuse16_struct_store.driver.c:39:25: warning: incompatible pointer types passing 'float *' to parameter of type 'S *' [-Wincompatible-pointer-types]
+   39 |     fuse16_struct_store(a, b);
+      |                         ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse16_struct_store.c:7:42: note: passing argument to parameter 'a' here
+    7 | void fuse16_struct_store(S *__restrict__ a, S *__restrict__ b) {
+      |                                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse16_struct_store/fuse16_struct_store.driver.c:39:28: warning: incompatible pointer types passing 'float *' to parameter of type 'S *' [-Wincompatible-pointer-types]
+   39 |     fuse16_struct_store(a, b);
+      |                            ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse16_struct_store.c:7:61: note: passing argument to parameter 'b' here
+    7 | void fuse16_struct_store(S *__restrict__ a, S *__restrict__ b) {
+      |                                                             ^
+4 warnings generated.

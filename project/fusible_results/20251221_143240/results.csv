@@ -1,0 +1,2 @@
+benchmark,implementation,threads,time,parallelizable_loops,parallelized_loops,fusion_applied_pairs,fusion_candidates,fusion_attempts,fusion_succeeded
+fuse_should_fuse,NoPass,1,0.009326,0,0,0,0,0,0

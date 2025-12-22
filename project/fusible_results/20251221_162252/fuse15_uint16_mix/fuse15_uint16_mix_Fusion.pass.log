@@ -1,0 +1,10 @@
+FUSION_PASS_VERSION=0.3_fusion_only
+FUSION_LOOP_ORDER function=fuse15_uint16_mix [  ]
+FUSION_CHECK function=fuse15_uint16_mix L1_header=%3 L2_header=%15
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse15_uint16_mix
+FUSED_OK function=fuse15_uint16_mix
+FUSION_APPLIED function=fuse15_uint16_mix fused_pairs_total=1
+LOOP_FUSION_SUMMARY function=fuse15_uint16_mix candidates=1 attempts=1 succeeded=1
+Found parallelizable loop in function: fuse15_uint16_mix

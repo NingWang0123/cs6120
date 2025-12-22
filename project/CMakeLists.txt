@@ -17,7 +17,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Build the loop parallelization pass
 add_library(LoopParallelizationPass MODULE
-  src/LoopParallelizationPass_with_fusion_shared.cpp
+  src/LoopParallelizationPass_with_fusion.cpp
 )
 
 target_include_directories(LoopParallelizationPass PRIVATE ${LLVM_INCLUDE_DIRS})

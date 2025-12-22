@@ -1,0 +1,13 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse23_mixed_outputs/fuse23_mixed_outputs.driver.c:29:27: warning: incompatible pointer types passing 'float *' to parameter of type 'int32_t *' (aka 'int *') [-Wincompatible-pointer-types]
+   29 |   fuse23_mixed_outputs(a, b);
+      |                           ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse23_mixed_outputs.c:6:72: note: passing argument to parameter 'b' here
+    6 | void fuse23_mixed_outputs(float *__restrict__ a, int32_t *__restrict__ b) {
+      |                                                                        ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse23_mixed_outputs/fuse23_mixed_outputs.driver.c:39:29: warning: incompatible pointer types passing 'float *' to parameter of type 'int32_t *' (aka 'int *') [-Wincompatible-pointer-types]
+   39 |     fuse23_mixed_outputs(a, b);
+      |                             ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse23_mixed_outputs.c:6:72: note: passing argument to parameter 'b' here
+    6 | void fuse23_mixed_outputs(float *__restrict__ a, int32_t *__restrict__ b) {
+      |                                                                        ^
+2 warnings generated.

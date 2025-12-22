@@ -1,0 +1,4 @@
+./fusible_results/20251221_141151/fuse14_int32_affine.driver.c:22:10: fatal error: '../fusible_tests/fuse14_int32_affine.c' file not found
+   22 | #include "../fusible_tests/fuse14_int32_affine.c"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

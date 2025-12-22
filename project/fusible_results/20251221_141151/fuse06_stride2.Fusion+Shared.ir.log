@@ -1,0 +1,4 @@
+./fusible_results/20251221_141151/fuse06_stride2.driver.c:22:10: fatal error: '../fusible_tests/fuse06_stride2.c' file not found
+   22 | #include "../fusible_tests/fuse06_stride2.c"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

@@ -1,0 +1,8 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=fuse02_independent_runtime [   ]
+FUSION_CHECK function=fuse02_independent_runtime L1_header=%11 L2_header=%19
+FUSION_CFG L2Pre=%9 L1Exits={%.loopexit1 }
+FUSION_REJECT reason=not_consecutive_cfg
+LOOP_FUSION_SUMMARY function=fuse02_independent_runtime candidates=0 attempts=0 succeeded=0
+Found parallelizable loop in function: fuse02_independent_runtime
+Found parallelizable loop in function: fuse02_independent_runtime

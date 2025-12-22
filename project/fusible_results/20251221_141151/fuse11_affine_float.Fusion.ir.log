@@ -1,0 +1,4 @@
+./fusible_results/20251221_141151/fuse11_affine_float.driver.c:22:10: fatal error: '../fusible_tests/fuse11_affine_float.c' file not found
+   22 | #include "../fusible_tests/fuse11_affine_float.c"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

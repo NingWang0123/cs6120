@@ -1,0 +1,10 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=fuse17_flat_2d [   ]
+FUSION_CHECK function=fuse17_flat_2d L1_header=%3 L2_header=%15
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse17_flat_2d
+FUSED_OK function=fuse17_flat_2d
+FUSION_APPLIED function=fuse17_flat_2d fused_pairs_total=1
+LOOP_FUSION_SUMMARY function=fuse17_flat_2d candidates=1 attempts=1 succeeded=1
+Found parallelizable loop in function: fuse17_flat_2d

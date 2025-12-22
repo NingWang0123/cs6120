@@ -1,0 +1,8 @@
+In file included from /Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse17_flat_2d/fuse17_flat_2d.driver.c:11:
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse17_flat_2d.c:8:9: warning: 'N' macro redefined [-Wmacro-redefined]
+    8 | #define N (ROWS*COLS)
+      |         ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse17_flat_2d/fuse17_flat_2d.driver.c:7:9: note: previous definition is here
+    7 | #define N 1048576
+      |         ^
+1 warning generated.

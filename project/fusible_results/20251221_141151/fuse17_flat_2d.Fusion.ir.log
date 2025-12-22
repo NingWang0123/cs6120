@@ -1,0 +1,4 @@
+./fusible_results/20251221_141151/fuse17_flat_2d.driver.c:22:10: fatal error: '../fusible_tests/fuse17_flat_2d.c' file not found
+   22 | #include "../fusible_tests/fuse17_flat_2d.c"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

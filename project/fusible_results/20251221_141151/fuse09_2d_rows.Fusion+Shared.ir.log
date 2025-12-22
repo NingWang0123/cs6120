@@ -1,0 +1,4 @@
+./fusible_results/20251221_141151/fuse09_2d_rows.driver.c:22:10: fatal error: '../fusible_tests/fuse09_2d_rows.c' file not found
+   22 | #include "../fusible_tests/fuse09_2d_rows.c"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

@@ -1,0 +1,4 @@
+./fusible_results/20251221_141151/fuse07_two_outputs.driver.c:22:10: fatal error: '../fusible_tests/fuse07_two_outputs.c' file not found
+   22 | #include "../fusible_tests/fuse07_two_outputs.c"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

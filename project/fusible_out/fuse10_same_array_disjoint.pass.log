@@ -1,0 +1,10 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=fuse10_same_array_disjoint [   ]
+FUSION_CHECK function=fuse10_same_array_disjoint L1_header=%4 L2_header=%12
+FUSION_CFG L2Pre=%2 L1Exits={%2 }
+FUSION_ACCEPT
+Found fusible loops in function: fuse10_same_array_disjoint
+FUSION_REJECT reason=connector_not_empty
+LOOP_FUSION_SUMMARY function=fuse10_same_array_disjoint candidates=1 attempts=1 succeeded=0
+Found parallelizable loop in function: fuse10_same_array_disjoint
+Found parallelizable loop in function: fuse10_same_array_disjoint

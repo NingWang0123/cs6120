@@ -1,0 +1,25 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse14_int32_affine/fuse14_int32_affine.driver.c:29:23: warning: incompatible pointer types passing 'float *' to parameter of type 'int32_t *' (aka 'int *') [-Wincompatible-pointer-types]
+   29 |   fuse14_int32_affine(a, b);
+      |                       ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse14_int32_affine.c:6:48: note: passing argument to parameter 'a' here
+    6 | void fuse14_int32_affine(int32_t *__restrict__ a, int32_t *__restrict__ b) {
+      |                                                ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse14_int32_affine/fuse14_int32_affine.driver.c:29:26: warning: incompatible pointer types passing 'float *' to parameter of type 'int32_t *' (aka 'int *') [-Wincompatible-pointer-types]
+   29 |   fuse14_int32_affine(a, b);
+      |                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse14_int32_affine.c:6:73: note: passing argument to parameter 'b' here
+    6 | void fuse14_int32_affine(int32_t *__restrict__ a, int32_t *__restrict__ b) {
+      |                                                                         ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse14_int32_affine/fuse14_int32_affine.driver.c:39:25: warning: incompatible pointer types passing 'float *' to parameter of type 'int32_t *' (aka 'int *') [-Wincompatible-pointer-types]
+   39 |     fuse14_int32_affine(a, b);
+      |                         ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse14_int32_affine.c:6:48: note: passing argument to parameter 'a' here
+    6 | void fuse14_int32_affine(int32_t *__restrict__ a, int32_t *__restrict__ b) {
+      |                                                ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse14_int32_affine/fuse14_int32_affine.driver.c:39:28: warning: incompatible pointer types passing 'float *' to parameter of type 'int32_t *' (aka 'int *') [-Wincompatible-pointer-types]
+   39 |     fuse14_int32_affine(a, b);
+      |                            ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse14_int32_affine.c:6:73: note: passing argument to parameter 'b' here
+    6 | void fuse14_int32_affine(int32_t *__restrict__ a, int32_t *__restrict__ b) {
+      |                                                                         ^
+4 warnings generated.

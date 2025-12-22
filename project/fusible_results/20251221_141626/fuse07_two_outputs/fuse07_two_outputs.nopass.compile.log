@@ -1,0 +1,13 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse07_two_outputs/fuse07_two_outputs.driver.c:29:26: error: too few arguments to function call, expected 4, have 2
+   29 |   fuse07_two_outputs(a, b);
+      |   ~~~~~~~~~~~~~~~~~~     ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse07_two_outputs.c:5:6: note: 'fuse07_two_outputs' declared here
+    5 | void fuse07_two_outputs(float *__restrict__ a, float *__restrict__ b, float c0, float c1) {
+      |      ^                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse07_two_outputs/fuse07_two_outputs.driver.c:39:28: error: too few arguments to function call, expected 4, have 2
+   39 |     fuse07_two_outputs(a, b);
+      |     ~~~~~~~~~~~~~~~~~~     ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse07_two_outputs.c:5:6: note: 'fuse07_two_outputs' declared here
+    5 | void fuse07_two_outputs(float *__restrict__ a, float *__restrict__ b, float c0, float c1) {
+      |      ^                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 errors generated.

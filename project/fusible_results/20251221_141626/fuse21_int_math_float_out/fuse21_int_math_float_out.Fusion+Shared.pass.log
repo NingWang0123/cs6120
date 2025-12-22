@@ -1,0 +1,14 @@
+FUSION_PASS_VERSION=0.3
+FUSION_LOOP_ORDER function=fuse21_int_math_float_out [   ]
+FUSION_CHECK function=fuse21_int_math_float_out L1_header=%3 L2_header=%14
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse21_int_math_float_out
+FUSED_OK function=fuse21_int_math_float_out
+FUSION_APPLIED function=fuse21_int_math_float_out fused_pairs_total=1
+LOOP_FUSION_SUMMARY function=fuse21_int_math_float_out candidates=1 attempts=1 succeeded=1
+Found parallelizable loop in function: fuse21_int_math_float_out
+FUSION_LOOP_ORDER function=main [ ]
+LOOP_FUSION_SUMMARY function=main candidates=0 attempts=0 succeeded=0
+FUSION_LOOP_ORDER function=now_sec [ ]
+LOOP_FUSION_SUMMARY function=now_sec candidates=0 attempts=0 succeeded=0

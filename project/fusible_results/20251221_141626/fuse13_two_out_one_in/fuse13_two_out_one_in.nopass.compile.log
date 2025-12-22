@@ -1,0 +1,21 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse13_two_out_one_in/fuse13_two_out_one_in.driver.c:29:29: error: too few arguments to function call, expected 3, have 2
+   29 |   fuse13_two_out_one_in(a, b);
+      |   ~~~~~~~~~~~~~~~~~~~~~     ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse13_two_out_one_in.c:5:6: note: 'fuse13_two_out_one_in' declared here
+    5 | void fuse13_two_out_one_in(float *__restrict__ a,
+      |      ^                     ~~~~~~~~~~~~~~~~~~~~~~
+    6 |                            float *__restrict__ b,
+      |                            ~~~~~~~~~~~~~~~~~~~~~~
+    7 |                            const float *__restrict__ c) {
+      |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse13_two_out_one_in/fuse13_two_out_one_in.driver.c:39:31: error: too few arguments to function call, expected 3, have 2
+   39 |     fuse13_two_out_one_in(a, b);
+      |     ~~~~~~~~~~~~~~~~~~~~~     ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse13_two_out_one_in.c:5:6: note: 'fuse13_two_out_one_in' declared here
+    5 | void fuse13_two_out_one_in(float *__restrict__ a,
+      |      ^                     ~~~~~~~~~~~~~~~~~~~~~~
+    6 |                            float *__restrict__ b,
+      |                            ~~~~~~~~~~~~~~~~~~~~~~
+    7 |                            const float *__restrict__ c) {
+      |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 errors generated.

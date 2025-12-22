@@ -1,0 +1,25 @@
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse12_affine_double/fuse12_affine_double.driver.c:29:24: warning: incompatible pointer types passing 'float *' to parameter of type 'double *' [-Wincompatible-pointer-types]
+   29 |   fuse12_affine_double(a, b);
+      |                        ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse12_affine_double.c:5:48: note: passing argument to parameter 'a' here
+    5 | void fuse12_affine_double(double *__restrict__ a, double *__restrict__ b) {
+      |                                                ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse12_affine_double/fuse12_affine_double.driver.c:29:27: warning: incompatible pointer types passing 'float *' to parameter of type 'double *' [-Wincompatible-pointer-types]
+   29 |   fuse12_affine_double(a, b);
+      |                           ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse12_affine_double.c:5:72: note: passing argument to parameter 'b' here
+    5 | void fuse12_affine_double(double *__restrict__ a, double *__restrict__ b) {
+      |                                                                        ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse12_affine_double/fuse12_affine_double.driver.c:39:26: warning: incompatible pointer types passing 'float *' to parameter of type 'double *' [-Wincompatible-pointer-types]
+   39 |     fuse12_affine_double(a, b);
+      |                          ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse12_affine_double.c:5:48: note: passing argument to parameter 'a' here
+    5 | void fuse12_affine_double(double *__restrict__ a, double *__restrict__ b) {
+      |                                                ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_results/20251221_141626/fuse12_affine_double/fuse12_affine_double.driver.c:39:29: warning: incompatible pointer types passing 'float *' to parameter of type 'double *' [-Wincompatible-pointer-types]
+   39 |     fuse12_affine_double(a, b);
+      |                             ^
+/Users/wangning/Desktop/cornell_repos/cs6120/project/fusible_tests/fuse12_affine_double.c:5:72: note: passing argument to parameter 'b' here
+    5 | void fuse12_affine_double(double *__restrict__ a, double *__restrict__ b) {
+      |                                                                        ^
+4 warnings generated.
