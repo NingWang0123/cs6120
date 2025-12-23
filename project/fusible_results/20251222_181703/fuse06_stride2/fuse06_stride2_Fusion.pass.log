@@ -1,0 +1,10 @@
+FUSION_PASS_VERSION=0.3_fusion_only
+FUSION_LOOP_ORDER function=fuse06_stride2 [  ]
+FUSION_CHECK function=fuse06_stride2 L1_header=%3 L2_header=%12
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse06_stride2
+FUSED_OK function=fuse06_stride2
+FUSION_APPLIED function=fuse06_stride2 fused_pairs_total=1
+LOOP_FUSION_SUMMARY function=fuse06_stride2 candidates=1 attempts=1 succeeded=1
+Found parallelizable loop in function: fuse06_stride2

@@ -1,0 +1,10 @@
+FUSION_PASS_VERSION=0.3_fusion_only
+FUSION_LOOP_ORDER function=fuse01_independent_constN [  ]
+FUSION_CHECK function=fuse01_independent_constN L1_header=%3 L2_header=%12
+FUSION_CFG L2Pre=%.preheader L1Exits={%.preheader }
+FUSION_ACCEPT
+Found fusible loops in function: fuse01_independent_constN
+FUSED_OK function=fuse01_independent_constN
+FUSION_APPLIED function=fuse01_independent_constN fused_pairs_total=1
+LOOP_FUSION_SUMMARY function=fuse01_independent_constN candidates=1 attempts=1 succeeded=1
+Found parallelizable loop in function: fuse01_independent_constN
